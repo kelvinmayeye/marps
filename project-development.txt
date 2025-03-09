@@ -1,0 +1,10 @@
+project developemnt
+users
+1.admin
+-add subjects 
+-add exams
+-add publish results
+-add schools
+-add users(schools_representative,grants permissions to users)
+2. schools_representative
+-add,edit,confirms subject results
