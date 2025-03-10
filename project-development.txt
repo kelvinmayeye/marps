@@ -2,9 +2,26 @@ project developemnt
 users
 1.admin
 -add subjects 
+-add class
 -add exams
 -add publish results
--add schools
+-add schools(regno)
 -add users(schools_representative,grants permissions to users)
-2. schools_representative
+2. schools_representative(sch head tr)
 -add,edit,confirms subject results
+-register exam
+-approve scores
+
+user registration(sch hd tr,tr)
+---select school
+---enter user deatils
+--- wait for approval
+---every schoool head tr see pending user
+--appr/decline user registration
+
+1.adimn 
+---->add subjects
+---->clases
+---->exams
+
+user register exam 
