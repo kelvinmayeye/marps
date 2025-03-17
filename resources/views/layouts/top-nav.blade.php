@@ -245,7 +245,7 @@
 											<img src="{{asset('assets/img/profiles/avatar-27.jpg')}}" alt="img">
 										</span>
                                 <div>
-                                    <h6 class="">Kelvin Larry</h6>
+                                    <h6 class="">{{auth()->user()->username}}</h6>
                                     <p class="text-primary mb-0">Administrator</p>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                             <a class="dropdown-item d-inline-flex align-items-center p-2" href=""> <i class="ti ti-user-circle me-2"></i>My Profile</a>
                             <a class="dropdown-item d-inline-flex align-items-center p-2" href=""><i class="ti ti-settings me-2"></i>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item d-inline-flex align-items-center p-2" href="{{url('/')}}"><i class="ti ti-login me-2"></i>Logout</a>
+                            <a class="dropdown-item d-inline-flex align-items-center p-2" href="{{route('logout')}}"><i class="ti ti-login me-2"></i>Logout</a>
                         </div>
                     </div>
                 </div>
@@ -268,7 +268,7 @@
         <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="">My Profile</a>
             <a class="dropdown-item" href="">Settings</a>
-            <a class="dropdown-item" href="{{url('/')}}">Logout</a>
+            <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
         </div>
     </div>
     <!-- /Mobile Menu -->

@@ -52,7 +52,8 @@
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap ">
                         <div class="col-md-8 mx-auto p-4">
-                            <form action="{{route('home')}}">
+                            <form action="{{route('login')}}" method="post">
+                                @csrf
                                 <div>
                                     <div class=" mx-auto text-center">
                                         <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">
@@ -62,19 +63,22 @@
                                             <div class="">
                                                 <h2 class="">Welcome</h2>
                                                 <p class="mb-0">Please enter your details to sign in</p>
+                                                @if(session()->has('error'))
+                                                    <small class="text-danger">{{session('error')}}</small>
+                                                @endif
                                             </div>
                                             <div class="mb-3 ">
-                                                <label class="form-label">Email Address</label>
+                                                <label class="form-label">Username</label>
                                                 <div class="input-icon mb-3 position-relative">
 														<span class="input-icon-addon">
-															<i class="ti ti-mail"></i>
+															<i class="ti ti-user"></i>
 														</span>
-                                                    <input type="text" value="" class="border border-1 border-primary form-control">
+                                                    <input type="text" value="" name="username" class="border border-1 border-primary form-control">
                                                 </div>
                                                 <label class="form-label">Password</label>
                                                 <div class="pass-group">
-                                                    <input type="password" class="pass-input border border-1 border-primary form-control">
-                                                    <span class="ti toggle-password ti-eye-off"></span>
+                                                    <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control">
+                                                    <span class="ti toggle-password ti-key"></span>
                                                 </div>
                                             </div>
 

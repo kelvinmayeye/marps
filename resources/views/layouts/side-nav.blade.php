@@ -19,7 +19,7 @@
                 <li>
                     <h6 class="submenu-hdr"><span>Academic</span></h6>
                     <ul>
-                        <li><a href="class-subject.html"><i class="ti ti-book"></i><span>Subject</span></a></li>
+                        <li><a href="{{route('subject.list')}}"><i class="ti ti-book"></i><span>Subject</span></a></li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><i class="ti ti-school-bell"></i><span>Classes</span><span class="menu-arrow"></span></a>
                             <ul>

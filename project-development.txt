@@ -1,7 +1,7 @@
-project developemnt
+project development
 users
 1.admin
--add subjects 
+-add subjects
 -add class
 -add exams
 -add publish results
@@ -19,9 +19,9 @@ user registration(sch hd tr,tr)
 ---every schoool head tr see pending user
 --appr/decline user registration
 
-1.adimn 
+1.adimn
 ---->add subjects
 ---->clases
 ---->exams
 
-user register exam 
+user register exam
