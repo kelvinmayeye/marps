@@ -18,32 +18,9 @@
             </nav>
         </div>
         <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
-            <div class="pe-1 mb-2">
-                <a href="#" class="btn btn-outline-light bg-white btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Refresh" data-bs-original-title="Refresh">
-                    <i class="ti ti-refresh"></i>
-                </a>
-            </div>
-            <div class="pe-1 mb-2">
-                <button type="button" class="btn btn-outline-light bg-white btn-icon me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Print" data-bs-original-title="Print">
-                    <i class="ti ti-printer"></i>
-                </button>
-            </div>
-            <div class="dropdown me-2 mb-2">
-                <a href="javascript:void(0);" class="dropdown-toggle btn btn-light fw-medium d-inline-flex align-items-center" data-bs-toggle="dropdown">
-                    <i class="ti ti-file-export me-2"></i>Export
-                </a>
-                <ul class="dropdown-menu  dropdown-menu-end p-3">
-                    <li>
-                        <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-pdf me-1"></i>Export as PDF</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="dropdown-item rounded-1"><i class="ti ti-file-type-xls me-1"></i>Export as Excel </a>
-                    </li>
-                </ul>
-            </div>
             <div class="mb-2">
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_subject"><i class="ti ti-square-rounded-plus-filled me-2"></i>Add
-                    Subject</a>
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_subject">
+                    <i class="ti ti-square-rounded-plus-filled me-2"></i>Add Subject</a>
             </div>
         </div>
     </div>
@@ -52,423 +29,53 @@
     <!-- Guardians List -->
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap pb-0">
-            <h4 class="mb-3">Class Subject</h4>
-            <div class="d-flex align-items-center flex-wrap">
-                <div class="input-icon-start mb-3 me-2 position-relative">
-								<span class="icon-addon">
-									<i class="ti ti-calendar"></i>
-								</span>
-                    <input type="text" class="form-control date-range bookingrange" placeholder="Select" value="Academic Year : 2024 / 2025">
-                </div>
-                <div class="dropdown mb-3 me-2">
-                    <a href="javascript:void(0);" class="btn btn-outline-light bg-white dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="ti ti-filter me-2"></i>Filter</a>
-                    <div class="dropdown-menu drop-width">
-                        <form action="class-subject.html">
-                            <div class="d-flex align-items-center border-bottom p-3">
-                                <h4>Filter</h4>
-                            </div>
-                            <div class="p-3 border-bottom pb-0">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Name</label>
-                                            <select class="select">
-                                                <option>Select</option>
-                                                <option>English</option>
-                                                <option>Maths</option>
-                                                <option>Physics</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Code</label>
-                                            <select class="select">
-                                                <option>Select</option>
-                                                <option>101</option>
-                                                <option>102</option>
-                                                <option>103</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-3 d-flex align-items-center justify-content-end">
-                                <a href="#" class="btn btn-light me-3">Reset</a>
-                                <button type="submit" class="btn btn-primary">Apply</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="dropdown mb-3">
-                    <a href="javascript:void(0);" class="btn btn-outline-light bg-white dropdown-toggle" data-bs-toggle="dropdown"><i class="ti ti-sort-ascending-2 me-2"></i>Sort by A-Z
-                    </a>
-                    <ul class="dropdown-menu p-3">
-                        <li>
-                            <a href="javascript:void(0);" class="dropdown-item rounded-1 active">
-                                Ascending
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                Descending
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                Recently Viewed
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="dropdown-item rounded-1">
-                                Recently Added
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <h4 class="mb-3">All Subjects</h4>
         </div>
         <div class="card-body p-0 py-3">
-
             <!-- Guardians List -->
             <div class="custom-datatable-filter table-responsive">
                 <table class="table datatable">
                     <thead class="thead-light">
                     <tr>
-                        <th class="no-sort">
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox" id="select-all">
-                            </div>
-                        </th>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Name</th>
                         <th>Code</th>
-                        <th>Type</th>
                         <th>Status</th>
+                        <th>Created by</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128394</a></td>
-                        <td>English</td>
-                        <td>101</td>
-                        <td>Theory</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
+                    @foreach($subjects as $key=>$s)
+                        <tr>
+                            <td style="width: 29px;">{{++$key}}</td>
+                            <td>{{$s->name}}</td>
+                            <td>{{$s->code}}</td>
+                            <td>
+                                <span class="badge {{($s->status)?'badge-soft-success':'badge-soft-danger'}} d-inline-flex align-items-center">
+                                    <i class="ti ti-circle-filled fs-5 me-1"></i>{{($s->status)?'Active':'Inactive'}}</span>
+                            </td>
+                            <td>{{$s->creator->name ?? 'N/A'}}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="dropdown">
+                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="ti ti-dots-vertical fs-14"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-right p-3">
+                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_subject">
+                                                    <i class="ti ti-edit-circle me-2"></i>Edit</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                    <i class="ti ti-trash-x me-2"></i>Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128393</a></td>
-                        <td>Math</td>
-                        <td>102</td>
-                        <td>Theory</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128392</a></td>
-                        <td>Physics</td>
-                        <td>103</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128391</a></td>
-                        <td>Chemistry</td>
-                        <td>104</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128390</a></td>
-                        <td>Biology</td>
-                        <td>105</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-danger d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Inactive</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128389</a></td>
-                        <td>Higher Math</td>
-                        <td>106</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128388</a></td>
-                        <td>Information Technology</td>
-                        <td>107</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128387</a></td>
-                        <td>Moral Education</td>
-                        <td>108</td>
-                        <td>Practical</td>
-                        <td>
-                            <span class="badge badge-soft-danger d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Inactive</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128388</a></td>
-                        <td>Finance</td>
-                        <td>109</td>
-                        <td>Thory</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-check form-check-md">
-                                <input class="form-check-input" type="checkbox">
-                            </div>
-                        </td>
-                        <td><a href="#" class="link-primary">SU128386</a></td>
-                        <td>Economics</td>
-                        <td>110</td>
-                        <td>Theory</td>
-                        <td>
-                            <span class="badge badge-soft-success d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Active</span>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="dropdown">
-                                    <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical fs-14"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right p-3">
-
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#edit_subject"><i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="ti ti-trash-x me-2"></i>Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -476,4 +83,74 @@
         </div>
     </div>
     <!-- /Guardians List -->
+
+    <!-- Add Subject -->
+    <div class="modal fade" id="add_subject">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Subject</h4>
+                    <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="ti ti-x"></i>
+                    </button>
+                </div>
+                <form action="{{route('subject.save')}}" method="post">
+                    @csrf
+                    <input type="hidden" class="sub-id" name="subject_id" value="">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control sub-name" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Code</label>
+                                    <input type="text" name="code" class="form-control sub-code">
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="status-title">
+                                        <h5>Status</h5>
+                                        <p>Change the Status by toggle </p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input sub-status" type="checkbox" name="status" role="switch" id="switch-sm" checked>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary me-2">Save</button>
+                        <a href="#" class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Subject -->
+@endsection
+
+@section('extra-script')
+    <script>
+        $('#add_subject').on('show.bs.modal', function (event) {
+            let subjectModal = $('#add_subject');
+            let button = $(event.relatedTarget)
+            let subject = button.data('subject-object');
+            //clear all values
+            subjectModal.find('.sub-id').val('');
+            subjectModal.find('.sub-name').val('');
+            subjectModal.find('.sub-code').val('');
+            subjectModal.find('.sub-status').prop('checked', true);
+            if(subject){
+                subject = atob(subject);
+                subject = JSON.parse(subject);
+
+                subjectModal.find('.sub-id').val(subject.id || '');
+                subjectModal.find('.sub-name').val(subject.name || '');
+                subjectModal.find('.sub-code').val(subject.code || '');
+                subjectModal.find('.sub-status').prop('checked', subject.status === 1);
+            }
+        });
+    </script>
 @endsection

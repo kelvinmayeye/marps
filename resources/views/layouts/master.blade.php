@@ -35,6 +35,9 @@
     <link rel="stylesheet" href="{{asset("assets/plugins/fontawesome/css/fontawesome.min.css")}}">
     <link rel="stylesheet" href="{{asset("assets/plugins/fontawesome/css/all.min.css")}}">
 
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/dataTables.bootstrap5.min.css')}}">
+
     <!-- Datetimepicker CSS -->
     <link rel="stylesheet" href="{{asset("assets/css/bootstrap-datetimepicker.min.css")}}">
 
@@ -55,12 +58,12 @@
 <div class="main-wrapper">
 
     <!-- Header -->
-    @include('layouts.top-nav')
-    <!-- /Header -->
+@include('layouts.top-nav')
+<!-- /Header -->
 
     <!-- Sidebar -->
-    @include('layouts.side-nav')
-    <!-- /Sidebar -->
+@include('layouts.side-nav')
+<!-- /Sidebar -->
 
     <!-- Page Wrapper -->
     <div class="page-wrapper">
@@ -75,7 +78,7 @@
 <!-- /Main Wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset("assets/js/jquery-3.7.1.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" data-cfasync="false"></script>
 
 <!-- Bootstrap Core JS -->
 <script src="{{asset("assets/js/bootstrap.bundle.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
@@ -91,6 +94,10 @@
 <!-- Slimscroll JS -->
 <script src="{{asset("assets/js/jquery.slimscroll.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
 
+<!-- Datatable JS -->
+<script src="{{asset('assets/js/jquery.dataTables.min.js')}}" type="text/javascript" data-cfasync="false"></script>
+<script src="{{asset('assets/js/dataTables.bootstrap5.min.js')}}" type="text/javascript" data-cfasync="false"></script>
+
 <!-- Chart JS -->
 <script src="{{asset("assets/plugins/apexchart/apexcharts.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
 <script src="{{asset("assets/plugins/apexchart/chart-data.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
@@ -103,12 +110,15 @@
 
 <!-- Counter JS -->
 <script src="{{asset("assets/plugins/countup/jquery.counterup.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
-<script src="{{asset("assets/plugins/countup/jquery.waypoints.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript">	</script>
+<script src="{{asset("assets/plugins/countup/jquery.waypoints.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+
+@yield('scripts')
 
 <!-- Custom JS -->
 <script src="{{asset("assets/js/script.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
 
-<script src="{{asset("assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js")}}" data-cf-settings="ef78bac5a6f4763a5095342c-|49" defer=""></script></body>
-
+<script src="{{asset("assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js")}}" data-cf-settings="ef78bac5a6f4763a5095342c-|49" defer=""></script>
+</body>
+@yield('extra-script')
 </body>
 </html>

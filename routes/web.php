@@ -24,4 +24,5 @@ Route::middleware("auth")->group(function() {
 
     //subject
     Route::get('subject/list', [SubjectController::class, 'subjectList'])->name('subject.list');
+    Route::post('subject/save', [SubjectController::class, 'saveSubject'])->name('subject.save');
 });
