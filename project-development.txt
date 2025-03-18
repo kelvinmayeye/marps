@@ -3,7 +3,7 @@ users
 1.admin
 -add subjects
 -add class
--add exams-->has details (exam_subject)
+-add exams-->has details (exam_subject) -> academic years during exam registration
 (sweet-alerts and toastr)
 -add grades
 -add publish results
