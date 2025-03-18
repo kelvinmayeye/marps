@@ -31,7 +31,6 @@ class SubjectController extends Controller
 
             return back()->with('success', 'Subject saved successfully');
         } catch (\Exception $e) {
-            throw $e;
             return back()->with('error', $e->getMessage());
         }
     }

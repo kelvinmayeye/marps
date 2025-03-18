@@ -3,7 +3,9 @@ users
 1.admin
 -add subjects
 -add class
--add exams
+-add exams-->has details (exam_subject)
+(sweet-alerts and toastr)
+-add grades
 -add publish results
 -add schools(regno)
 -add users(schools_representative,grants permissions to users)
@@ -25,3 +27,4 @@ user registration(sch hd tr,tr)
 ---->exams
 
 user register exam
+---->according to exam ->exam_subjects

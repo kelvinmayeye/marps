@@ -20,21 +20,15 @@
                     <h6 class="submenu-hdr"><span>Academic</span></h6>
                     <ul>
                         <li><a href="{{route('subject.list')}}"><i class="ti ti-book"></i><span>Subject</span></a></li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><i class="ti ti-school-bell"></i><span>Classes</span><span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="classes.html">All Classes</a></li>
-                                <li><a href="schedule-classes.html">Schedule</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="{{route('class.list')}}"><i class="ti ti-school-bell"></i><span>Classes</span></a></li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><i class="ti ti-hexagonal-prism-plus"></i><span>Examinations</span><span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="grade.html">Grades</a></li>
-                                <li><a href="exam.html">Exam</a></li>
-                                <li><a href="exam-schedule.html">Exam Schedule</a></li>
-                                <li><a href="exam-attendance.html">Exam Attendance</a></li>
-                                <li><a href="exam-results.html">Exam Results</a></li>
+                                <li><a href="">Exam</a></li>
+                                <li><a href="">Grades</a></li>
+{{--                                <li><a href="">Exam Schedule</a></li>--}}
+{{--                                <li><a href="">Exam Attendance</a></li>--}}
+{{--                                <li><a href="">Exam Results</a></li>--}}
                             </ul>
                         </li>
                     </ul>
