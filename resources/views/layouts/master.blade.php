@@ -74,6 +74,7 @@
         </div>
     </div>
     <!-- /Page Wrapper -->
+    @include('components.ui.theme-settings-slider')
 </div>
 <!-- /Main Wrapper -->
 
@@ -118,7 +119,12 @@
 <script src="{{asset("assets/js/script.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
 
 <script src="{{asset("assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js")}}" data-cf-settings="ef78bac5a6f4763a5095342c-|49" defer=""></script>
-</body>
+
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
 @yield('extra-script')
 </body>
 </html>

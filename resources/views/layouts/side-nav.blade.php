@@ -5,7 +5,7 @@
                 <li>
                     <a href="javascript:void(0);" class="d-flex align-items-center border bg-white rounded p-2 mb-4">
                         <img src="{{asset("assets/img/icons/global-img.svg")}}" class="avatar avatar-md img-fluid rounded" alt="Profile">
-                        <span class="text-dark ms-2 fw-normal">User Schoolname</span><!-- else MARPS -->
+                        <span class="text-dark ms-2 fw-normal">User School name</span><!-- else MARPS -->
                     </a>
                 </li>
             </ul>
@@ -26,7 +26,7 @@
                             <ul>
                                 <li><a href="">Exam</a></li>
                                 <li><a href="">Grades</a></li>
-{{--                                <li><a href="">Exam Schedule</a></li>--}}
+                                <li><a href="">Academic Year</a></li>
 {{--                                <li><a href="">Exam Attendance</a></li>--}}
 {{--                                <li><a href="">Exam Results</a></li>--}}
                             </ul>

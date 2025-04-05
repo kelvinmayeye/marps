@@ -23,7 +23,7 @@ user registration(sch hd tr,tr)
 
 1.adimn
 ---->add subjects
----->clases
+---->classes
 ---->exams
 
 user register exam

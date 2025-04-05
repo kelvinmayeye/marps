@@ -73,11 +73,11 @@
 														<span class="input-icon-addon">
 															<i class="ti ti-user"></i>
 														</span>
-                                                    <input type="text" value="" name="username" class="border border-1 border-primary form-control">
+                                                    <input type="text" value="" name="username" class="border border-1 border-primary form-control" required>
                                                 </div>
                                                 <label class="form-label">Password</label>
                                                 <div class="pass-group">
-                                                    <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control">
+                                                    <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control" required>
                                                     <span class="ti toggle-password ti-key"></span>
                                                 </div>
                                             </div>

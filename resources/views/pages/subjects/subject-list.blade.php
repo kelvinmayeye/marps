@@ -67,7 +67,7 @@
                                                     <i class="ti ti-edit-circle me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                <a class="dropdown-item rounded-1" href="#" data-subject-id="{{$s->id}}" onclick="openDeleteModal(this)">
                                                     <i class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
@@ -129,6 +129,30 @@
         </div>
     </div>
     <!-- /Add Subject -->
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete-subject-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form action="{{route('subject.delete')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="delete-subject-id" name="subject_id" value="">
+                    <div class="modal-body text-center">
+							<span class="delete-icon p-2 text-danger" style="">
+								<i class="ti ti-trash-x fs-2"></i>
+							</span>
+                        <h4>Confirm Deletion</h4>
+                        <p>You want to delete all the marked items, this cant be undone once you delete.</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 @endsection
 
 @section('extra-script')
@@ -152,5 +176,15 @@
                 subjectModal.find('.sub-status').prop('checked', subject.status === 1);
             }
         });
+
+        function openDeleteModal(obj) {
+            let subjectId = $(obj).attr('data-subject-id');
+            // //Todo validate if subject id is empty
+            $('#delete-subject-id').val('').val(subjectId);
+            $('#delete-subject-modal').modal('show');
+            // if(subjectId.length === 0)
+            //Todo:send kwa ajax
+
+        }
     </script>
 @endsection
