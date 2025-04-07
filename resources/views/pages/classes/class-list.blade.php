@@ -67,7 +67,7 @@
                                                     <i class="ti ti-edit-circle me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                                <a class="dropdown-item rounded-1" href="#" data-delete-title="Class" data-to-delete-object-id="{{$c->id}}" onclick="openDeleteModal(this)">
                                                     <i class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
@@ -134,6 +134,10 @@
         </div>
     </div>
     <!-- /Add Subject -->
+
+    <!-- Delete Modal -->
+    <x-shared.delete-modal />
+    <!-- /Delete Modal -->
 @endsection
 
 @section('extra-script')
@@ -157,5 +161,19 @@
                 classModal.find('.class-status').prop('checked', ac_class.status === 1);
             }
         });
+
+        function openDeleteModal(obj) {
+            let deleteModal = $('#delete-object-modal');
+            let objectId = $(obj).attr('data-to-delete-object-id');
+            let DeleteTitle = $(obj).attr('data-delete-subject');
+            let deleteRoute = `{{route('class.delete')}}`;
+            // //Todo validate if subject id is empty
+            $('#delete-object-id').val('').val(objectId);
+            //append the route to form
+            $('#modal-delete-form').attr('action', deleteRoute);
+            deleteModal.modal('show');
+            //Todo:send kwa ajax
+
+        }
     </script>
 @endsection

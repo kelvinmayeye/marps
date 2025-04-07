@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AcademicClassController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::middleware("auth")->group(function() {
     //class
     Route::get('class/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'classesList'])->name('class.list');
     Route::post('class/save', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveClasses'])->name('class.save');
+    Route::post('class/delete', [AcademicClassController::class, 'deleteClass'])->name('class.delete');
 
     //academic years
     Route::get('class/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'classesList'])->name('class.list');

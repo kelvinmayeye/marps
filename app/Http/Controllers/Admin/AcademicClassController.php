@@ -36,4 +36,17 @@ class AcademicClassController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function deleteClass(Request $request){
+        $classId = $request->get('object_id');
+
+        try {
+            $academicClass = AcademicClass::find($classId);
+            if (!$academicClass)  return redirect()->back()->with('error', 'Class not found');
+            $academicClass->delete();
+            return redirect()->back()->with('success', 'Class Deleted Successfully');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+    }
 }
