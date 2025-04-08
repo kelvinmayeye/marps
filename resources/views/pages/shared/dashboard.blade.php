@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('page_title')
+    Home
+@endsection
 @section('content')
     <!-- Page Header -->
     <div class="d-md-flex d-block align-items-center justify-content-between mb-3">

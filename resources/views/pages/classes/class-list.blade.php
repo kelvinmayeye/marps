@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('page_title')
+    All Classes
+@endsection
 
 @section('content')
     <!-- Page Header -->
