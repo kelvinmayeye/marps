@@ -8,15 +8,34 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    public function subjectList(Request $request){
+    public function subjectList(){
         $subjects = Subject::with('creator')->get();
 //        toastr()->error('An error has occurred please try again later.');
         return view('pages.subjects.subject-list',compact('subjects'));
     }
 
+    public function ajax_subjectList(Request $request){
+        $search = $request->get('search');
+        $isselect2 = $request->has('select2');
+
+        $subjects = collect();
+        if (!empty($search)) {
+            $subjects = Subject::query()->where('name', 'like', "%$search%")->where('status', 1)->get();
+            if ($isselect2) {
+                $subjects->transform(function ($d) {
+                    $d->text = $d->name;
+                    return $d;
+                });
+            }
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => $subjects
+        ]);
+    }
+
     public function saveSubject(Request $request)
     {
-//        mydebug($request->all());
         try {
             $subjectArray = $request->except('_token');
             $subjectArray['status'] = $subjectArray['status'] === 'on' ? 1 : 0;

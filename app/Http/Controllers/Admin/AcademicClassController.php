@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\AcademicClass;
 use App\Models\Admin\Exam;
+use App\Models\Admin\ExamSubject;
 use App\Models\Admin\ExamType;
+use App\Models\Admin\Subject;
 use Illuminate\Http\Request;
 
 class AcademicClassController extends Controller
@@ -53,26 +55,43 @@ class AcademicClassController extends Controller
     }
 
     public function examList(Request $request){
-        $exams = Exam::with('subjects')->get();
+        $exams = Exam::list()->get();
+        $exams = $exams->unique('id')->values();
+        $exams = $exams->map(function ($exam) {
+            $exam->exam_subject_count = ExamSubject::where('exam_id', $exam->id)->count();
+            return $exam;
+        });
         $examTypes = ExamType::all();
+//        mydebug($exams);
         return view('pages.exams.exam-list',compact('exams','examTypes'));
     }
 
-    public function saveexam(Request $request)
+    public function saveExam(Request $request)
     {
 //        mydebug($request->all());
         try {
-            $examArray = $request->except('_token');
+            $examArray = $request->except('_token','exam_subjects');
+            $examSubjectsArray = $request->get('exam_subjects');
             $examArray['is_active'] = $examArray['is_active'] === 'on' ? 1 : 0;
 
             if (empty($examArray['exam_id'])) {
                 unset($examArray['exam_id']);
                 $examArray['created_by'] = \Auth::id();
-                Exam::create($examArray);
+                $ac_class = Exam::create($examArray);
             } else {
                 $ac_class = Exam::findOrFail($examArray['exam_id']);
                 unset($examArray['exam_id']);
                 $ac_class->update($examArray);
+            }
+            //adding exam subjects
+            ExamSubject::where('exam_id',$ac_class->id)->delete();
+            if(!empty($examSubjectsArray)){
+                foreach ($examSubjectsArray as $key=>$es){
+                    ExamSubject::create([
+                        'subject_id'=>$es,
+                        'exam_id'=>$ac_class->id,
+                    ]);
+                }
             }
 
             return back()->with('success', 'Exam saved successfully');
@@ -80,5 +99,26 @@ class AcademicClassController extends Controller
             throw $e;
 //            return back()->with('error', $e->getMessage());
         }
+    }
+
+    public function ajax_exam_subjectList(Request $request){
+        $result['status'] = "success";
+        $examId = $request->get('exam_id');
+        try {
+            if (!Exam::find($examId))  throw new \Exception("Exam ID not Found");
+
+            $examSubjects = Subject::list()->get();
+
+            $examSubjects = $examSubjects->map(function ($subject) use ($examId) {
+                $subject->checked = ExamSubject::where('subject_id', $subject->id)
+                    ->where('exam_id', $examId)
+                    ->exists() ? 1 : 0;
+                return $subject;
+            });
+            $result['data'] = $examSubjects;
+        }catch (\Exception $e){
+            $result = ['status'=>'error','msg'=>$e->getMessage()];
+        }
+        return response()->json($result);
     }
 }

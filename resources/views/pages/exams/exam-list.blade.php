@@ -53,13 +53,13 @@
                         <tr>
                             <td style="width: 29px;">{{++$key}}</td>
                             <td>{{$e->name}}</td>
-                            <td>{{$e->examType->name??null}}</td>
-                            <td>{{$e->subjects->count() }}</td>
+                            <td>{{$e->exam_type_name??null}}</td>
+                            <td>{{$e->exam_subject_count }}</td>
                             <td>
                                 <span class="badge {{($e->is_active)?'badge-soft-success':'badge-soft-danger'}} d-inline-flex align-items-center">
                                     <i class="ti ti-circle-filled fs-5 me-1"></i>{{($e->is_active)?'Active':'Inactive'}}</span>
                             </td>
-                            <td>{{$e->creator->name ?? 'N/A'}}</td>
+                            <td>{{$e->creator_name}}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="dropdown">
@@ -133,7 +133,7 @@
                             <div class="col-md-12">
                                 <div><h5 class="text-danger-emphasis">Exams Subjects</h5></div>
                                 <div class="table-responsive">
-                                    <table class="table text-nowrap table-sm">
+                                    <table class="table text-nowrap table-sm exam-subject-table">
                                         <thead>
                                         <tr>
                                             <th style="width: 30px;">
@@ -148,21 +148,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="checkebox-sm" checked="">
-                                                    <label class="form-check-label" for="checkebox-sm">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span>Zelensky</span>
-                                            </td>
-                                            <td>
-                                                <span>123</span>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -190,11 +175,13 @@
             let examModal = $('#add_exam');
             let button = $(event.relatedTarget)
             let ac_exam = button.data('exam-object');
+            let row = ``;
             //clear all values
             examModal.find('.exam-id').val('');
             examModal.find('.exam-name').val('');
             examModal.find('.exam-type').val('');
             examModal.find('.exam-status').prop('checked', true);
+            $('.exam-subject-table tbody').empty();
             if(ac_exam){
                 ac_exam = atob(ac_exam);
                 ac_exam = JSON.parse(ac_exam);
@@ -203,6 +190,28 @@
                 examModal.find('.exam-name').val(ac_exam.name || '');
                 examModal.find('.exam-type').val(ac_exam.exam_type_id || '');
                 examModal.find('.exam-status').prop('checked', ac_exam.is_active === 1);
+                $.get("{{ route('ajax.exam.subject.list') }}", { exam_id: 1 }, function(results) {
+                    if(results.status === 'success'){
+                        $.each(results.data, function(i, e) {
+                            let isChecked = e.checked == 1 ? 'checked' : '';
+                            let row = `<tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="${e.id}" name="exam_subjects[${e.id}]" id="checkbox-sm-${i}" ${isChecked}>
+                                                    <label class="form-check-label" for="checkbox-sm-${i}"></label>
+                                                </div>
+                                            </td>
+                                            <td><span>${e.name || ''}</span></td>
+                                            <td><span>${e.code || ''}</span></td>
+                                        </tr>`;
+                            $('.exam-subject-table tbody').append(row);
+                        });
+
+                        console.log(results);
+                    }else {
+                        console.log(results);
+                    }
+                });
             }
         });
     </script>

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
+//        User::truncate();
         User::create([
             'name'=>'admin',
             'username'=>'admin',
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //add examination types
-        ExamType::truncate();
+//        ExamType::truncate();
         $examTypes = [
             'Mock', 'Mid Term', 'End Term', 'Continuous Assessment Test(CAT)', 'Weekly Test',
             'Opener', 'Formative', 'Summative'
