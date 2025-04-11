@@ -1,29 +1,29 @@
 @extends('layouts.master')
 @section('page_title')
-    All Subjects
+    All Classes
 @endsection
 
 @section('content')
     <!-- Page Header -->
     <div class="d-md-flex d-block align-items-center justify-content-between mb-3">
         <div class="my-auto mb-2">
-            <h3 class="page-title mb-1">Subjects</h3>
+            <h3 class="page-title mb-1">Classes</h3>
             <nav>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item">
-                        <a href="index.html">Dashboard</a>
+                        <a href="">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="javascript:void(0);">Academic </a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Subjects</li>
+                    <li class="breadcrumb-item active" aria-current="page">Classes</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex my-xl-auto right-content align-items-center flex-wrap">
             <div class="mb-2">
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_subject">
-                    <i class="ti ti-square-rounded-plus-filled me-2"></i>Add Subject</a>
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_class">
+                    <i class="ti ti-square-rounded-plus-filled me-2"></i>Add Class</a>
             </div>
         </div>
     </div>
@@ -32,33 +32,33 @@
     <!-- Guardians List -->
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap pb-0">
-            <h4 class="mb-3">All Subjects</h4>
+            <h4 class="mb-3">All Classes</h4>
         </div>
         <div class="card-body p-0 py-3">
             <!-- Guardians List -->
-            <div class="custom-datatable-filter table-responsive" style="">
+            <div class="custom-datatable-filter table-responsive">
                 <table class="table datatable">
                     <thead class="thead-light">
                     <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Code</th>
+                        <th>Level</th>
                         <th>Status</th>
                         <th>Created by</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($subjects as $key=>$s)
+                    @foreach($classes as $key=>$c)
                         <tr>
                             <td style="width: 29px;">{{++$key}}</td>
-                            <td>{{$s->name}}</td>
-                            <td>{{$s->code}}</td>
+                            <td>{{$c->name}}</td>
+                            <td>{{$c->level}}</td>
                             <td>
-                                <span class="badge {{($s->status)?'badge-soft-success':'badge-soft-danger'}} d-inline-flex align-items-center">
-                                    <i class="ti ti-circle-filled fs-5 me-1"></i>{{($s->status)?'Active':'Inactive'}}</span>
+                                <span class="badge {{($c->status)?'badge-soft-success':'badge-soft-danger'}} d-inline-flex align-items-center">
+                                    <i class="ti ti-circle-filled fs-5 me-1"></i>{{($c->status)?'Active':'Inactive'}}</span>
                             </td>
-                            <td>{{$s->creator->name ?? 'N/A'}}</td>
+                            <td>{{$c->creator->name ?? 'N/A'}}</td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="dropdown">
@@ -66,11 +66,11 @@
                                             <i class="ti ti-dots-vertical fs-14"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_subject">
+                                            <li><a class="dropdown-item rounded-1" href="#" data-class-object="{{base64_encode(json_encode($c))}}" data-bs-toggle="modal" data-bs-target="#add_class">
                                                     <i class="ti ti-edit-circle me-2"></i>Edit</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-delete-title="Subject" data-to-delete-object-id="{{$s->id}}" onclick="openDeleteModal(this)">
+                                                <a class="dropdown-item rounded-1" href="#" data-delete-title="Class" data-to-delete-object-id="{{$c->id}}" onclick="openDeleteModal(this)">
                                                     <i class="ti ti-trash-x me-2"></i>Delete</a>
                                             </li>
                                         </ul>
@@ -88,28 +88,33 @@
     <!-- /Guardians List -->
 
     <!-- Add Subject -->
-    <div class="modal fade" id="add_subject">
+    <div class="modal fade" id="add_class">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Subject</h4>
+                    <h4 class="modal-title">Add Class</h4>
                     <button type="button" class="btn-close custom-btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
-                <form action="{{route('subject.save')}}" method="post">
+                <form action="{{route('class.save')}}" method="post">
                     @csrf
-                    <input type="hidden" class="sub-id" name="subject_id" value="">
+                    <input type="hidden" class="class-id" name="class_id" value="">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">Name</label>
-                                    <input type="text" class="form-control sub-name" name="name">
+                                    <input type="text" class="form-control class-name" name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Code</label>
-                                    <input type="text" name="code" class="form-control sub-code">
+                                    <label class="form-label">Level</label>
+                                    <select name="level" class="form-select class-level" required>
+                                        <option value="" selected>-- select level--</option>
+                                        <option value="Primary">Primary</option>
+                                        <option value="Sec O-Level">Sec O-level</option>
+                                        <option value="Sec A-Level">Sec A-level</option>
+                                    </select>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="status-title">
@@ -117,7 +122,7 @@
                                         <p>Change the Status by toggle </p>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input sub-status" type="checkbox" name="status" role="switch" id="switch-sm" checked>
+                                        <input class="form-check-input class-status" type="checkbox" name="status" role="switch" id="switch-sm" checked>
                                     </div>
                                 </div>
                             </div>
@@ -140,23 +145,23 @@
 
 @section('extra-script')
     <script>
-        $('#add_subject').on('show.bs.modal', function (event) {
-            let subjectModal = $('#add_subject');
+        $('#add_class').on('show.bs.modal', function (event) {
+            let classModal = $('#add_class');
             let button = $(event.relatedTarget)
-            let subject = button.data('subject-object');
+            let ac_class = button.data('class-object');
             //clear all values
-            subjectModal.find('.sub-id').val('');
-            subjectModal.find('.sub-name').val('');
-            subjectModal.find('.sub-code').val('');
-            subjectModal.find('.sub-status').prop('checked', true);
-            if(subject){
-                subject = atob(subject);
-                subject = JSON.parse(subject);
+            classModal.find('.class-id').val('');
+            classModal.find('.class-name').val('');
+            classModal.find('.class-level').val('');
+            classModal.find('.class-status').prop('checked', true);
+            if(ac_class){
+                ac_class = atob(ac_class);
+                ac_class = JSON.parse(ac_class);
 
-                subjectModal.find('.sub-id').val(subject.id || '');
-                subjectModal.find('.sub-name').val(subject.name || '');
-                subjectModal.find('.sub-code').val(subject.code || '');
-                subjectModal.find('.sub-status').prop('checked', subject.status === 1);
+                classModal.find('.class-id').val(ac_class.id || '');
+                classModal.find('.class-name').val(ac_class.name || '');
+                classModal.find('.class-level').val(ac_class.level || '');
+                classModal.find('.class-status').prop('checked', ac_class.status === 1);
             }
         });
 
@@ -164,7 +169,7 @@
             let deleteModal = $('#delete-object-modal');
             let objectId = $(obj).attr('data-to-delete-object-id');
             let DeleteTitle = $(obj).attr('data-delete-subject');
-            let deleteRoute = `{{route('subject.delete')}}`;
+            let deleteRoute = `{{route('class.delete')}}`;
             // //Todo validate if subject id is empty
             $('#delete-object-id').val('').val(objectId);
             //append the route to form
