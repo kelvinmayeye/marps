@@ -3,7 +3,7 @@ users
 1.admin
 -add subjects✔
 -add class✔
--add exams-->has details (exam_subject) -> academic years during exam registration
+-add exams-->has details✔ (exam_subject) -> academic years during exam registration
 (sweet-alerts and toastr)
 -add grades
 -add publish results
@@ -15,16 +15,17 @@ users
 -approve scores
 
 user registration(sch hd tr,tr)
----select school
----enter user deatils
+---select school✔
+---enter user deatils(user can register account select school then wait for approval from admin or other user with rights)
+======================>(user can also be added by admin and default password will be suppied)
 --- wait for approval
 ---every schoool head tr see pending user
 --appr/decline user registration
 
-1.adimn
----->add subjects
----->classes
----->exams
+1.admin
+---->add subjects✔
+---->classes✔
+---->exams✔
 
 user register exam
 ---->according to exam ->exam_subjects

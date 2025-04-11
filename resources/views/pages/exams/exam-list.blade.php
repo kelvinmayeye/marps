@@ -175,6 +175,7 @@
             let examModal = $('#add_exam');
             let button = $(event.relatedTarget)
             let ac_exam = button.data('exam-object');
+            let exam_id = '';
             let row = ``;
             //clear all values
             examModal.find('.exam-id').val('');
@@ -185,16 +186,18 @@
             if(ac_exam){
                 ac_exam = atob(ac_exam);
                 ac_exam = JSON.parse(ac_exam);
+                exam_id = ac_exam.id;
 
                 examModal.find('.exam-id').val(ac_exam.id || '');
                 examModal.find('.exam-name').val(ac_exam.name || '');
                 examModal.find('.exam-type').val(ac_exam.exam_type_id || '');
                 examModal.find('.exam-status').prop('checked', ac_exam.is_active === 1);
-                $.get("{{ route('ajax.exam.subject.list') }}", { exam_id: 1 }, function(results) {
-                    if(results.status === 'success'){
-                        $.each(results.data, function(i, e) {
-                            let isChecked = e.checked == 1 ? 'checked' : '';
-                            let row = `<tr>
+            }
+            $.get("{{ route('ajax.exam.subject.list') }}", { exam_id: exam_id }, function(results) {
+                if(results.status === 'success'){
+                    $.each(results.data, function(i, e) {
+                        let isChecked = e.checked === 1 ? 'checked' : '';
+                        let row = `<tr>
                                             <td>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="${e.id}" name="exam_subjects[${e.id}]" id="checkbox-sm-${i}" ${isChecked}>
@@ -204,15 +207,12 @@
                                             <td><span>${e.name || ''}</span></td>
                                             <td><span>${e.code || ''}</span></td>
                                         </tr>`;
-                            $('.exam-subject-table tbody').append(row);
-                        });
-
-                        console.log(results);
-                    }else {
-                        console.log(results);
-                    }
-                });
-            }
+                        $('.exam-subject-table tbody').append(row);
+                    });
+                }else {
+                    console.log("An Error Occurred");
+                }
+            });
         });
     </script>
 @endsection

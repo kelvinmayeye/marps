@@ -104,21 +104,32 @@ class AcademicClassController extends Controller
     public function ajax_exam_subjectList(Request $request){
         $result['status'] = "success";
         $examId = $request->get('exam_id');
-        try {
-            if (!Exam::find($examId))  throw new \Exception("Exam ID not Found");
 
+        try {
+            // Fetch all subjects
             $examSubjects = Subject::list()->get();
 
-            $examSubjects = $examSubjects->map(function ($subject) use ($examId) {
-                $subject->checked = ExamSubject::where('subject_id', $subject->id)
-                    ->where('exam_id', $examId)
-                    ->exists() ? 1 : 0;
-                return $subject;
-            });
+            // If exam_id is not empty and valid, check which subjects are linked to it
+            if (!empty($examId) && Exam::find($examId)) {
+                $examSubjects = $examSubjects->map(function ($subject) use ($examId) {
+                    $subject->checked = ExamSubject::where('subject_id', $subject->id)
+                        ->where('exam_id', $examId)
+                        ->exists() ? 1 : 0;
+                    return $subject;
+                });
+            } else {
+                // If exam_id is empty or invalid, mark all as unchecked
+                $examSubjects = $examSubjects->map(function ($subject) {
+                    $subject->checked = 0;
+                    return $subject;
+                });
+            }
+
             $result['data'] = $examSubjects;
-        }catch (\Exception $e){
-            $result = ['status'=>'error','msg'=>$e->getMessage()];
+        } catch (\Exception $e) {
+            $result = ['status' => 'error', 'msg' => $e->getMessage()];
         }
+
         return response()->json($result);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AcademicClassController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,10 @@ Route::post('user/login',[AuthController::class,'login'])->name('login');
 Route::middleware("auth")->group(function() {
     Route::get('user/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('dashboard',function (){return view('pages.shared.dashboard');})->name('home');
+
+    //schools
+    Route::get('schools/list', [AdminController::class, 'getSchools'])->name('schools.list');
+    Route::post('schools/save', [AdminController::class, 'saveSchool'])->name('schools.save');
 
     //subject
     Route::get('subject/list', [SubjectController::class, 'subjectList'])->name('subject.list');
