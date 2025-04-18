@@ -124,6 +124,8 @@ class AcademicClassController extends Controller
                     return $subject;
                 });
             }
+            //get rid of redundancy
+            $examSubjects = collect($examSubjects)->unique('id')->values()->all();
 
             $result['data'] = $examSubjects;
         } catch (\Exception $e) {

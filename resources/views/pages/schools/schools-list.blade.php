@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('page_title')
-    All Schhols
+    All Schools
 @endsection
 
 @section('content')

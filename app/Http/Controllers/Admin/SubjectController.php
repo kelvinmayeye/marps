@@ -40,7 +40,7 @@ class SubjectController extends Controller
             $subjectArray = $request->except('_token');
             $subjectArray['status'] = $subjectArray['status'] === 'on' ? 1 : 0;
 
-            // Check if code is unique during insertion and updation
+            // Check if code is unique during insertion and updating
             $subjectCode = $subjectArray['code'];
             $subjectId = isset($subjectArray['subject_id']) ? $subjectArray['subject_id'] : null;
 
