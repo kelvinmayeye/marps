@@ -44,4 +44,9 @@ class AuthController extends Controller
 
         return redirect()->route('user.home');
     }
+
+
+    public function registerUser(){
+        return view('pages.auth.register-page');
+    }
 }

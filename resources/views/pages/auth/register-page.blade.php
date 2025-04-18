@@ -52,17 +52,17 @@
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="row justify-content-center align-items-center vh-100 overflow-auto flex-wrap ">
                         <div class="col-md-8 mx-auto p-4">
-                            <form action="{{route('login')}}" method="post">
+                            <form action="{{route('register')}}" method="post">
                                 @csrf
                                 <div>
-                                    <div class=" mx-auto text-center">
-                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">
-                                    </div>
+{{--                                    <div class=" mx-auto text-center">--}}
+{{--                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">--}}
+{{--                                    </div>--}}
                                     <div class="card">
                                         <div class="card-body p-4">
                                             <div class="">
-                                                <h2 class="">Welcome</h2>
-                                                <p class="mb-0">Please enter your details to sign in</p>
+                                                <h2 class="">Register</h2>
+                                                <p class="mb-0">Please enter your details to register account</p>
                                                 @if(session()->has('error'))
                                                     <small class="text-danger">{{session('error')}}</small>
                                                 @endif
@@ -89,10 +89,10 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <button type="submit" class="btn btn-success w-100">Login</button>
+                                                <button type="submit" class="btn btn-success w-100">Register</button>
                                             </div>
                                             <div class="text-center">
-                                                <h6 class="fw-normal text-dark mb-0">Don’t have an account? <a href="{{route('user.register.page')}}" class="hover-a "> Create Account</a>
+                                                <h6 class="fw-normal text-dark mb-0">I have an account <a href="{{url('/')}}" class="hover-a "> Login Here</a>
                                                 </h6>
                                             </div>
                                         </div>

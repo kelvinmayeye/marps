@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[AuthController::class,'index'])->name('user.home');
+Route::get('user/register/page',[AuthController::class,'registerUser'])->name('user.register.page');
 Route::post('user/login',[AuthController::class,'login'])->name('login');
+Route::post('user/register',[AuthController::class,'register'])->name('register');
 
 Route::middleware("auth")->group(function() {
     Route::get('user/logout', [AuthController::class, 'logout'])->name('logout');
