@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\School;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -47,6 +50,62 @@ class AuthController extends Controller
 
 
     public function registerUser(){
-        return view('pages.auth.register-page');
+        $schools = School::all();
+        return view('pages.auth.register-page',compact('schools'));
+    }
+
+    public function register(Request $request)
+    {
+        try {
+            $user = $request->except('_token');
+
+            // Check if username already exists
+            if (User::where('username', $user['username'])->exists()) {
+                return back()->with('error', 'Username already exists');
+            }
+
+            // Check if phone number already exists
+            if (User::where('phone_number', $user['phone_number'])->exists()) {
+                return back()->with('error', 'Phone number already exists');
+            }
+
+            // Check if password and confirm_password match
+            if ($user['password'] !== $user['confirm_password']) {
+                return back()->with('error', 'Passwords do not match');
+            }
+
+            // Create user
+            $newUser = new User();
+            $newUser->name = $user['name'];
+            $newUser->title = $user['title'];
+            $newUser->username = $user['username'];
+            $newUser->email = $user['email'];
+            $newUser->password = Hash::make($user['password']);
+            $newUser->phone_number = $user['phone_number'];
+            $newUser->school_id = $user['school_id'];
+            $newUser->school_position = $user['school_position'];
+            $newUser->save();
+
+            return redirect()->to(url('/'))->with('success', 'Account request sent. You\'ll receive a confirmation code once approved.');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Something went wrong: ' . $e->getMessage());
+        }
+    }
+
+    public function ajax_confirm_username(Request $request)
+    {
+        try {
+            $username = $request->username;
+            // Check if username exists
+            $exists = User::where('username', $username)->exists();
+
+            return response()->json(['exists' => $exists]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'exists' => false,
+                'error' => 'Something went wrong. Please try again.'
+            ], 500);
+        }
     }
 }

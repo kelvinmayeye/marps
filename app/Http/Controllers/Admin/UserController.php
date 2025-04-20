@@ -11,9 +11,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function getAllUsers(Request $request){
-        $users = User::all();
+        $users = User::query()->whereNot('status','pending')->get();
         $schools = School::all();
         return view('pages.users.users-list',compact('users','schools'));
+    }
+
+    public function getUsersRequests(Request $request){
+        $users = User::query()->where('status','pending')->get();
+        $schools = School::all();
+        return view('pages.users.users-pending-list',compact('users','schools'));
     }
 
     public function saveUser(Request $request){

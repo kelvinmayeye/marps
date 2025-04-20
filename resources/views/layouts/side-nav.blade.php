@@ -69,9 +69,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{route('users.account.requests')}}">
                                 <i class="ti ti-user-question"></i>
-                                <span>Delete Account Request</span>
+                                <span>Users Account Request</span>
                             </a>
                         </li>
                     </ul>

@@ -22,6 +22,8 @@ Route::get('user/register/page',[AuthController::class,'registerUser'])->name('u
 Route::post('user/login',[AuthController::class,'login'])->name('login');
 Route::post('user/register',[AuthController::class,'register'])->name('register');
 
+Route::get('ajax/user/confirm/username',[AuthController::class,'ajax_confirm_username'])->name('ajax.confirm.username');
+
 Route::middleware("auth")->group(function() {
     Route::get('user/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('dashboard',function (){return view('pages.shared.dashboard');})->name('home');

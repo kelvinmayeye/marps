@@ -55,41 +55,106 @@
                             <form action="{{route('register')}}" method="post">
                                 @csrf
                                 <div>
-{{--                                    <div class=" mx-auto text-center">--}}
-{{--                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">--}}
-{{--                                    </div>--}}
+{{--                                                                        <div class=" mx-auto text-center">--}}
+{{--                                                                            <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">--}}
+{{--                                                                        </div>--}}
                                     <div class="card">
                                         <div class="card-body p-4">
-                                            <div class="">
+                                            <div class="row">
                                                 <h2 class="">Register</h2>
                                                 <p class="mb-0">Please enter your details to register account</p>
                                                 @if(session()->has('error'))
                                                     <small class="text-danger">{{session('error')}}</small>
                                                 @endif
                                             </div>
-                                            <div class="mb-3 ">
-                                                <label class="form-label">Username</label>
-                                                <div class="input-icon mb-3 position-relative">
-														<span class="input-icon-addon">
-															<i class="ti ti-user"></i>
-														</span>
-                                                    <input type="text" value="" name="username" class="border border-1 border-primary form-control" required>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3 ">
+                                                        <label class="form-label">FullName</label>
+                                                        <input type="text" value="" name="name" class="border border-1 border-primary form-control" placeholder="eg.John Doe Michael"
+                                                               required>
+                                                    </div>
                                                 </div>
-                                                <label class="form-label">Password</label>
-                                                <div class="pass-group">
-                                                    <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control" required>
-                                                    <span class="ti toggle-password ti-key"></span>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Title</label>
+                                                        <select class="form-control border border-1 border-primary user-title" name="title">
+                                                            <option value="" selected>--Select title--</option>
+                                                            <option value="Mr">Mr</option>
+                                                            <option value="Miss">Miss</option>
+                                                            <option value="Sir">Sir</option>
+                                                            <option value="Madam">Madam</option>
+                                                            <option value="Dr">Dr</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Username</label>
+                                                        <input type="text" name="username" class="border border-1 border-primary form-control" placeholder="username" onblur="checkIfUsernameExist(this)" required>
+                                                        <div class="invalid-feedback username-feedback"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3 ">
+                                                        <label class="form-label">Email</label>
+                                                        <input type="email" value="" name="email" class="border border-1 border-primary form-control" placeholder="email" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Password</label>
+                                                        <div class="pass-group">
+                                                            <input type="password" name="password" class="pass-input border border-1 border-primary form-control" oninput="validatePassword()" required>
+                                                            <div class="invalid-feedback password-feedback"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                            <div class="form-wrap form-wrap-checkbox mb-3">
-                                                <div class="text-end ">
-                                                    <a href="" class="link-danger">Forgot
-                                                        Password?</a>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Confirm Password</label>
+                                                        <div class="pass-group">
+                                                            <input type="password" name="confirm_password" class="pass-input border border-1 border-primary form-control" oninput="validatePassword()" required>
+                                                            <div class="invalid-feedback confirm-feedback"></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-success w-100">Register</button>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Phone number <small class="text-danger">*</small></label>
+                                                        <input type="text" name="phone_number" class="form-control border border-1 border-primary user-phone-number" placeholder="eg.0785100190" pattern="^0\d{9}$"
+                                                               maxlength="10"
+                                                               title="Number must start 0 and max in length is 10" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">School <small class="text-danger">*</small></label>
+                                                        <select class="form-control border border-1 border-primary user-school-id" name="school_id" required>
+                                                            <option value="" selected>--Select School--</option>
+                                                            @foreach($schools??[] as $s)
+                                                                <option value="{{$s->id}}">{{$s->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Position</label>
+                                                        <select class="form-control border border-1 border-primary user-school-position" name="school_position">
+                                                            <option value="" selected>--Select school position--</option>
+                                                            <option value="Head Teacher">Head Teacher</option>
+                                                            <option value="Academics">Academics</option>
+                                                            <option value="Despline Master">Despline Master</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-success w-100">Register</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="text-center">
                                                 <h6 class="fw-normal text-dark mb-0">I have an account <a href="{{url('/')}}" class="hover-a "> Login Here</a>
@@ -107,7 +172,6 @@
                     </div>
                 </div>
             </div>
-
 
 
         </div>
@@ -134,6 +198,93 @@
 <!-- Custom JS -->
 <script src="{{asset("assets/js/script.js")}}" type="1ab521687d42ab409e1252d8-text/javascript"></script>
 
-<script src="{{asset('assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="3e32bc424f3abc9d222f2e59-|49" defer=""></script></body>
+<script src="{{asset('assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="3e32bc424f3abc9d222f2e59-|49" defer=""></script>
+<script>
+    function validatePassword() {
+        let passwordField = $('input[name="password"]');
+        let password = passwordField.val();
+
+        let confirmField = $('input[name="confirm_password"]');
+        let confirmPassword = confirmField.val();
+
+        let strengthFeedback = $('.password-feedback');
+        let confirmFeedback = $('.confirm-feedback');
+
+        // Password strength logic
+        let strength = 'Low';
+        let strengthClass = 'text-danger';
+
+        if (password.length >= 6) {
+            if (/[a-zA-Z]/.test(password) && /\d/.test(password)) {
+                if (password.length >= 8) {
+                    strength = 'Strong';
+                    strengthClass = 'text-success';
+                } else {
+                    strength = 'Moderate';
+                    strengthClass = 'text-warning';
+                }
+            }
+        }
+
+        // Display strength feedback
+        if (password.length > 0) {
+            passwordField.removeClass('is-invalid');
+            strengthFeedback.removeClass('text-danger text-warning text-success').addClass(strengthClass).text(`Password strength: ${strength}`).show();
+        } else {
+            passwordField.addClass('is-invalid');
+            strengthFeedback.removeClass('text-warning text-success').addClass('text-danger').text('Password is required').show();
+        }
+
+        // Password match check
+        if (confirmPassword.length > 0 && password !== confirmPassword) {
+            confirmField.addClass('is-invalid');
+            confirmFeedback.text('Passwords do not match').show();
+        } else if (confirmPassword.length > 0) {
+            confirmField.removeClass('is-invalid');
+            confirmFeedback.text('').hide();
+        }
+    }
+
+    function checkIfUsernameExist(obj) {
+        let usernameField = $(obj);
+        let username = usernameField.val().trim();
+        let feedback = $('.username-feedback');
+
+        if (username === '') {
+            usernameField.addClass('is-invalid');
+            feedback.text('Username is required').show();
+            usernameField.focus();
+            return;
+        }
+
+        if (username.toLowerCase() === 'admin') {
+            usernameField.addClass('is-invalid');
+            feedback.text('Username "admin" is not allowed. Please choose another.').show();
+            usernameField.focus();
+            return;
+        }
+
+        $.get("{{ route('ajax.confirm.username') }}", { username: username }, function(response) {
+            if (response.exists) {
+                usernameField.addClass('is-invalid');
+                feedback.text('Username already taken. Please choose another.').show();
+                usernameField.focus();
+            } else {
+                usernameField.removeClass('is-invalid');
+                feedback.text('').hide();
+            }
+        }).fail(function() {
+            usernameField.addClass('is-invalid');
+            feedback.text('Error checking username. Please try again.').show();
+            usernameField.focus();
+        });
+    }
+
+
+    $(function() {
+        $('.password-feedback, .confirm-feedback').hide();
+    });
+</script>
+</body>
 
 </html>

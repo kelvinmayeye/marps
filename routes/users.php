@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware("auth")->group(function() {
     Route::get('users/list', [UserController::class, 'getAllUsers'])->name('users.list');
+    Route::get('users/requests', [UserController::class, 'getUsersRequests'])->name('users.account.requests');
     Route::post('users/save', [UserController::class, 'saveUser'])->name('users.save');
 
 

@@ -68,7 +68,7 @@
                                     <option value="" selected>--Select school position--</option>
                                     <option value="Head Teacher">Head Teacher</option>
                                     <option value="Academics">Academics</option>
-                                    <option value="Decline">Decline</option>
+                                    <option value="Despline Master">Despline Master</option>
                                 </select>
                             </div>
                         </div>
