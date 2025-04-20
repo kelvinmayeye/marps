@@ -96,7 +96,7 @@ class AuthController extends Controller
     public function ajax_confirm_username(Request $request)
     {
         try {
-            $username = $request->username;
+            $username = $request->input('username');
             // Check if username exists
             $exists = User::where('username', $username)->exists();
 
@@ -108,4 +108,18 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function ajax_confirm_phone(Request $request)
+    {
+        try {
+            $exists = User::where('phone_number', $request->input('phone_number'))->exists();
+            return response()->json(['exists' => $exists]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'exists' => false,
+                'error' => 'Something went wrong. Please try again.'
+            ], 500);
+        }
+    }
+
 }

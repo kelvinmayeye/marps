@@ -123,9 +123,12 @@
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label class="form-label">Phone number <small class="text-danger">*</small></label>
-                                                        <input type="text" name="phone_number" class="form-control border border-1 border-primary user-phone-number" placeholder="eg.0785100190" pattern="^0\d{9}$"
+                                                        <input type="text" name="phone_number" class="form-control border border-1 border-primary user-phone-number"
+                                                               placeholder="eg.0785100190" pattern="^0\d{9}$"
                                                                maxlength="10"
-                                                               title="Number must start 0 and max in length is 10" required>
+                                                               title="Number must start with 0 and have 10 digits max"
+                                                               onblur="checkIfPhoneNoExist(this)" required>
+                                                        <div class="invalid-feedback phone-feedback"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -200,6 +203,7 @@
 
 <script src="{{asset('assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="3e32bc424f3abc9d222f2e59-|49" defer=""></script>
 <script>
+    //Todo: validate on submit btn clicked(pause form submitting then validate)
     function validatePassword() {
         let passwordField = $('input[name="password"]');
         let password = passwordField.val();
@@ -279,6 +283,45 @@
             usernameField.focus();
         });
     }
+
+    function checkIfPhoneNoExist(obj) {
+        let phoneField = $(obj);
+        let phone = phoneField.val().trim();
+        let feedback = $('.phone-feedback');
+
+        // Basic format validation before AJAX
+        const phonePattern = /^0\d{9}$/;
+
+        if (phone === '') {
+            phoneField.addClass('is-invalid');
+            feedback.text('Phone number is required').show();
+            phoneField.focus();
+            return;
+        }
+
+        if (!phonePattern.test(phone)) {
+            phoneField.addClass('is-invalid');
+            feedback.text('Phone number must start with 0 and be exactly 10 digits').show();
+            phoneField.focus();
+            return;
+        }
+
+        $.get("{{ route('ajax.confirm.phone') }}", { phone_number: phone }, function(response) {
+            if (response.exists) {
+                phoneField.addClass('is-invalid');
+                feedback.text('Phone number already exists. Please use another.').show();
+                phoneField.focus();
+            } else {
+                phoneField.removeClass('is-invalid');
+                feedback.text('').hide();
+            }
+        }).fail(function() {
+            phoneField.addClass('is-invalid');
+            feedback.text('Error checking phone number. Please try again.').show();
+            phoneField.focus();
+        });
+    }
+
 
 
     $(function() {
