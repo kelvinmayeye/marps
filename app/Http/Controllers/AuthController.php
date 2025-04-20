@@ -20,24 +20,32 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request){
-//        mydebug($request->all());
+    public function login(Request $request)
+    {
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = [
-            'username' => $request->username,
-            'password' => $request->password
-        ];
+        $user = User::where('username', $request->input('username'))->first();
+        if (!$user || !\Hash::check($request->input('password'), $user->password)) return back()->with('error', 'Wrong username or password');
 
-        if (Auth::attempt($credentials)) {
+        if ($user->status !== 'active') {
+            if ($user->status === 'pending')  return back()->with('error', 'Login denied. Your account is pending approval.');
+            if ($user->status === 'rejected')  return back()->with('error', 'Login denied. Your account request has been rejected');
+            return back()->with('error', "Login denied. Your account status is: $user->status.");
+        }
+
+        if ($user->status === 'active') {
+            if (!is_null($user->remember_token)) return back()->with('error', 'Account is active but please confirm your token first.');
+            Auth::login($user);
             $request->session()->regenerate();
             return redirect()->route('user.home');
         }
-        return back()->with('error',"Wrong username or password");
+
+        return back()->with('error', 'Your account is not active.');
     }
+
 
     public function logout(Request $request)
     {
