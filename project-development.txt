@@ -22,6 +22,13 @@ user registration(sch hd tr,tr)
 ---every schoool head tr see pending user
 --appr/decline user registration
 
+TODO: This page will serve the following purposes:
+    1. Allow schools to register for the exams they intend to participate in.
+    2. Enable selection of an exam and assignment of participating students, with optional approval (not a priority for now).
+    3. Provide downloadable Excel templates pre-filled with selected students.
+    4. Facilitate the upload of student scores using the provided templates.
+    5. Automatically compute and generate academic results for each registered school based on the submitted scores.
+
 1.admin
 ---->add subjects✔
 ---->classes✔

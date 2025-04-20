@@ -54,6 +54,10 @@ class AcademicClassController extends Controller
         }
     }
 
+    public function examRegistrationPage(Request $request){
+        return view('pages.exams.exam-registration-page');
+    }
+
     public function examList(Request $request){
         $exams = Exam::list()->get();
         $exams = $exams->unique('id')->values();

@@ -15,6 +15,7 @@
                     <ul>
                         <li class="active"><a href="{{route('user.home')}}"><i class="ti ti-layout-dashboard"></i><span>Dashboard </span></a></li>
                         <li class=""><a href="{{route('schools.list')}}"><i class="ti ti-school"></i><span>Schools </span></a></li>
+                        <li class=""><a href="{{route('exam.registration')}}"><i class="ti ti-clipboard"></i><span>Examination Center </span></a></li>
                     </ul>
                 </li>
                 <li>
@@ -34,31 +35,6 @@
                         </li>
                     </ul>
                 </li>
-                {{--                <li>--}}
-                {{--                    <h6 class="submenu-hdr"><span>Announcements</span></h6>--}}
-                {{--                    <ul>--}}
-                {{--                        <li><a href="notice-board.html"><i class="ti ti-clipboard-data"></i><span>Notice Board</span></a></li>--}}
-                {{--                        <li><a href="events.html"><i class="ti ti-calendar-question"></i><span>Events</span></a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
-                {{--                <li>--}}
-                {{--                    <h6 class="submenu-hdr"><span>Reports</span></h6>--}}
-                {{--                    <ul>--}}
-                {{--                        <li><a href=""><i class="ti ti-calendar-due"></i><span>Attendance--}}
-                {{--											Report</span></a></li>--}}
-                {{--                        <li><a href=""><i class="ti ti-graph"></i><span>Class Report</span></a>--}}
-                {{--                        </li>--}}
-                {{--                        <li><a href=""><i class="ti ti-chart-infographic"></i><span>Student--}}
-                {{--											Report</span></a></li>--}}
-                {{--                        <li><a href=""><i class="ti ti-calendar-x"></i><span>Grade--}}
-                {{--											Report</span></a></li>--}}
-                {{--                        <li><a href=""><i class="ti ti-line"></i><span>Leave Report</span></a>--}}
-                {{--                        </li>--}}
-                {{--                        <li><a href=""><i class="ti ti-mask"></i><span>Fees Report</span></a>--}}
-                {{--                        </li>--}}
-                {{--                    </ul>--}}
-                {{--                </li>--}}
                 <li>
                     <h6 class="submenu-hdr"><span>User Management</span></h6>
                     <ul>
