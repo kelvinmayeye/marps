@@ -65,12 +65,16 @@
                                             <i class="ti ti-dots-vertical fs-14"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                    <i class="ti ti-circle-check me-2 text-primary"></i>Accept</a>
+                                            <li>
+                                                <a class="dropdown-item rounded-1" href="#" data-user-data="{{base64_encode(json_encode($s))}}" onclick="AcceptRequest(this)">
+                                                    <i class="ti ti-circle-check me-2 text-primary"></i>Accept
+                                                </a>
                                             </li>
 
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                    <i class="ti ti-ban me-2 text-danger"></i>Reject</a>
+                                            <li>
+                                                <a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
+                                                    <i class="ti ti-ban me-2 text-danger"></i>Reject
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -85,72 +89,19 @@
         </div>
     </div>
     <!-- /Guardians List -->
-
-    <!-- Add User -->
-    @include('pages.users.modal.add-user-modal')
-    <!-- /Add User -->
-
-    <!-- Delete Modal -->
-    <x-shared.delete-modal />
-    <!-- /Delete Modal -->
+    <script>
+        function AcceptRequest(obj){
+            let user_data = $(obj).data('user-data');
+            user_data = atob(user_data);
+            user_data = JSON.parse(user_data);
+            console.log(user_data);
+            let msg = `Are sure you want to Accept ${user_data.name} request`;
+            let user = {_token:`{{csrf_token()}}`,user_id:user_data.id};
+            confirmAction(`{{route('users.accept.account.request')}}`, user, msg);
+        }
+    </script>
 @endsection
 
 @section('extra-script')
-    <script>
-        $('#add_user').on('show.bs.modal', function (event) {
-            let userModal = $('#add_user');
-            let button = $(event.relatedTarget)
-            let user = button.data('subject-object');
-            //clear all values
-            userModal.find('.user-id').val('');
-            userModal.find('.user-name').val('');
-            userModal.find('.user-title').val('');
-            userModal.find('.username').val('');
-            userModal.find('.user-email').val('');
-            userModal.find('.user-phone-number').val('');
-            userModal.find('.user-school-id').val('');
-            userModal.find('.user-school-position').val('');
 
-            //userModal.find('.user-phone-number').prop('checked', true);
-            if(user){
-                user = atob(user);
-                user = JSON.parse(user);
-                userModal.find('.user-id').val(user.id || '');
-                userModal.find('.user-name').val(user.name || '');
-                userModal.find('.user-title').val(user.title || '');
-                userModal.find('.username').val(user.username || '');
-                userModal.find('.user-email').val(user.email || '');
-                userModal.find('.user-phone-number').val(user.phone_number || '');
-                userModal.find('.user-school-id').val(user.school_id || '');
-                userModal.find('.user-school-position').val(user.school_position || '');
-                // userModal.find('.user-is-active').prop('checked', user.is_active === 1);
-            }
-        });
-
-        function openDeleteModal(obj) {
-            let deleteModal = $('#delete-object-modal');
-            let objectId = $(obj).attr('data-to-delete-object-id');
-            let DeleteTitle = $(obj).attr('data-delete-subject');
-            let deleteRoute = `{{route('subject.delete')}}`;
-            // //Todo validate if subject id is empty
-            $('#delete-object-id').val('').val(objectId);
-            //append the route to form
-            $('#modal-delete-form').attr('action', deleteRoute);
-            deleteModal.modal('show');
-            //Todo:send kwa ajax
-
-        }
-
-        function autoFillUsername(obj){
-            let parent = $('#add_user');
-            let userId = $(parent).find('.user-id').val() || '';
-            let name = $(obj).val() || '';
-            let first_name = '';
-            if(userId.length < 1) $(parent).find('.username').val('');
-            if(userId.length < 1 && name.length > 0){
-                first_name = name.trim().split(' ')[0];
-                $(parent).find('.username').val('').val(first_name);
-            }
-        }
-    </script>
 @endsection

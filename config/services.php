@@ -30,5 +30,13 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'sms_settings'=>[
+        'allow_sms_sending'=>env('ALLOW_SEND_TEXT')??false
+    ],
+    'beem_sms' => [
+        'key' => env('BONGO_LIVE_KEY'),
+        'secret' => env('BONGO_LIVE_SECRET'),
+        'sender_id' => env('BONGO_SENDER_ID'),
+    ],
 
 ];

@@ -26,9 +26,22 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-
+        //get token
+        $token = $request->get('remember_token');
+        if(!empty($token)){
+            mydebug($token);
+        }
         $user = User::where('username', $request->input('username'))->first();
         if (!$user || !\Hash::check($request->input('password'), $user->password)) return back()->with('error', 'Wrong username or password');
+
+        if($user->status === 'accepted'){
+            if (!is_null($user->remember_token)){
+                session()->put('confirm_token','Account is request accepted but please confirm your token first.');
+                return back()->with('error', 'Account is request accepted but please confirm your token first.');
+            } else{
+                return back()->with('error', 'Account is request accepted but request for new token');
+            }
+        }
 
         if ($user->status !== 'active') {
             if ($user->status === 'pending')  return back()->with('error', 'Login denied. Your account is pending approval.');
@@ -37,7 +50,6 @@ class AuthController extends Controller
         }
 
         if ($user->status === 'active') {
-            if (!is_null($user->remember_token)) return back()->with('error', 'Account is active but please confirm your token first.');
             Auth::login($user);
             $request->session()->regenerate();
             return redirect()->route('user.home');

@@ -79,51 +79,106 @@
 <!-- /Main Wrapper -->
 
 <!-- jQuery -->
-<<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" data-cfasync="false"></script>
+<script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 
-<!-- Bootstrap Core JS -->
-<script src="{{asset("assets/js/bootstrap.bundle.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Bootstrap Bundle -->
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- Daterangepikcer JS -->
-<script src="{{asset("assets/js/moment.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
-<script src="{{asset("assets/plugins/daterangepicker/daterangepicker.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
-<script src="{{asset("assets/js/bootstrap-datetimepicker.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Moment JS -->
+<script src="{{ asset('assets/js/moment.js') }}"></script>
 
-<!-- Feather Icon JS -->
-<script src="{{asset("assets/js/feather.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Daterangepicker -->
+<script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 
-<!-- Slimscroll JS -->
-<script src="{{asset("assets/js/jquery.slimscroll.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Feather Icons -->
+<script src="{{ asset('assets/js/feather.min.js') }}"></script>
 
-<!-- Datatable JS -->
-<script src="{{asset('assets/js/jquery.dataTables.min.js')}}" type="text/javascript" data-cfasync="false"></script>
-<script src="{{asset('assets/js/dataTables.bootstrap5.min.js')}}" type="text/javascript" data-cfasync="false"></script>
+<!-- SweetAlert2 (must be loaded BEFORE any call to Swal) -->
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
 
-<!-- Chart JS -->
-<script src="{{asset("assets/plugins/apexchart/apexcharts.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
-<script src="{{asset("assets/plugins/apexchart/chart-data.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Slimscroll -->
+<script src="{{ asset('assets/js/jquery.slimscroll.min.js') }}"></script>
 
-<!-- Owl JS -->
-<script src="{{asset("assets/plugins/owlcarousel/owl.carousel.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- DataTables -->
+<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
 
-<!-- Select2 JS -->
-<script src="{{asset("assets/plugins/select2/js/select2.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- ApexCharts -->
+<script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
 
-<!-- Counter JS -->
-<script src="{{asset("assets/plugins/countup/jquery.counterup.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
-<script src="{{asset("assets/plugins/countup/jquery.waypoints.min.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Owl Carousel -->
+<script src="{{ asset('assets/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
 
+<!-- Select2 -->
+<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+<!-- Counter Up -->
+<script src="{{ asset('assets/plugins/countup/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/countup/jquery.waypoints.min.js') }}"></script>
+
+<!-- Yield Page Specific Scripts -->
 @yield('scripts')
 
-<!-- Custom JS -->
-<script src="{{asset("assets/js/script.js")}}" type="ef78bac5a6f4763a5095342c-text/javascript"></script>
+<!-- Custom Script -->
+<script src="{{ asset('assets/js/script.js') }}"></script>
 
-<script src="{{asset("assets/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js")}}" data-cf-settings="ef78bac5a6f4763a5095342c-|49" defer=""></script>
 
 <script>
     $(document).ready(function() {
 
     });
+
+    function showSuccess(message) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: message,
+            confirmButtonText: 'OK'
+        });
+    }
+
+    function showError(message) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: message,
+            confirmButtonText: 'OK'
+        });
+    }
+
+    function confirmAction(url, data, confirmMessage) {
+        Swal.fire({
+            title: 'Please Confirm',
+            text: confirmMessage,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                data._token = `{{ csrf_token() }}`;
+
+                $.post(url, data)
+                    .done(function (response) {
+                        if (response.status === 'success') {
+                            showSuccess(response.msg || 'Action completed successfully.');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        } else {
+                            showError(response.msg || 'Action failed.');
+                        }
+                    })
+                    .fail(function (xhr) {
+                        showError(xhr.responseJSON?.message || 'An error occurred.');
+                    });
+            }
+        });
+    }
 </script>
 @yield('extra-script')
 </body>

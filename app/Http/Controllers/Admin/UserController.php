@@ -7,6 +7,7 @@ use App\Models\Admin\School;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -87,6 +88,42 @@ class UserController extends Controller
 
     public function getAllPermissions(Request $request){
         return view('pages.users.roles.roles-permission');
+    }
+
+    public function acceptAccountRequest(Request $request){
+        $results = ['status'=>'success'];
+        try {
+            DB::beginTransaction();
+            $user = User::find($request->get('user_id'));
+            if(!$user) throw new \Exception("User Not Found");
+            if($user->status == 'rejected') throw new \Exception("$user->name account is already rejected");
+            if($user->status == 'accepted') throw new \Exception("$user->name account is already accepted but token not verified");
+            if($user->status == 'active') throw new \Exception("$user->name account is active");
+            if($user->status == 'pending'){
+                $rememberToken = randomString(6);
+                $user->update(['remember_token'=>$rememberToken,'status'=>'accepted']);
+                $userPhoneNo = $user->phone_number;
+                $userPhoneNo = preg_replace('/^0/', '255', $userPhoneNo);
+                $smsData = [
+                    'user_names'=>$user->name,
+                    'token'=>$rememberToken,
+                    'phone_number'=>$userPhoneNo,
+                ];
+                $sendTokenSms = sendUserRegisterToken($smsData);
+                //Todo: save message results for later references
+                if($sendTokenSms['successful']){
+                    $results = ['status'=>'success','msg'=>"User Account accepted and token sms was sent"];
+                }else{
+                    $results = ['status'=>'success','msg'=>"User Account accepted but sending token sms has failed"];
+                }
+            }
+
+            DB::commit();
+        }catch (\Exception $exception){
+            DB::rollBack();
+            $results = ['status'=>'error','msg'=>$exception->getMessage()];
+        }
+        return response()->json($results);
     }
 
 }

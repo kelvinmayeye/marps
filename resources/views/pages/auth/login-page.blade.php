@@ -80,6 +80,19 @@
                                                     <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control" required>
                                                     <span class="ti toggle-password ti-key"></span>
                                                 </div>
+
+                                                @if(session()->has('confirm_token'))
+                                                    <div>
+                                                        <label class="form-label">Remember Token</label>
+                                                        <div>
+                                                            <small class="fw-semibold text-primary-emphasis">({{ session()->pull('confirm_token') }})</small>
+                                                        </div>
+                                                        <div class="pass-group">
+                                                            <input type="text" name="remember_token" class="pass-input border border-1 border-success form-control" autofocus required>
+                                                            <span class="ti toggle-password ti-lock-code"></span>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <div class="form-wrap form-wrap-checkbox mb-3">
