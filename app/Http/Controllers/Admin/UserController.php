@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function getAllUsers(Request $request){
-        $users = User::query()->whereNot('status','pending')->get();
+        $users = User::query()->whereNot('status','pending')->whereNot('id',1)->get();
         $schools = School::all();
         return view('pages.users.users-list',compact('users','schools'));
     }

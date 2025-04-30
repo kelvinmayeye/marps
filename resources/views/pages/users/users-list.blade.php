@@ -45,6 +45,7 @@
                         <th>Role</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -60,29 +61,38 @@
                             <td>{{$s->phone_number}}</td>
                             <td>{{$s->email}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical fs-14"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                    <i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                            </li>
-
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                    <i class="ti ti-eye me-2"></i>View</a>
-                                            </li>
-                                            <li><a class="dropdown-item rounded-1" href="#">
-                                                    <i class="ti ti-user-plus me-2"></i>Add user</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item rounded-1" href="#">
-                                                    <i class="ti ti-trash-x me-2"></i>Delete</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="text-center">
+                                     <span class="badge
+                                         {{ $s->status == 'active' ? 'badge-success' :
+                                            ($s->status == 'accepted' ? 'badge-primary' : 'badge-danger') }}">
+                                         {{ $s->status }}
+                                     </span>
                                 </div>
+                            </td>
+                            <td>
+                                @if($s->status !== 'rejected')
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ti ti-dots-vertical fs-14"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right p-3">
+                                                <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
+                                                        <i class="ti ti-edit-circle me-2"></i>Edit</a>
+                                                </li>
+
+                                                <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
+                                                        <i class="ti ti-eye me-2"></i>View</a>
+                                                </li>
+                                                @if($s->status == 'accepted')
+                                                    <li><a class="dropdown-item rounded-1" href="#">
+                                                            <i class="ti ti-recycle me-2 text-success-emphasis"></i>Resend Token</a>
+                                                    </li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
