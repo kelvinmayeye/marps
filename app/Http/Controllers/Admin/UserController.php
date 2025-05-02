@@ -87,7 +87,35 @@ class UserController extends Controller
     }
 
     public function getAllPermissions(Request $request){
-        return view('pages.users.roles.roles-permission');
+        try {
+            $roleId = $request->get('role_id');
+
+            if(!empty($roleId)){
+                $roles = \App\Models\Role::all();
+
+            }
+            $permissions = \App\Models\Permission::all();
+            $rolePermissions = \DB::table('role_permissions')->select('role_id', 'permission_id')->get()->groupBy('role_id');
+            $rolesWithPermissions = $roles->map(function ($role) use ($permissions, $rolePermissions) {
+                $assignedPermissions = $rolePermissions->get($role->id, collect())->pluck('permission_id')->toArray();
+
+                return [
+                    'id' => $role->id,
+                    'name' => $role->name,
+                    'role_permissions' => $permissions->map(function ($permission) use ($assignedPermissions) {
+                        return [
+                            'id' => $permission->id,
+                            'name' => $permission->name,
+                            'group' => $permission->group,
+                            'is_checked' => in_array($permission->id, $assignedPermissions) ? 1 : 0
+                        ];
+                    })->all()
+                ];
+            })->all();
+        }catch (\Exception $e){
+
+        }
+        return view('pages.users.roles.roles-permission',compact('roles','rolesWithPermissions'));
     }
 
     public function acceptAccountRequest(Request $request){

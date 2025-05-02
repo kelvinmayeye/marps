@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Admin\ExamType;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,23 +15,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//        User::truncate();
-        User::create([
-            'name'=>'admin',
-            'username'=>'admin',
-            'email' => 'admin@admin.com',
-            'password'=>bcrypt('123')
-        ]);
+        User::updateOrCreate(
+            ['username' => 'admin'], // Unique identifying field(s)
+            [
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('123')
+            ]
+        );
 
-        //add examination types
-//        ExamType::truncate();
         $examTypes = [
             'Mock', 'Mid Term', 'End Term', 'Continuous Assessment Test(CAT)', 'Weekly Test',
             'Opener', 'Formative', 'Summative'
         ];
 
         foreach ($examTypes as $type) {
-            ExamType::create(['name' => $type]);
+            ExamType::updateOrCreate(
+                ['name' => $type],
+                ['name' => $type] // You can add additional fields here if needed
+            );
+        }
+
+        $permissions = [
+            'users' => ['accept_user', 'reject', 'resend_token'],
+            'subject' => ['add_subject', 'delete_subject'],
+            'classes' => ['add_classes', 'add_classes'],
+        ];
+
+        foreach ($permissions as $group => $names) {
+            foreach (array_unique($names) as $name) {
+                Permission::updateOrCreate(
+                    ['name' => $name, 'group' => $group],
+                    ['name' => $name, 'group' => $group]
+                );
+            }
         }
     }
+
 }
