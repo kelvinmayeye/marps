@@ -22,17 +22,25 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        //get token
+        $token = $request->get('remember_token');
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-        //get token
-        $token = $request->get('remember_token');
-        if(!empty($token)){
-            mydebug($token);
-        }
+
         $user = User::where('username', $request->input('username'))->first();
         if (!$user || !\Hash::check($request->input('password'), $user->password)) return back()->with('error', 'Wrong username or password');
+
+
+        if(!empty($token)){
+            if($user->remember_token === $token){
+                $user->update(['remember_token'=>null,'status'=>'active']);
+                toastr()->success('Your Token is verified successful');
+            }else{
+                back()->with('error', 'The Entered Token did not match.Try please again');
+            }
+        }
 
         if($user->status === 'accepted'){
             if (!is_null($user->remember_token)){

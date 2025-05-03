@@ -14,7 +14,7 @@ function sendUserRegisterToken($details)
         'source_addr' => $senderId,
         'encoding' => 0,
         'schedule_time' => '',
-        'message' => 'Hello, '.$details['user_names'].' Your Account request has been accepted use '.$details['token'] .'token to confirm ',
+        'message' => 'Hello, '.$details['user_names'].' Your Account request has been accepted use '.$details['token'] .' token to confirm ',
         'recipients' => [
             [
                 'recipient_id' => '1',
