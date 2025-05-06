@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('exam_registrations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('school_id');
+            $table->unsignedBigInteger('examination_id');
+            $table->unsignedBigInteger('created_by');
+            $table->integer('total_subject')->nullable();
+            $table->enum('status',['pending','rejected','accepted'])->after('phone_number')->default('accepted');
             $table->timestamps();
         });
     }

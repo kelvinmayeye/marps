@@ -51,8 +51,9 @@ Route::middleware("auth")->group(function() {
     Route::post('class/save', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveClasses'])->name('class.save');
 
     Route::prefix('academics')->group(function () {
-        //Exam registation
+        //Exam registration
         Route::get('exam/registration', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examRegistrationPage'])->name('exam.registration');//Todo call it examination center
+        Route::post('save/exam/registration', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveExamRegistration'])->name('save.exam.registration');
         // Exam
         Route::get('exam/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examList'])->name('exam.list');
         Route::post('exam/save', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveExam'])->name('exam.save');

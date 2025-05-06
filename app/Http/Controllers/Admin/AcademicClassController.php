@@ -7,8 +7,10 @@ use App\Models\Admin\AcademicClass;
 use App\Models\Admin\Exam;
 use App\Models\Admin\ExamSubject;
 use App\Models\Admin\ExamType;
+use App\Models\Admin\School;
 use App\Models\Admin\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AcademicClassController extends Controller
 {
@@ -55,7 +57,13 @@ class AcademicClassController extends Controller
     }
 
     public function examRegistrationPage(Request $request){
-        return view('pages.exams.exam-registration-page');
+        $userSchoolInfo = School::query()->find(Auth::id());
+        if(!$userSchoolInfo) return back('error','User school information not found');
+        return view('pages.exams.exam-registration-page',compact('userSchoolInfo'));
+    }
+
+    public function saveExamRegistration(Request $request){
+        mydebug($request->all());
     }
 
     public function examList(Request $request){
