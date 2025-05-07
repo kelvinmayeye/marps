@@ -247,8 +247,8 @@
                     $.each(result.data, function (index, subject) {
                         checkbox = `<div class="col-md-4">
                     <div class="form-check">
-                        <input class="form-check-input" name="subject[${subject.id}]" type="checkbox" value="${subject.id}" id="subject${subject.id}">
-                        <label class="form-check-label" for="subject${subject.id}">${subject.name}</label>
+                        <input class="form-check-input" name="subjects[${subject.id}]" type="checkbox" value="${subject.id}" id="subject${subject.id}">
+                        <label class="form-check-label" for="subjects${subject.id}">${subject.name}</label>
                     </div>
                 </div>`;
                         holder_checkbox.append(checkbox);

@@ -9,8 +9,11 @@ use App\Models\Admin\ExamSubject;
 use App\Models\Admin\ExamType;
 use App\Models\Admin\School;
 use App\Models\Admin\Subject;
+use App\Models\ExaminationCenter\ExamRegistration;
+use App\Models\ExaminationCenter\ExamRegistrationSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AcademicClassController extends Controller
 {
@@ -63,7 +66,30 @@ class AcademicClassController extends Controller
     }
 
     public function saveExamRegistration(Request $request){
-        mydebug($request->all());
+        try {
+            DB::beginTransaction();
+            mydebug($request->all());
+            $examination_id = $request->get('examination_id');
+            $subjects = $request->get('subjects');
+            $exam = Exam::find($examination_id);
+            if (count($subjects) == 0) throw new \Exception("No subject selected");
+            $exam_reg = ExamRegistration::query()->create([
+                'school_id'=>Auth::user()->school_id,
+                'examination_id'=>$examination_id,
+                'created_by'=>Auth::user()->id,
+            ]);
+            foreach ($subjects as $s){
+                ExamRegistrationSubject::create([
+                    'exam_registration_id'=>$exam_reg->id,
+                    'subject_id'=>$s,
+                ]);
+            }
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollBack();
+
+        }
+
     }
 
     public function examList(Request $request){
