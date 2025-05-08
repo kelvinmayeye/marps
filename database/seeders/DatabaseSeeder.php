@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Admin\ExamType;
 use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,12 +16,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Role::updateOrCreate(
+            ['name' => 'admin'],
+            [
+                'is_active' => 1,
+            ]
+        );
+        Role::updateOrCreate(
+            ['name' => 'general user'],
+            [
+                'is_active' => 1,
+            ]
+        );
+
         User::updateOrCreate(
             ['username' => 'admin'], // Unique identifying field(s)
             [
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
-                'password' => bcrypt('123')
+                'password' => bcrypt('123'),
+                'role_id' => 1,
             ]
         );
 

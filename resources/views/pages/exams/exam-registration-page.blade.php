@@ -88,6 +88,27 @@
                                 <h5>Exam Registration</h5>
                             </div>
                             <div class="card-body">
+                                <div class="fw-bold">Examination registered history</div>
+                                <div class="border border-1 border-primary-subtle rounded-2 p-2">
+                                    <div class="card-body">
+                                        @foreach($examRegisteredhistory as $er)
+                                            <div class="notice-widget">
+                                                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                                                    <div class="d-flex align-items-center overflow-hidden me-2 mb-2 mb-sm-0">
+											<span class="bg-primary-transparent avatar avatar-md me-2 rounded-circle flex-shrink-0">
+												<i class="ti ti-books fs-16"></i>
+											</span>
+                                                        <div class="overflow-hidden">
+                                                            <h6 class="text-truncate mb-1">{{$er->exam->name}}</h6>
+                                                            <p><i class="ti ti-calendar me-2"></i>Added on : {{\Carbon\Carbon::parse($er->created_at)->format('d M Y')}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge bg-light text-dark"><i class="ti ti-clck me-1"></i>{{ $er->created_at->diffForHumans() }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                                 <small>(#show previous examination registration/participation)</small>
 
                                 <form action="{{route('save.exam.registration')}}" method="post">

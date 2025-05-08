@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('examination_id');
             $table->unsignedBigInteger('created_by');
             $table->integer('total_subject')->nullable();
-            $table->enum('status',['pending','rejected','accepted'])->after('phone_number')->default('accepted');
+            $table->enum('status',['pending','rejected','accepted'])->default('accepted');
             $table->timestamps();
         });
     }

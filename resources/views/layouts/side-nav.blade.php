@@ -5,7 +5,7 @@
                 <li>
                     <a href="{{route('user.home')}}" class="d-flex align-items-center border bg-white rounded p-2 mb-4">
                         <img src="{{asset("assets/img/icons/global-img.svg")}}" class="avatar avatar-md img-fluid rounded" alt="Profile">
-                        <span class="text-dark ms-2 fw-normal">User School name</span><!-- else MARPS -->
+                        <span class="text-dark ms-2 fw-normal">{{Auth::user()->school->name??'Marps'}}</span><!-- else MARPS -->
                     </a>
                 </li>
             </ul>

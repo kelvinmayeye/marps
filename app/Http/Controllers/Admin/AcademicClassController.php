@@ -60,19 +60,29 @@ class AcademicClassController extends Controller
     }
 
     public function examRegistrationPage(Request $request){
-        $userSchoolInfo = School::query()->find(Auth::id());
+        if(empty(Auth::user()->school_id)){
+            return back()->with('error','Your account is not assigned to school');
+        };
+        $userSchoolInfo = School::query()->find(Auth::user()->school_id);
         if(!$userSchoolInfo) return back('error','User school information not found');
-        return view('pages.exams.exam-registration-page',compact('userSchoolInfo'));
+        $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
+//        mydebug($examRegisteredhistory);
+        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory'));
     }
 
     public function saveExamRegistration(Request $request){
         try {
             DB::beginTransaction();
-            mydebug($request->all());
             $examination_id = $request->get('examination_id');
             $subjects = $request->get('subjects');
             $exam = Exam::find($examination_id);
             if (count($subjects) == 0) throw new \Exception("No subject selected");
+
+            $existing = ExamRegistration::where('school_id', Auth::user()->school_id)
+                ->where('examination_id', $examination_id)
+                ->first();
+            if ($existing) throw new \Exception("Examination registration already exists for this school");
+
             $exam_reg = ExamRegistration::query()->create([
                 'school_id'=>Auth::user()->school_id,
                 'examination_id'=>$examination_id,
@@ -85,11 +95,11 @@ class AcademicClassController extends Controller
                 ]);
             }
             DB::commit();
+            return redirect()->route('home')->with('success','Exam Registered Successful');
         }catch (\Exception $e){
             DB::rollBack();
-
+            return back()->with('error',$e->getMessage());
         }
-
     }
 
     public function examList(Request $request){
