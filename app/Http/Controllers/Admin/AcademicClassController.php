@@ -60,14 +60,14 @@ class AcademicClassController extends Controller
     }
 
     public function examRegistrationPage(Request $request){
-        if(empty(Auth::user()->school_id)){
-            return back()->with('error','Your account is not assigned to school');
-        };
+        $page = $request->get('page');
+        if (empty($page)) redirect()->route('user.home')->with('error','failed to get specified page');
+        if(empty(Auth::user()->school_id))  return back()->with('error','Your account is not assigned to school');
         $userSchoolInfo = School::query()->find(Auth::user()->school_id);
         if(!$userSchoolInfo) return back('error','User school information not found');
         $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
 //        mydebug($examRegisteredhistory);
-        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory'));
+        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page'));
     }
 
     public function saveExamRegistration(Request $request){

@@ -107,6 +107,7 @@ class AuthController extends Controller
             $newUser->name = $user['name'];
             $newUser->title = $user['title'];
             $newUser->username = $user['username'];
+            $newUser->role_id = 2;
             $newUser->email = $user['email'];
             $newUser->password = Hash::make($user['password']);
             $newUser->phone_number = $user['phone_number'];

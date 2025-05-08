@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AcademicClassController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +53,7 @@ Route::middleware("auth")->group(function() {
 
     Route::prefix('academics')->group(function () {
         //Exam registration
-        Route::get('exam/registration', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examRegistrationPage'])->name('exam.registration');//Todo call it examination center
+        Route::get('examination/center', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examRegistrationPage'])->name('examination.center');//Todo call it examination center
         Route::post('save/exam/registration', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveExamRegistration'])->name('save.exam.registration');
         // Exam
         Route::get('exam/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examList'])->name('exam.list');
@@ -60,5 +61,11 @@ Route::middleware("auth")->group(function() {
 
         // Exam subject (AJAX)
         Route::get('ajax/exam/subject/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'ajax_exam_subjectList'])->name('ajax.exam.subject.list');
+    });
+
+    Route::prefix('excel-export')->group(function () {
+        //download student template template
+        Route::get('download-register-students-template', [ExportController::class, 'downloadRegisterStudentsTemplate'])->name('download.register.students.template');
+
     });
 });

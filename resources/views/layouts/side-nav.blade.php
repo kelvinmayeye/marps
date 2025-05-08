@@ -15,7 +15,7 @@
                     <ul>
                         <li class="active"><a href="{{route('user.home')}}"><i class="ti ti-layout-dashboard"></i><span>Dashboard </span></a></li>
                         <li class=""><a href="{{route('schools.list')}}"><i class="ti ti-school"></i><span>Schools </span></a></li>
-                        <li class=""><a href="{{route('exam.registration')}}"><i class="ti ti-clipboard"></i><span>Examination Center </span></a></li>
+                        <li class=""><a href="{{route('examination.center',['page'=>'registration'])}}"><i class="ti ti-clipboard"></i><span>Examination Center </span></a></li>
                     </ul>
                 </li>
                 <li>
