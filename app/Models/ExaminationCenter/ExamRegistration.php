@@ -26,6 +26,10 @@ class ExamRegistration extends Model
         return $this->hasMany(ExamRegistrationSubject::class);
     }
 
+    public function students(){
+        return $this->hasMany(ExamRegistrationStudent::class);
+    }
+
     public function createdby(): BelongsTo
     {
         return $this->belongsTo(User::class,'created_by');

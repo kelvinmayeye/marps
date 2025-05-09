@@ -12,8 +12,8 @@
                     <h5>Registered Examination List</h5>
                 </div>
                 <div class="card-body">
-                    <div class="" style="height: 300px;">
-                        <table class="table table-bordered">
+                    <div class="table-responsive" style="height: 300px;">
+                        <table class="table datatable" id="DataTables_Table_0">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -34,7 +34,7 @@
                                     <td>{{$er->exam->name}}</td>
                                     <td>{{$er->subjects->count()}}</td>
                                     <td>{{$er->createdby->name}}</td>
-                                    <td>0</td>
+                                    <td><a href="" title="click to view students">{{$er->students->count()}}</a></td>
                                     <td><span class="badge bg-outline-success">Not uploaded</span></td>
                                     <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>
                                     <td>
@@ -50,7 +50,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#uploadStudentModal">
+                                                        <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
                                                             <i class="ti ti-upload me-2 text-primary"></i>Import Students
                                                         </a>
                                                     </li>
@@ -89,15 +89,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="uploadStudentModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="uploadStudentModalLabel">Upload Students For <strong class="ex-name"></strong> Examination </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{{route('students.import')}}" enctype="multipart/form-data" method="post">
                 @csrf
+                <input type="hidden" class="exam-reg-id" name="exam_registration_id">
                 <div class="modal-body">
                     <div>
                         <h6>Student Upload</h6>
-                        <small>Select .xlsx file with students to register and upload students</small>
+                        <div><small>Select .xlsx file with students to register and upload students</small></div>
+                        <div><small class="text-danger">Confirm the Examination details before uploading students</small></div>
                         <div class="row">
                             <div class="mb-3">
                                 <input type="file" name="students_file" class="form-control form-control-file" required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
@@ -113,3 +115,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    let uploadStudentModal;
+    $(document).ready(function () {
+    });
+    function openUploadStudentModal(obj) {
+        let exam_reg_id = $(obj).data('exam-reg-id') || '';
+        let exam_name = $(obj).data('exam-name') || '';
+        console.log(exam_name);
+        exam_name = atob(exam_name);
+        $('#uploadStudentModal').find('input[type=hidden].exam-reg-id').val(exam_reg_id);
+        $('#uploadStudentModal').find('.ex-name').html(exam_name);
+        $('#uploadStudentModal').modal('show');
+    }
+</script>

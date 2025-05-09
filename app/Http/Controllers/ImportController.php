@@ -13,9 +13,9 @@ class ImportController extends Controller
 {
     public function importStudents(Request $request){
         $request->validate(['students_file' => 'required']);
-        mydebug($request->all());
         DB::beginTransaction();
         try {
+            if(empty($request->get('exam_registration_id'))) throw new Exception("Exam registration Id is required");
 
             if (!$request->hasFile('students_file')) throw new Exception("Excel file not is required!");
             $students_file = $request->file('students_file');
@@ -27,7 +27,7 @@ class ImportController extends Controller
             if (!in_array($extension, $allowed_extension)) throw new \Exception("File Format not allowed on .xlsx is required");
 
             $file_path = $students_file->storeAs($temp_import, time() . '.' . $extension);
-            Excel::import(new StudentsImport(), $file_path);
+            Excel::import(new StudentsImport(exam_registration_id: $request->get('exam_registration_id')), $file_path);
             DB::commit();
             if (Storage::directoryExists($temp_import)) Storage::deleteDirectory($temp_import);
         } catch (\Exception $e) {
