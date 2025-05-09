@@ -35,7 +35,7 @@
                                     <td>{{$er->subjects->count()}}</td>
                                     <td>{{$er->createdby->name}}</td>
                                     <td>0</td>
-                                    <td><span class="badge bg-outline-success">Yes</span></td>
+                                    <td><span class="badge bg-outline-success">Not uploaded</span></td>
                                     <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -46,7 +46,12 @@
                                                 <ul class="dropdown-menu dropdown-menu-right p-1" style="">
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="{{route('download.register.students.template')}}">
-                                                            <i class="ti ti-download me-2 text-primary"></i>Students Template
+                                                            <i class="ti ti-download me-2 text-primary"></i> Students Template
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item rounded-1" href="#" data-bs-toggle="modal" data-bs-target="#uploadStudentModal">
+                                                            <i class="ti ti-upload me-2 text-primary"></i>Import Students
                                                         </a>
                                                     </li>
                                                     <li>
@@ -77,114 +82,34 @@
                 </div>
             </div>
         </div>
-        <div class="settings-right-sidebar ms-md-3">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Company Images</h5>
-                </div>
-                <div class="card-body">
-                    <div class="border-bottom mb-3 pb-3">
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex align-items-center">
-                                            <span class="avatar avatar-xl border rounded d-flex align-items-center justify-content-center p-2 me-2"><img
-                                                    src="assets/img/logo-small.svg" alt="Img"></span>
-                                <h5>Logo</h5>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:void(0);" class="text-primary border rounded fs-16 p-1 badge badge-primary-hover me-2"><i
-                                        class="ti ti-edit-circle"></i></a>
-                                <a href="javascript:void(0);" class="text-danger border rounded fs-16 p-1 badge badge-danger-hover"><i class="ti ti-trash-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="profile-uploader profile-uploader-two mb-0">
-                            <span class="d-block text-center lh-1 fs-24 mb-1"><i class="ti ti-upload"></i></span>
-                            <div class="drag-upload-btn bg-transparent me-0 border-0">
-                                <p class="fs-12 mb-2"><span class="text-primary">Click to Upload</span> or drag and drop
-                                </p>
-                                <h6>JPG or PNG</h6>
-                                <h6>(Max 450 x 450 px)</h6>
-                            </div>
-                            <input type="file" class="form-control image-sign" multiple="">
-                            <div class="frames"></div>
-                        </div>
-                    </div>
-                    <div class="border-bottom mb-3 pb-3">
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex align-items-center">
-                                            <span class="avatar avatar-xl border rounded d-flex align-items-center justify-content-center p-2 me-2"><img
-                                                    src="assets/img/logo-small.svg" alt="Img"></span>
-                                <h5>Favicon</h5>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:void(0);" class="text-primary border rounded fs-16 p-1 badge badge-primary-hover me-2"><i
-                                        class="ti ti-edit-circle"></i></a>
-                                <a href="javascript:void(0);" class="text-danger border rounded fs-16 p-1 badge badge-danger-hover"><i class="ti ti-trash-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="profile-uploader profile-uploader-two mb-0">
-                            <span class="d-block text-center lh-1 fs-24 mb-1"><i class="ti ti-upload"></i></span>
-                            <div class="drag-upload-btn bg-transparent me-0 border-0">
-                                <p class="fs-12 mb-2"><span class="text-primary">Click to Upload</span> or drag and drop
-                                </p>
-                                <h6>JPG or PNG</h6>
-                                <h6>(Max 450 x 450 px)</h6>
-                            </div>
-                            <input type="file" class="form-control" multiple="" id="image_sign2">
-                            <div id="frames2"></div>
-                        </div>
-                    </div>
-                    <div class="border-bottom mb-3 pb-3">
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex align-items-center">
-                                            <span class="avatar avatar-xl border rounded d-flex align-items-center justify-content-center p-2 me-2"><img
-                                                    src="assets/img/logo-small.svg" alt="Img"></span>
-                                <h5>Icon</h5>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:void(0);" class="text-primary border rounded fs-16 p-1 badge badge-primary-hover me-2"><i
-                                        class="ti ti-edit-circle"></i></a>
-                                <a href="javascript:void(0);" class="text-danger border rounded fs-16 p-1 badge badge-danger-hover"><i class="ti ti-trash-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="profile-uploader profile-uploader-two mb-0">
-                            <span class="d-block text-center lh-1 fs-24 mb-1"><i class="ti ti-upload"></i></span>
-                            <div class="drag-upload-btn bg-transparent me-0 border-0">
-                                <p class="fs-12 mb-2"><span class="text-primary">Click to Upload</span> or drag and drop
-                                </p>
-                                <h6>JPG or PNG</h6>
-                                <h6>(Max 450 x 450 px)</h6>
-                            </div>
-                            <input type="file" class="form-control" multiple="" id="image_sign3">
-                            <div id="frames3"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex align-items-center">
-                                            <span class="avatar avatar-xl border rounded d-flex align-items-center justify-content-center p-2 me-2"><img
-                                                    src="assets/img/logo-small.svg" alt="Img"></span>
-                                <h5>Dark Logo</h5>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <a href="javascript:void(0);" class="text-primary border rounded fs-16 p-1 badge badge-primary-hover me-2"><i
-                                        class="ti ti-edit-circle"></i></a>
-                                <a href="javascript:void(0);" class="text-danger border rounded fs-16 p-1 badge badge-danger-hover"><i class="ti ti-trash-x"></i></a>
-                            </div>
-                        </div>
-                        <div class="profile-uploader profile-uploader-two mb-0">
-                            <span class="d-block text-center lh-1 fs-24 mb-1"><i class="ti ti-upload"></i></span>
-                            <div class="drag-upload-btn bg-transparent me-0 border-0">
-                                <p class="fs-12 mb-2"><span class="text-primary">Click to Upload</span> or drag and drop
-                                </p>
-                                <h6>JPG or PNG</h6>
-                                <h6>(Max 450 x 450 px)</h6>
-                            </div>
-                            <input type="file" class="form-control" multiple="" id="image_sign4">
-                            <div id="frames4"></div>
-                        </div>
-                    </div>
-                </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadStudentModal" tabindex="-1" aria-labelledby="uploadStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadStudentModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="{{route('students.import')}}" enctype="multipart/form-data" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div>
+                        <h6>Student Upload</h6>
+                        <small>Select .xlsx file with students to register and upload students</small>
+                        <div class="row">
+                            <div class="mb-3">
+                                <input type="file" name="students_file" class="form-control form-control-file" required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
