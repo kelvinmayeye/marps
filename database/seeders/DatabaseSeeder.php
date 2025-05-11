@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123'),
+                'status' => 'active',
                 'role_id' => 1,
             ]
         );

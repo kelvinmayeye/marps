@@ -61,12 +61,16 @@ Route::middleware("auth")->group(function() {
 
         // Exam subject (AJAX)
         Route::get('ajax/exam/subject/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'ajax_exam_subjectList'])->name('ajax.exam.subject.list');
+        // exam registered students
+        Route::get('view/students', [\App\Http\Controllers\Admin\AcademicClassController::class, 'viewExamRegisteredStudents'])->name('view.exam.registered.students');
     });
 
     Route::prefix('excel')->group(function () {
         //download student template template
         Route::get('download-register-students-template', [ExportController::class, 'downloadRegisterStudentsTemplate'])->name('download.register.students.template');
         Route::post('students/import', [\App\Http\Controllers\ImportController::class, 'importStudents'])->name('students.import');
+        // download excel with uploaded student
+        Route::get('download-students-score-template', [ExportController::class, 'downloadStudentsScoreTemplate'])->name('download.students.score.template');
 
     });
 });

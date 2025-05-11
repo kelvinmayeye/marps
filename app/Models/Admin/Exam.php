@@ -27,7 +27,7 @@ class Exam extends Model
 
     public function subjects(): HasMany
     {
-        return $this->hasMany(ExamSubjects::class,'exam_id');
+        return $this->hasMany(ExamSubject::class,'exam_id');
     }
 
     public function scopeList()

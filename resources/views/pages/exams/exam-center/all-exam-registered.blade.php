@@ -34,7 +34,17 @@
                                     <td>{{$er->exam->name}}</td>
                                     <td>{{$er->subjects->count()}}</td>
                                     <td>{{$er->createdby->name}}</td>
-                                    <td><a href="" title="click to view students">{{$er->students->count()}}</a></td>
+                                    <td>
+                                        @if($er->students->count() > 0)
+                                            <a href="{{ route('view.exam.registered.students', ['exam_registration_id' => $er->id]) }}" title="click to view students">
+                                                {{ $er->students->count() }}
+                                            </a>
+                                        @else
+                                            <a href="#" onclick="return false;" style="cursor: not-allowed;" title="No students registered">
+                                                {{ $er->students->count() }}
+                                            </a>
+                                        @endif
+                                    </td>
                                     <td><span class="badge bg-outline-success">Not uploaded</span></td>
                                     <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>
                                     <td>
@@ -43,25 +53,25 @@
                                                 <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="ti ti-dots-vertical fs-14"></i>
                                                 </a>
-                                                <ul class="dropdown-menu dropdown-menu-right p-1" style="">
+                                                <ul class="dropdown-menu dropdown-menu-right" style="">
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="{{route('download.register.students.template')}}">
-                                                            <i class="ti ti-download me-2 text-primary"></i> Students Template
+                                                            <i class="ti ti-file-download me-2 text-primary"></i> Students Template
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
-                                                            <i class="ti ti-upload me-2 text-primary"></i>Import Students
+                                                            <i class="ti ti-file-upload me-2 text-primary"></i>Import Students
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item rounded-1" href="{{route('download.students.score.template',['exam_reg_id'=>$er->id])}}" title="click to download score template">
+                                                            <i class="ti ti-file-download me-2 text-primary"></i>Score Template
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="#">
                                                             <i class="ti ti-thumb-up me-2 text-danger"></i>Confirm Students
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item rounded-1" href="#" title="click to download score template">
-                                                            <i class="ti ti-file-download me-2 text-primary"></i>Score Template
                                                         </a>
                                                     </li>
                                                     <li>

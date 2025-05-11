@@ -10,6 +10,7 @@ use App\Models\Admin\ExamType;
 use App\Models\Admin\School;
 use App\Models\Admin\Subject;
 use App\Models\ExaminationCenter\ExamRegistration;
+use App\Models\ExaminationCenter\ExamRegistrationStudent;
 use App\Models\ExaminationCenter\ExamRegistrationSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -181,5 +182,14 @@ class AcademicClassController extends Controller
         }
 
         return response()->json($result);
+    }
+
+    public function viewExamRegisteredStudents(Request $request){
+        if (empty($request->get('exam_registration_id'))) return back()->with('error','Exam Registration Id not found');
+        $examRegistration = ExamRegistration::find($request->get('exam_registration_id'));
+        if (!$examRegistration) return back()->with('error','Exam Registration not found');
+        $students = ExamRegistrationStudent::where('exam_registration_id',$examRegistration->id)->get();
+//        mydebug($students);
+        return view('pages.exams.exam-center.students.exam-registered-students',compact('students','examRegistration'));
     }
 }
