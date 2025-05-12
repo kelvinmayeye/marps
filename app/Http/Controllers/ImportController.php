@@ -61,7 +61,6 @@ class ImportController extends Controller
             DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
-
-        return back()->with('success', 'students score uploaded successfully');
+        return redirect()->route('exam.subject.scores')->with('success', 'students score uploaded successfully');
     }
 }

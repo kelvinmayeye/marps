@@ -192,4 +192,8 @@ class AcademicClassController extends Controller
 //        mydebug($students);
         return view('pages.exams.exam-center.students.exam-registered-students',compact('students','examRegistration'));
     }
+
+    public function examSubjectScores(Request $request){
+        mydebug("system has uploaded the score successfully were currently working on displaying uploaded scores");
+    }
 }

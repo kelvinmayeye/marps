@@ -74,4 +74,9 @@ Route::middleware("auth")->group(function() {
         Route::post('import/students/scores', [\App\Http\Controllers\ImportController::class, 'importStudentsScores'])->name('import.students.scores');
 
     });
+
+    Route::prefix('reports')->group(function () {
+        Route::get('exam/subject/scores', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examSubjectScores'])->name('exam.subject.scores');
+
+    });
 });
