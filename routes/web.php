@@ -71,6 +71,7 @@ Route::middleware("auth")->group(function() {
         Route::post('students/import', [\App\Http\Controllers\ImportController::class, 'importStudents'])->name('students.import');
         // download excel with uploaded student
         Route::get('download-students-score-template', [ExportController::class, 'downloadStudentsScoreTemplate'])->name('download.students.score.template');
+        Route::post('import/students/scores', [\App\Http\Controllers\ImportController::class, 'importStudentsScores'])->name('import.students.scores');
 
     });
 });

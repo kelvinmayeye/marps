@@ -12,8 +12,8 @@
                     <h5>Registered Examination List</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive" style="height: 300px;">
-                        <table class="table datatable" id="DataTables_Table_0">
+                    <div class="" style="height: 300px;">
+                        <table class="table " id="">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -70,8 +70,8 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item rounded-1" href="#">
-                                                            <i class="ti ti-thumb-up me-2 text-danger"></i>Confirm Students
+                                                        <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentScoresModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
+                                                            <i class="ti ti-thumb-up me-2 text-danger"></i>Upload Scores
                                                         </a>
                                                     </li>
                                                     <li>
@@ -95,36 +95,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="uploadStudentModal" tabindex="-1" aria-labelledby="uploadStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadStudentModalLabel">Upload Students For <strong class="ex-name"></strong> Examination </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{route('students.import')}}" enctype="multipart/form-data" method="post">
-                @csrf
-                <input type="hidden" class="exam-reg-id" name="exam_registration_id">
-                <div class="modal-body">
-                    <div>
-                        <h6>Student Upload</h6>
-                        <div><small>Select .xlsx file with students to register and upload students</small></div>
-                        <div><small class="text-danger">Confirm the Examination details before uploading students</small></div>
-                        <div class="row">
-                            <div class="mb-3">
-                                <input type="file" name="students_file" class="form-control form-control-file" required accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('pages.exams.exam-center.modals.upload-students-modal')
+@include('pages.exams.exam-center.modals.upload-students-scores-modal')
 
 <script>
     let uploadStudentModal;
@@ -138,5 +110,15 @@
         $('#uploadStudentModal').find('input[type=hidden].exam-reg-id').val(exam_reg_id);
         $('#uploadStudentModal').find('.ex-name').html(exam_name);
         $('#uploadStudentModal').modal('show');
+    }
+
+    function openUploadStudentScoresModal(obj) {
+        let exam_reg_id = $(obj).data('exam-reg-id') || '';
+        let exam_name = $(obj).data('exam-name') || '';
+        console.log(exam_name);
+        exam_name = atob(exam_name);
+        $('#uploadStudentScoresModal').find('input[type=hidden].exam-reg-id').val(exam_reg_id);
+        $('#uploadStudentScoresModal').find('.ex-name').html(exam_name);
+        $('#uploadStudentScoresModal').modal('show');
     }
 </script>
