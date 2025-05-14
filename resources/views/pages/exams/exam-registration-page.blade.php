@@ -38,7 +38,7 @@
             <div class="pt-3 d-flex flex-column list-group mb-4">
                 <a href="{{route('examination.center',['page'=>'registration'])}}" class="d-block rounded p-2 {{$page === 'registration' ? 'active':''}}">Exam Registration</a>
                 <a href="{{route('examination.center',['page'=>'all-exam-registered'])}}" class="d-block rounded p-2 {{$page === 'all-exam-registered' ? 'active':''}}">Your Examinations</a>
-{{--                <a href="" class="d-block rounded p-2">Prefixes</a>--}}
+                <a href="{{route('examination.center',['page'=>'view-exam-scores'])}}" class="d-block rounded p-2 {{$page === 'view-exam-scores' ? 'active':''}}">Examination Scores</a>
 {{--                <a href="" class="d-block rounded p-2">Preferences</a>--}}
 {{--                <a href="" class="d-block rounded p-2">Social Authentication</a>--}}
 {{--                <a href="" class="d-block rounded p-2">Language</a>--}}
@@ -50,6 +50,10 @@
             @endif
                 @if($page === 'all-exam-registered')
                     @include('pages.exams.exam-center.all-exam-registered')
+                @endif
+
+                @if($page === 'view-exam-scores')
+                    @include('pages.exams.exam-center.view-exam-scores')
                 @endif
         </div>
     </div>

@@ -76,7 +76,6 @@ Route::middleware("auth")->group(function() {
     });
 
     Route::prefix('reports')->group(function () {
-        Route::get('exam/subject/scores', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examSubjectScores'])->name('exam.subject.scores');
 
     });
 });

@@ -71,7 +71,12 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentScoresModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
-                                                            <i class="ti ti-thumb-up me-2 text-danger"></i>Upload Scores
+                                                            <i class="ti ti-file-upload me-2 text-danger"></i>Upload Scores
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item rounded-1" href="{{route('examination.center',['page'=>'view-exam-scores','exam_registration_id'=>$er->id])}}" title="click to download score template">
+                                                            <i class="ti ti-list me-2 text-success"></i>View Score
                                                         </a>
                                                     </li>
                                                     <li>

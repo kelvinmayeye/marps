@@ -12,6 +12,7 @@ use App\Models\Admin\Subject;
 use App\Models\ExaminationCenter\ExamRegistration;
 use App\Models\ExaminationCenter\ExamRegistrationStudent;
 use App\Models\ExaminationCenter\ExamRegistrationSubject;
+use App\Models\ExaminationCenter\ExamSubjectScore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,13 +63,43 @@ class AcademicClassController extends Controller
 
     public function examRegistrationPage(Request $request){
         $page = $request->get('page');
+        $examscores = [];
         if (empty($page)) redirect()->route('user.home')->with('error','failed to get specified page');
-        if(empty(Auth::user()->school_id))  return back()->with('error','Your account is not assigned to school');
+        if(empty(Auth::user()->school_id)) return back()->with('error','Your account is not assigned to school');
         $userSchoolInfo = School::query()->find(Auth::user()->school_id);
         if(!$userSchoolInfo) return back('error','User school information not found');
         $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
-//        mydebug($examRegisteredhistory);
-        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page'));
+        if($page=='view-exam-scores'){
+            $exam_registration_id = $request->get('exam_registration_id');
+            if(empty($exam_registration_id)) return back()->with("error","Examination Registration Id is missing please try again");
+            $examscores['scores'] = ExamSubjectScore::query()->where('exam_registration_id',$exam_registration_id)->get()->toArray();
+            $examscores['subjects'] = collect($examscores['scores'])->map(function ($item) {
+                                        return [
+                                            'subject_id' => $item['subject_id'],
+                                            'subject_name' => $item['subject_name'],
+                                        ];
+                                    })->unique('subject_id')->values()->toArray();
+
+            $grouped_scores = [];
+            foreach ($examscores['scores'] as $score) {
+                $student_id = $score['exam_registration_student_id'];
+
+                if (!isset($grouped_scores[$student_id])) {
+                    $grouped_scores[$student_id] = [
+                        'student_prem_number' => $score['student_prem_number'],
+                        'student_name' => '', // Optional: load this from DB
+                        'gender' => '',       // Optional: load this too
+                        'scores' => []
+                    ];
+                }
+
+                $grouped_scores[$student_id]['scores'][$score['subject_id']] = $score['score'];
+                $examscores['grouped'] = $grouped_scores;
+            }
+        }
+
+//        mydebug($examscores);
+        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores'));
     }
 
     public function saveExamRegistration(Request $request){
