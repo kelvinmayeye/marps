@@ -44,6 +44,7 @@ class UserController extends Controller
             } else {
                 unset($userArray['user_id']);
                 $userArray['password'] = bcrypt(123);
+                $userArray['role_id'] = 2;
                 User::create($userArray);
             }
 
