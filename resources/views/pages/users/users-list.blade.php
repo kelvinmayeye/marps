@@ -44,7 +44,7 @@
                         <th>Title</th>
                         <th>Role</th>
                         <th>Phone</th>
-                        <th>Email</th>
+                        <th>Token</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -55,11 +55,11 @@
                             <td style="width: 29px;">{{++$key}}</td>
                             <td>{{ ($s->title ?? '') .' '. ($s->name ?? '') }}</td>
                             <td>{{$s->username}}</td>
-                            <td>{{''}}</td>
+                            <td>{{$s->school->name??''}}</td>
                             <td>{{$s->school_position}}</td>
-                            <td>{{''}}</td>
+                            <td>{{$s->role->name}}</td>
                             <td>{{$s->phone_number}}</td>
-                            <td>{{$s->email}}</td>
+                            <td><span class="fw-bolder text-danger" title="User should user this token on first login">{{$s->remember_token??null}}</span></td>
                             <td>
                                 <div class="text-center">
                                      <span class="badge

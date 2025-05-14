@@ -1,15 +1,15 @@
 <div class="flex-fill border-start ps-3">
     <div class="d-flex align-items-center justify-content-between flex-wrap border-bottom pt-3 mb-3">
         <div class="mb-3">
-            <h5>Examination Scored</h5>
-            <p>scores for {exam-name} by {{auth()->user()->school->name}}</p>
+            <h5>Examination Scores</h5>
+            <p>Scores for {{$exam_registration->exam->name}} by {{auth()->user()->school->name}}</p>
         </div>
     </div>
     <div class="d-md-flex d-block">
         <div class="flex-fill">
             <div class="card">
                 <div class="card-header">
-                    <h5>Examination {name} Results</h5>
+                    <h5>{{$exam_registration->exam->name}} Results</h5>
                 </div>
                 <div class="card-body">
                     <div class="" style="">

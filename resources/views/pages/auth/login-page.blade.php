@@ -45,7 +45,7 @@
                 <div class="col-lg-6">
                     <div class="d-lg-flex align-items-center justify-content-center bg-light-300 d-lg-block d-none flex-wrap vh-100 overflowy-auto bg-01">
                         <div>
-{{--                            <img src="{{asset("assets/img/authentication/coat_of_arms.png")}}" alt="Img">--}}
+                            <img src="{{asset("assets/img/authentication/coat_of_arms.png")}}" alt="Img">
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                                 @csrf
                                 <div>
                                     <div class=" mx-auto text-center">
-{{--                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">--}}
+                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">
                                     </div>
                                     <div class="card">
                                         <div class="card-body p-4">
@@ -73,11 +73,11 @@
 														<span class="input-icon-addon">
 															<i class="ti ti-user"></i>
 														</span>
-                                                    <input type="text" value="" name="username" class="border border-1 border-primary form-control" required>
+                                                    <input type="text" name="username" class="border border-1 border-primary form-control" value="{{ old('username') }}" required>
                                                 </div>
                                                 <label class="form-label">Password</label>
                                                 <div class="pass-group">
-                                                    <input type="password" value="" name="password" class="pass-input border border-1 border-primary form-control" required>
+                                                    <input type="password" value="{{ old('password') }}" name="password" class="pass-input border border-1 border-primary form-control" required>
                                                     <span class="ti toggle-password ti-key"></span>
                                                 </div>
 

@@ -63,6 +63,7 @@ class AcademicClassController extends Controller
 
     public function examRegistrationPage(Request $request){
         $page = $request->get('page');
+        $exam_registration = [];
         $examscores = [];
         if (empty($page)) redirect()->route('user.home')->with('error','failed to get specified page');
         if(empty(Auth::user()->school_id)) return back()->with('error','Your account is not assigned to school');
@@ -71,6 +72,7 @@ class AcademicClassController extends Controller
         $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
         if($page=='view-exam-scores'){
             $exam_registration_id = $request->get('exam_registration_id');
+            $exam_registration = ExamRegistration::query()->find($exam_registration_id);
             if(empty($exam_registration_id)) return back()->with("error","Examination Registration Id is missing please try again");
             $examscores['scores'] = ExamSubjectScore::query()->where('exam_registration_id',$exam_registration_id)->get()->toArray();
             $examscores['subjects'] = collect($examscores['scores'])->map(function ($item) {
@@ -83,12 +85,13 @@ class AcademicClassController extends Controller
             $grouped_scores = [];
             foreach ($examscores['scores'] as $score) {
                 $student_id = $score['exam_registration_student_id'];
+                $student = ExamRegistrationStudent::query()->find($student_id);
 
                 if (!isset($grouped_scores[$student_id])) {
                     $grouped_scores[$student_id] = [
                         'student_prem_number' => $score['student_prem_number'],
-                        'student_name' => '', // Optional: load this from DB
-                        'gender' => '',       // Optional: load this too
+                        'student_name' => $student->fullname, // Optional: load this from DB
+                        'gender' => $student->gender,       // Optional: load this too
                         'scores' => []
                     ];
                 }
@@ -99,7 +102,7 @@ class AcademicClassController extends Controller
         }
 
 //        mydebug($examscores);
-        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores'));
+        return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
 
     public function saveExamRegistration(Request $request){

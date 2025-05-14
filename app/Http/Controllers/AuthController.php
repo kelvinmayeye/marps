@@ -43,9 +43,11 @@ class AuthController extends Controller
         }
 
         if($user->status === 'accepted'){
-            if (!is_null($user->remember_token)){
-                session()->put('confirm_token','Account is request accepted but please confirm your token first.');
-                return back()->with('error', 'Account is request accepted but please confirm your token first.');
+            if (!is_null($user->remember_token)) {
+                session()->put('confirm_token', 'Account is request accepted but please confirm your token first.');
+                return back()
+                    ->withInput($request->only('username', 'password'))
+                    ->with('error', 'Account is request accepted but please confirm your token first.');
             } else{
                 return back()->with('error', 'Account is request accepted but request for new token');
             }

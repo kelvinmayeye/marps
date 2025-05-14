@@ -44,12 +44,12 @@ class UserController extends Controller
             } else {
                 unset($userArray['user_id']);
                 $userArray['password'] = bcrypt(123);
-                $userArray['role_id'] = 2;
+                $userArray['role_id'] = 2;//default user role
                 User::create($userArray);
             }
 
-            toastr()->success('User saved successfully');
-            return back();
+//            toastr()->success('User saved successfully');
+            return redirect()->route('users.account.requests')->with('success','User saved successfully');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

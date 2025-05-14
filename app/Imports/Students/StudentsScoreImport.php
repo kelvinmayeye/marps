@@ -50,13 +50,12 @@ class StudentsScoreImport implements ToModel, WithHeadingRow
         }
 
         // Exclude non-subject fields
-        $excluded = ['exam_registered_id', 'prem_number', 'firstname', 'middlename', 'lastname'];
+        $excluded = ['exam_registered_id', 'prem_number', 'firstname', 'middlename', 'lastname','gender'];
         $subjects = array_diff_key($row, array_flip($excluded));
 
         foreach ($subjects as $subjectName => $score) {
-            if (!is_numeric($score)) {
-                continue; // Skip invalid or empty scores
-            }
+            if (!is_numeric($score))  throw new \Exception("Invalid score $score from student Excel with prem number $premNumber");
+            if($score <= 0) $score = 0;
 
             $subject = Subject::whereRaw('LOWER(name) = ?', [strtolower($subjectName)])->first();
             if ($subject) {

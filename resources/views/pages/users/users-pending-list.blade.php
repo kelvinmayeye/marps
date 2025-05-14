@@ -54,7 +54,7 @@
                             <td>{{$s->username}}</td>
                             <td>{{''}}</td>
                             <td>{{$s->school_position}}</td>
-                            <td>{{''}}</td>
+                            <td>{{$s->role->name}}</td>
                             <td>{{$s->phone_number}}</td>
                             <td>{{$s->email}}</td>
                             <td>{{$s->status}}</td>
