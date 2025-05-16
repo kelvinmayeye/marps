@@ -51,6 +51,14 @@
                                 </tr>
                             @endforeach
                             </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="text-center">Exam Summary Report</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
