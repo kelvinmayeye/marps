@@ -70,19 +70,29 @@ class AcademicClassController extends Controller
         $userSchoolInfo = School::query()->find(Auth::user()->school_id);
         if(!$userSchoolInfo) return back('error','User school information not found');
         $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
-        if($page=='view-exam-scores'){
+        if ($page == 'view-exam-scores') {
             $exam_registration_id = $request->get('exam_registration_id');
             $exam_registration = ExamRegistration::query()->find($exam_registration_id);
-            if(empty($exam_registration_id)) return back()->with("error","No Examination Registration Id");
-            $examscores['scores'] = ExamSubjectScore::query()->where('exam_registration_id',$exam_registration_id)->get()->toArray();
-            if(count($examscores['scores']) == 0) return back()->with('error','This examination has no score records yet');
+            if (empty($exam_registration_id)) return back()->with("error", "No Examination Registration Id");
+
+            $examscores['scores'] = ExamSubjectScore::query()
+                ->where('exam_registration_id', $exam_registration_id)
+                ->get()
+                ->toArray();
+
+            if (count($examscores['scores']) == 0)
+                return back()->with('error', 'This examination has no score records yet');
+
             $examscores['subjects'] = collect($examscores['scores'])->map(function ($item) {
-                                        return [
-                                            'subject_id' => $item['subject_id'],
-                                            'subject_name' => $item['subject_name'],
-                                        ];
-                                    })->unique('subject_id')->values()->toArray();
+                return [
+                    'subject_id' => $item['subject_id'],
+                    'subject_name' => $item['subject_name'],
+                ];
+            })->unique('subject_id')->values()->toArray();
+
             $grouped_scores = [];
+            $gender_count = ['M' => 0, 'F' => 0];
+
             foreach ($examscores['scores'] as $score) {
                 $student_id = $score['exam_registration_student_id'];
                 $student = ExamRegistrationStudent::query()->find($student_id);
@@ -90,16 +100,34 @@ class AcademicClassController extends Controller
                 if (!isset($grouped_scores[$student_id])) {
                     $grouped_scores[$student_id] = [
                         'student_prem_number' => $score['student_prem_number'],
-                        'student_name' => $student->fullname, // Optional: load this from DB
-                        'gender' => $student->gender,       // Optional: load this too
+                        'student_name' => $student->fullname,
+                        'gender' => $student->gender,
                         'scores' => []
                     ];
+
+                    // Count gender
+                    if ($student->gender == 'M') {
+                        $gender_count['M']++;
+                    } elseif ($student->gender == 'F') {
+                        $gender_count['F']++;
+                    }
                 }
 
                 $grouped_scores[$student_id]['scores'][$score['subject_id']] = $score['score'];
-                $examscores['grouped'] = $grouped_scores;
             }
+
+            $examscores['grouped'] = $grouped_scores;
+
+            // Summary
+            $examscores['summary'] = [
+                'total_students' => count($grouped_scores),
+                'total_subjects' => count($examscores['subjects']),
+                'male' => $gender_count['M'],
+                'female' => $gender_count['F'],
+            ];
         }
+
+//        mydebug($examscores);
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
 

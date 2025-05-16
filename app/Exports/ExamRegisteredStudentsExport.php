@@ -7,11 +7,12 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExamRegisteredStudentsExport implements FromArray,WithHeadings,ShouldAutoSize,WithStyles,WithTitle
+class ExamRegisteredStudentsExport implements FromArray,WithHeadings,ShouldAutoSize,WithStyles,WithTitle,WithProperties
 {
     /**
      * @throws \Exception
@@ -64,5 +65,18 @@ class ExamRegisteredStudentsExport implements FromArray,WithHeadings,ShouldAutoS
     public function title(): string
     {
         return "Uploaded Students";
+    }
+
+    public function properties(): array
+    {
+        $em = $this->exam_registered_id;
+        return [
+            'title'          => 'Student Registered Template',
+            'description'    => 'Student Registered Template',
+            'subject'        => 'Student Registered Template',
+            'keywords'       => "students,registration, scores, exam, results",
+            'category'       => $em,
+            'company'        => \Auth::user()->school->name,
+        ];
     }
 }

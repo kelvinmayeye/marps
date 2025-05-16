@@ -51,15 +51,33 @@
                                 </tr>
                             @endforeach
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th class="text-center">Exam Summary Report</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                            </tr>
-                            </tfoot>
                         </table>
+
+                        <div class="row justify-content-end mt-2">
+                            <div class="col-md-4">
+                                <table class="table table-bordered table-sm">
+                                    <tr>
+                                        <th colspan="2" class="text-center fw-bolder text-primary">Summary</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Total Students</td>
+                                        <td>{{$examscores['summary']['total_students']??''}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Total Male</td>
+                                        <td>{{$examscores['summary']['male']??''}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Total Female</td>
+                                        <td>{{$examscores['summary']['female']??''}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Total Subject</td>
+                                        <td>{{$examscores['summary']['total_subjects']??''}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

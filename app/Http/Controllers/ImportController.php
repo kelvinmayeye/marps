@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ImportController extends Controller
 {
@@ -61,6 +62,11 @@ class ImportController extends Controller
             $extension = $students_score_file->getClientOriginalExtension();
             if (!in_array($extension, $allowed_extension)) throw new \Exception("File Format not allowed on .xlsx is required");
 
+            $spreadsheet = IOFactory::load($students_score_file->getPathname());
+            $properties = $spreadsheet->getProperties();
+            if($request->get('exam_registration_id') !== $properties->getCategory()){
+                throw new \Exception("This excel doc doesnt belong to the selected exam registered");
+            }
             $file_path = $students_score_file->storeAs($temp_import, time() . '.' . $extension);
             Excel::import(new StudentsScoreImport(exam_registration_id: $request->get('exam_registration_id')), $file_path);
             $examRegistered = ExamRegistration::query()->find($request->get('exam_registration_id'));

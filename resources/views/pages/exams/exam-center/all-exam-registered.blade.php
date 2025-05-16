@@ -18,6 +18,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Exam Reg ID</th>
                                 <th>Total Subjects</th>
                                 <th>Registered by</th>
                                 <th>Registered Students</th>
@@ -32,6 +33,7 @@
                                 <tr>
                                     <td>{{$count++}}</td>
                                     <td>{{$er->exam->name}}</td>
+                                    <td>{{$er->id}}</td>
                                     <td>{{$er->subjects->count()}}</td>
                                     <td>{{$er->createdby->name}}</td>
                                     <td>

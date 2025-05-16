@@ -25,9 +25,13 @@ class StudentsScoreImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        if(empty($row['prem_number'])) return null;;
         $examRegistration = ExamRegistration::find($this->exam_registration_id);
         if (!$examRegistration) {
             throw new \Exception("Registered Exam Reference not found");
+        }
+        if($row['exam_registered_id'] != $this->exam_registration_id){
+            throw new \Exception("Student with PREM number ".$row['prem_number']."  exam registration ID doesn't match selected exam registered");
         }
         if(!empty($examRegistration->approved_by)){
             throw new \Exception("Scores for this exam registration have already been approved and cannot be updated or added");
@@ -57,9 +61,9 @@ class StudentsScoreImport implements ToModel, WithHeadingRow
         $subjects = array_diff_key($row, array_flip($excluded));
 
         foreach ($subjects as $subjectName => $score) {
-            if (!is_numeric($score))  throw new \Exception("Invalid score $score from student Excel with prem number $premNumber");
             if($score <= 0) $score = 0;
-
+            if (!is_numeric($score))  throw new \Exception("Invalid score $score from student Excel with prem number $premNumber");
+            $subjectName = str_replace('_', ' ', $subjectName);
             $subject = Subject::whereRaw('LOWER(name) = ?', [strtolower($subjectName)])->first();
             if ($subject) {
                 ExamSubjectScore::updateOrCreate(
@@ -77,6 +81,8 @@ class StudentsScoreImport implements ToModel, WithHeadingRow
                         'created_by' => Auth::id(),
                     ]
                 );
+            }else{
+                throw new \Exception("Failed to get subject $subjectName");
             }
         }
 
