@@ -58,7 +58,7 @@
                     </h6>
                     <ul>
                         <li>
-                            <a href="">
+                            <a href="{{route('general.settings')}}">
                                 <i class="ti ti-settings"></i>
                                 <span>General Setting</span>
                             </a>

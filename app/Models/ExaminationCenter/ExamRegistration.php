@@ -34,4 +34,9 @@ class ExamRegistration extends Model
     {
         return $this->belongsTo(User::class,'created_by');
     }
+
+    public function approvedby(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'approved_by');
+    }
 }

@@ -46,6 +46,7 @@
                         <th>Physical Address</th>
                         <th>Postal Address</th>
                         <th>Total Staffs</th>
+                        <th>Exam Registered</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -56,8 +57,9 @@
                             <td>{{$s->name}}</td>
                             <td>{{$s->registration_no}}</td>
                             <td>{{$s->physical_address??'-'}}</td>
-                            <td>{{$s->postal_address ?? '-'}}</td>
-                            <td></td>
+                            <td>{{$s->postal_address ??'-'}}</td>
+                            <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->users->count()}}</span></td>
+                            <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->examRegistration->count()}}</span></td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="dropdown">
@@ -72,13 +74,13 @@
                                             <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_school">
                                                     <i class="ti ti-eye me-2"></i>View</a>
                                             </li>
-                                            <li><a class="dropdown-item rounded-1" href="#">
-                                                    <i class="ti ti-user-plus me-2"></i>Add user</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item rounded-1" href="#">
-                                                    <i class="ti ti-trash-x me-2"></i>Delete</a>
-                                            </li>
+{{--                                            <li><a class="dropdown-item rounded-1" href="#">--}}
+{{--                                                    <i class="ti ti-user-plus me-2"></i>Add user</a>--}}
+{{--                                            </li>--}}
+{{--                                            <li>--}}
+{{--                                                <a class="dropdown-item rounded-1" href="#">--}}
+{{--                                                    <i class="ti ti-trash-x me-2"></i>Delete</a>--}}
+{{--                                            </li>--}}
                                         </ul>
                                     </div>
                                 </div>

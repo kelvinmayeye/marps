@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Imports\Students\StudentsImport;
 use App\Imports\Students\StudentsScoreImport;
+use App\Models\ExaminationCenter\ExamRegistration;
+use App\Models\ExaminationCenter\ExamRegistrationStudent;
+use App\Models\ExaminationCenter\ExamRegistrationSubject;
+use App\Models\ExaminationCenter\ExamSubjectScore;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +33,10 @@ class ImportController extends Controller
 
             $file_path = $students_file->storeAs($temp_import, time() . '.' . $extension);
             Excel::import(new StudentsImport(exam_registration_id: $request->get('exam_registration_id')), $file_path);
+            $examRegistered = ExamRegistration::query()->find($request->get('exam_registration_id'));
+            $total_student = ExamRegistrationStudent::query()->where('exam_registration_id',$examRegistered->id)->count();
+            //update total_students uploaded
+            $examRegistered->update(['total_students'=>$total_student]);
             DB::commit();
             if (Storage::directoryExists($temp_import)) Storage::deleteDirectory($temp_import);
         } catch (\Exception $e) {
@@ -55,6 +63,9 @@ class ImportController extends Controller
 
             $file_path = $students_score_file->storeAs($temp_import, time() . '.' . $extension);
             Excel::import(new StudentsScoreImport(exam_registration_id: $request->get('exam_registration_id')), $file_path);
+            $examRegistered = ExamRegistration::query()->find($request->get('exam_registration_id'));
+            //update scores uploaded
+            $examRegistered->update(['student_scores_uploaded'=>1]);
             DB::commit();
             if (Storage::directoryExists($temp_import)) Storage::deleteDirectory($temp_import);
         } catch (\Exception $e) {

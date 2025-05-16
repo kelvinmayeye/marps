@@ -9,9 +9,16 @@
         <div class="flex-fill">
             <div class="card">
                 <div class="card-header">
-                    <h5>{{$exam_registration->exam->name}} Results</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5>{{$exam_registration->exam->name}} Results</h5>
+                    </div>
                 </div>
                 <div class="card-body">
+                    <div class="d-flex justify-content-end mb-2">
+                        <button type="button" class="btn btn-danger btn-sm" data-exam-registered-id="{{$exam_registration->id??''}}" onclick="approveExamScores(this)">
+                            <i class="ti ti-check"></i> Approve
+                        </button>
+                    </div>
                     <div class="" style="">
                         <table class="table table-bordered table-sm" id="">
                             <thead>
@@ -56,7 +63,15 @@
 @include('pages.exams.exam-center.modals.upload-students-scores-modal')
 
 <script>
-    $(document).ready(function () {
-
-    });
+    function approveExamScores(obj){
+        let url = `{{route('approve.uploaded.scores')}}`;
+        let exam_registration_id = $(obj).data('exam-registered-id') || '';
+        let msg = 'Are you sure you want to approve these scores';
+        if (typeof exam_registration_id !== 'number' || exam_registration_id <= 0) {
+            showError("Failed to get Examination Registered ID. Refresh page and try again");
+            return;
+        }
+        let exam = {_token:`{{csrf_token()}}`,exam_registration_id:exam_registration_id};
+        confirmAction(url, exam, msg);
+    }
 </script>

@@ -32,7 +32,7 @@ class ExportController extends Controller
             $examRegistered = ExamRegistration::query()->find($request->get('exam_reg_id'));
             if (!$examRegistered) throw new \Exception("Exam Registered Reference ID not found");
             //get all exam subjects
-            $examSubjects = $examRegistered->exam->subjects->toArray();
+            $examSubjects = $examRegistered->subjects->toArray();
             //add subject name to each item from subjects table using item subject_id
             if(count($examSubjects) == 0) throw new \Exception("This Exam has no Subject, please contact Admin");
             $examSubjects = array_map(function ($item) {

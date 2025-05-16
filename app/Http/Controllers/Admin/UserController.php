@@ -131,20 +131,25 @@ class UserController extends Controller
             if($user->status == 'pending'){
                 $rememberToken = randomString(6);
                 $user->update(['remember_token'=>$rememberToken,'status'=>'accepted']);
-                $userPhoneNo = $user->phone_number;
-                $userPhoneNo = preg_replace('/^0/', '255', $userPhoneNo);
-                $smsData = [
-                    'user_names'=>$user->name,
-                    'token'=>$rememberToken,
-                    'phone_number'=>$userPhoneNo,
-                ];
-                $sendTokenSms = sendUserRegisterToken($smsData);
-                //Todo: save message results for later references
-                if($sendTokenSms['successful']){
-                    $results = ['status'=>'success','msg'=>"User Account accepted and token sms was sent"];
-                }else{
-                    $results = ['status'=>'success','msg'=>"User Account accepted but sending token sms has failed"];
-                }
+                ////
+                 if(config('services.sms_settings.allow_sms_sending')){
+                     $userPhoneNo = $user->phone_number;
+                     $userPhoneNo = preg_replace('/^0/', '255', $userPhoneNo);
+                     $smsData = [
+                         'user_names'=>$user->name,
+                         'token'=>$rememberToken,
+                         'phone_number'=>$userPhoneNo,
+                     ];
+                     $sendTokenSms = sendUserRegisterToken($smsData);
+                     //Todo: save message results for later references
+                     if($sendTokenSms['successful']){
+                         $results = ['status'=>'success','msg'=>"User Account accepted and token sms was sent"];
+                     }else{
+                         $results = ['status'=>'success','msg'=>"User Account accepted but sending token sms has failed"];
+                     }
+                 }else{
+                     $results = ['status'=>'success','msg'=>"User Account accepted successfull but confirmation token was not sent"];
+                 }
             }
 
             DB::commit();

@@ -73,15 +73,15 @@ class AcademicClassController extends Controller
         if($page=='view-exam-scores'){
             $exam_registration_id = $request->get('exam_registration_id');
             $exam_registration = ExamRegistration::query()->find($exam_registration_id);
-            if(empty($exam_registration_id)) return back()->with("error","Examination Registration Id is missing please try again");
+            if(empty($exam_registration_id)) return back()->with("error","No Examination Registration Id");
             $examscores['scores'] = ExamSubjectScore::query()->where('exam_registration_id',$exam_registration_id)->get()->toArray();
+            if(count($examscores['scores']) == 0) return back()->with('error','This examination has no score records yet');
             $examscores['subjects'] = collect($examscores['scores'])->map(function ($item) {
                                         return [
                                             'subject_id' => $item['subject_id'],
                                             'subject_name' => $item['subject_name'],
                                         ];
                                     })->unique('subject_id')->values()->toArray();
-
             $grouped_scores = [];
             foreach ($examscores['scores'] as $score) {
                 $student_id = $score['exam_registration_student_id'];
@@ -100,8 +100,6 @@ class AcademicClassController extends Controller
                 $examscores['grouped'] = $grouped_scores;
             }
         }
-
-//        mydebug($examscores);
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
 
@@ -229,5 +227,22 @@ class AcademicClassController extends Controller
 
     public function examSubjectScores(Request $request){
         mydebug("system has uploaded the score successfully were currently working on displaying uploaded scores");
+    }
+
+    public function approveUploadedScores(Request $request){
+        try {
+            $exam_registration_id = $request->get('exam_registration_id');
+            $examRegistered = ExamRegistration::query()->find($exam_registration_id);
+            if($examRegistered){
+                if(!empty($examRegistered->approved_by)) throw new \Exception("This Exam Scores is already approved");
+                $examRegistered->update(['approved_by'=>Auth::user()->id,'approved_at'=>now()]);
+                $results = ['status'=>'success','msg'=>'Exam Scores are Approved Successful'];
+            }else{
+                 throw new \Exception("Examination not found");
+            }
+        }catch (\Exception $exception){
+            $results = ['status'=>'error','msg'=>$exception->getMessage()];
+        }
+        return response()->json($results);
     }
 }

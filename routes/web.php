@@ -51,6 +51,9 @@ Route::middleware("auth")->group(function() {
     Route::get('class/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'classesList'])->name('class.list');
     Route::post('class/save', [\App\Http\Controllers\Admin\AcademicClassController::class, 'saveClasses'])->name('class.save');
 
+    //general settings
+    Route::get('general/settings',[AdminController::class,'generalSettings'])->name('general.settings');
+
     Route::prefix('academics')->group(function () {
         //Exam registration
         Route::get('examination/center', [\App\Http\Controllers\Admin\AcademicClassController::class, 'examRegistrationPage'])->name('examination.center');//Todo call it examination center
@@ -63,6 +66,9 @@ Route::middleware("auth")->group(function() {
         Route::get('ajax/exam/subject/list', [\App\Http\Controllers\Admin\AcademicClassController::class, 'ajax_exam_subjectList'])->name('ajax.exam.subject.list');
         // exam registered students
         Route::get('view/students', [\App\Http\Controllers\Admin\AcademicClassController::class, 'viewExamRegisteredStudents'])->name('view.exam.registered.students');
+
+        //examinaction
+        Route::post('approve/uploaded/scores', [\App\Http\Controllers\Admin\AcademicClassController::class, 'approveUploadedScores'])->name('approve.uploaded.scores');
     });
 
     Route::prefix('excel')->group(function () {

@@ -45,7 +45,15 @@
                                             </a>
                                         @endif
                                     </td>
-                                    <td><span class="badge bg-outline-success">Not uploaded</span></td>
+                                    <td>
+                                        <span class="badge {{ $er->student_scores_uploaded == 1 ? 'bg-outline-success' : 'bg-outline-danger' }}">
+                                            {{ $er->student_scores_uploaded == 1 ? 'Uploaded' : 'Not Uploaded' }}
+                                        </span>
+                                        @if(!empty($er->approved_by))
+                                            <div><small><i class="text-success-emphasis">Approved By</i></small></div>
+                                            <div><span class="fw-bold text-success-emphasis">{{$er->approvedby->name}}</span></div>
+                                        @endif
+                                    </td>
                                     <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -54,6 +62,7 @@
                                                     <i class="ti ti-dots-vertical fs-14"></i>
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right" style="">
+                                                    @if(empty($er->approved_by))
                                                     <li>
                                                         <a class="dropdown-item rounded-1" href="{{route('download.register.students.template')}}">
                                                             <i class="ti ti-file-download me-2 text-primary"></i> Students Template
@@ -64,26 +73,35 @@
                                                             <i class="ti ti-file-upload me-2 text-primary"></i>Import Students
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a class="dropdown-item rounded-1" href="{{route('download.students.score.template',['exam_reg_id'=>$er->id])}}" title="click to download score template">
-                                                            <i class="ti ti-file-download me-2 text-primary"></i>Score Template
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentScoresModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
-                                                            <i class="ti ti-file-upload me-2 text-danger"></i>Upload Scores
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item rounded-1" href="{{route('examination.center',['page'=>'view-exam-scores','exam_registration_id'=>$er->id])}}" title="click to download score template">
-                                                            <i class="ti ti-list me-2 text-success"></i>View Score
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item rounded-1" href="#" title="click to download score template">
-                                                            <i class="ti ti-checks me-2 text-success"></i>Approve Score
-                                                        </a>
-                                                    </li>
+                                                    @endif
+                                                   @if($er->total_students > 0)
+                                                        @if(empty($er->approved_by))
+                                                            <li>
+                                                                <a class="dropdown-item rounded-1" href="{{route('download.students.score.template',['exam_reg_id'=>$er->id])}}" title="click to download score template">
+                                                                    <i class="ti ti-file-download me-2 text-primary"></i>Score Template
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item rounded-1" href="#" onclick="openUploadStudentScoresModal(this)" data-exam-reg-id="{{$er->id}}" data-exam-name="{{base64_encode($er->exam->name)}}">
+                                                                    <i class="ti ti-file-upload me-2 text-danger"></i>Upload Scores
+                                                                </a>
+                                                            </li>
+                                                        @endif
+                                                        @if($er->student_scores_uploaded)
+                                                                <li>
+                                                                    <a class="dropdown-item rounded-1" href="{{route('examination.center',['page'=>'view-exam-scores','exam_registration_id'=>$er->id])}}" title="click to download score template">
+                                                                        <i class="ti ti-list me-2 text-success"></i>View Score
+                                                                    </a>
+                                                                </li>
+                                                        @endif
+                                                        @if(empty($er->approved_by) && $er->student_scores_uploaded)
+                                                                <li>
+                                                                    <a class="dropdown-item rounded-1" href="#" title="click to download score template">
+                                                                        <i class="ti ti-checks me-2 text-success"></i>Approve Score
+                                                                    </a>
+                                                                </li>
+                                                        @endif
+                                                   @endif
                                                 </ul>
                                             </div>
                                         </div>

@@ -53,4 +53,8 @@ class AdminController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function generalSettings(Request $request){
+        return view('pages.general-settings.general-settings');
+    }
 }

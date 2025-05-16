@@ -29,6 +29,9 @@ class StudentsScoreImport implements ToModel, WithHeadingRow
         if (!$examRegistration) {
             throw new \Exception("Registered Exam Reference not found");
         }
+        if(!empty($examRegistration->approved_by)){
+            throw new \Exception("Scores for this exam registration have already been approved and cannot be updated or added");
+        }
 
         $exam = Exam::find($examRegistration->examination_id);
         if (!$exam) {
