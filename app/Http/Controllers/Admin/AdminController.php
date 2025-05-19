@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AcademicGrade;
 use App\Models\Admin\School;
 use Illuminate\Http\Request;
 
@@ -56,5 +57,15 @@ class AdminController extends Controller
 
     public function generalSettings(Request $request){
         return view('pages.general-settings.general-settings');
+    }
+
+    public function getGrade(){
+        $grades = AcademicGrade::all();
+
+        return view('pages.academics.academics-grade-list',compact('grades'));
+    }
+
+    public function saveGrades(Request $request){
+        return back()->with('success','Grade Added Successfully');
     }
 }

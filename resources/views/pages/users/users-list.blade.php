@@ -128,6 +128,7 @@
             userModal.find('.user-phone-number').val('');
             userModal.find('.user-school-id').val('');
             userModal.find('.user-school-position').val('');
+            userModal.find('.user-role').val('');
 
             //userModal.find('.user-phone-number').prop('checked', true);
             if(user){
@@ -141,6 +142,7 @@
                 userModal.find('.user-phone-number').val(user.phone_number || '');
                 userModal.find('.user-school-id').val(user.school_id || '');
                 userModal.find('.user-school-position').val(user.school_position || '');
+                userModal.find('.user-role').val(user.role_id || '');
                 // userModal.find('.user-is-active').prop('checked', user.is_active === 1);
             }
         });

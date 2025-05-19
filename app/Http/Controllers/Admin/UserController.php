@@ -14,7 +14,8 @@ class UserController extends Controller
     public function getAllUsers(Request $request){
         $users = User::query()->whereNot('status','pending')->whereNot('id',1)->get();
         $schools = School::all();
-        return view('pages.users.users-list',compact('users','schools'));
+        $roles = Role::all();
+        return view('pages.users.users-list',compact('users','schools','roles'));
     }
 
     public function getUsersRequests(Request $request){

@@ -35,6 +35,11 @@ Route::middleware("auth")->group(function() {
     Route::get('schools/list', [AdminController::class, 'getSchools'])->name('schools.list');
     Route::post('schools/save', [AdminController::class, 'saveSchool'])->name('schools.save');
 
+    //grades
+    Route::get('grades/list', [AdminController::class, 'getGrade'])->name('grades.list');
+    Route::post('grades/save', [AdminController::class, 'saveGrades'])->name('grade.save');
+    Route::post('grades/delete', [AdminController::class, 'deleteGrade'])->name('grade.delete');
+
     //subject
     Route::get('subject/list', [SubjectController::class, 'subjectList'])->name('subject.list');
     Route::post('subject/save', [SubjectController::class, 'saveSubject'])->name('subject.save');

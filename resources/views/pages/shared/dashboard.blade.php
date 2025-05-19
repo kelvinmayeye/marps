@@ -6,13 +6,13 @@
     <!-- Page Header -->
     <div class="d-md-flex d-block align-items-center justify-content-between mb-3">
         <div class="my-auto mb-2">
-            <h3 class="page-title mb-1">Admin Dashboard</h3>
+            <h3 class="page-title mb-1">Dashboard</h3>
             <nav>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item">
                         <a href="index.html">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Admin Dashboard</li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                 </ol>
             </nav>
         </div>
@@ -166,4 +166,209 @@
         <!-- /Total Pending User -->
 
     </div>
+
+    @if(Auth::user()->role->name == 'admin')
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card flex-fill">
+                    <div class="card-header  d-flex align-items-center justify-content-between">
+                        <h4 class="card-title">Recent Added schools</h4>
+                        <a href="{{route('schools.list')}}" class="fw-medium">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0 me-2">
+                                            <img src="assets/img/events/event-01.jpg" class="img-fluid" alt="img">
+                                        </a>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-1"><a href="events.html">Parents, Teacher Meet</a>
+                                            </h6>
+                                            <p><i class="ti ti-calendar me-1"></i>15 July 2024</p>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-soft-danger d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Full Day</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0 me-2">
+                                            <img src="assets/img/events/event-02.jpg" class="img-fluid" alt="img">
+                                        </a>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-1"><a href="events.html">Farewell</a></h6>
+                                            <p><i class="ti ti-calendar me-1"></i>11 Mar 2024</p>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-soft-skyblue d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Half Day</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0 me-2">
+                                            <img src="assets/img/events/event-03.jpg" class="img-fluid" alt="img">
+                                        </a>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-1"><a href="events.html">Annual Day</a></h6>
+                                            <p><i class="ti ti-calendar me-1"></i>11 Mar 2024</p>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-soft-skyblue d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Half Day</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0 me-2">
+                                            <img src="assets/img/events/event-04.jpg" class="img-fluid" alt="img">
+                                        </a>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-1"><a href="events.html">Holi Celebration</a></h6>
+                                            <p><i class="ti ti-calendar me-1"></i>15 July 2024</p>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-soft-danger d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Full Day</span>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <a href="javascript:void(0);" class="avatar avatar-lg flex-shrink-0 me-2">
+                                            <img src="assets/img/events/event-05.jpg" class="img-fluid" alt="img">
+                                        </a>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-1"><a href="events.html">Exam Result</a></h6>
+                                            <p><i class="ti ti-calendar me-1"></i>16 July 2024</p>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-soft-skyblue d-inline-flex align-items-center"><i class="ti ti-circle-filled fs-5 me-1"></i>Half Day</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
+                        <h4 class="card-title">Examination Summary</h4>
+                    </div>
+                    <div class="card-body px-0">
+                        <div class="custom-datatable-filter table-responsive">
+                            <table class="table ">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>Exam #</th>
+                                    <th>Name</th>
+                                    <th>Subjects</th>
+                                    <th>Registered Schools</th>
+                                    <th>Highest Avg</th>
+                                    <th>Status</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>35013</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="student-details.html" class="avatar avatar-md"><img src="assets/img/students/student-01.jpg" class="img-fluid rounded-circle" alt="img"></a>
+                                            <div class="ms-2">
+                                                <p class="text-dark mb-0"><a href="student-details.html">Janet</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>III</td>
+                                    <td>A</td>
+                                    <td>89%</td>
+                                    <td>4.2</td>
+                                    <td>
+                                        <span class="badge bg-success">Pass</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>35013</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="student-details.html" class="avatar avatar-md"><img src="assets/img/students/student-02.jpg" class="img-fluid rounded-circle" alt="img"></a>
+                                            <div class="ms-2">
+                                                <p class="text-dark mb-0"><a href="staff-details.html">Joann</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>IV</td>
+                                    <td>B</td>
+                                    <td>88%</td>
+                                    <td>3.2</td>
+                                    <td>
+                                        <span class="badge bg-success">Pass</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>35011</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="student-details.html" class="avatar avatar-md"><img src="assets/img/students/student-03.jpg" class="img-fluid rounded-circle" alt="img"></a>
+                                            <div class="ms-2">
+                                                <p class="text-dark mb-0"><a href="student-details.html">Kathleen</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>II</td>
+                                    <td>A</td>
+                                    <td>69%</td>
+                                    <td>4.5</td>
+                                    <td>
+                                        <span class="badge bg-success">Pass</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>35010</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="student-details.html" class="avatar avatar-md"><img src="assets/img/students/student-04.jpg" class="img-fluid rounded-circle" alt="img"></a>
+                                            <div class="ms-2">
+                                                <p class="text-dark mb-0"><a href="student-details.html">Gifford</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>I</td>
+                                    <td>B</td>
+                                    <td>21%</td>
+                                    <td>4.5</td>
+                                    <td>
+                                        <span class="badge bg-success">Pass</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>35009</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <a href="student-details.html" class="avatar avatar-md"><img src="assets/img/students/student-05.jpg" class="img-fluid rounded-circle" alt="img"></a>
+                                            <div class="ms-2">
+                                                <p class="text-dark mb-0"><a href="student-details.html">Lisa</a></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>II</td>
+                                    <td>B</td>
+                                    <td>31%</td>
+                                    <td>3.9</td>
+                                    <td>
+                                        <span class="badge bg-danger">Fail</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

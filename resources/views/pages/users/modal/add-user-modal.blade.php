@@ -72,6 +72,17 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Role</label>
+                                <select class="form-control user-role" name="role_id">
+                                    <option value="" selected>--Select User Role--</option>
+                                    @foreach($roles as $r)
+                                        <option value="{{$r->id}}">{{$r->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

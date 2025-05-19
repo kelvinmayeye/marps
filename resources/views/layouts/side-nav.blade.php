@@ -27,7 +27,7 @@
                             <a href="javascript:void(0);"><i class="ti ti-hexagonal-prism-plus"></i><span>Examinations</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{route('exam.list')}}">Exam</a></li>
-                                <li><a href="">Grades</a></li>
+                                <li><a href="{{route('grades.list')}}">Grades</a></li>
                                 <li><a href="">Academic Year</a></li>
                                 {{--                                <li><a href="">Exam Attendance</a></li>--}}
                                 {{--                                <li><a href="">Exam Results</a></li>--}}
