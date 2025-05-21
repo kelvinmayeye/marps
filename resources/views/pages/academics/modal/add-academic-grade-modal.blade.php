@@ -32,8 +32,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label class="form-label">GPA</label>
-                                <input type="number" step="0.01" class="form-control" name="gpa" placeholder="e.g. 4.00">
+                                <label class="form-label">Points</label>
+                                <input type="number" step="0.01" class="form-control" name="points" placeholder="e.g. 4.00">
                             </div>
                         </div>
                         <div class="col-md-8">

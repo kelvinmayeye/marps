@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AcademicGrade;
 use App\Models\Admin\School;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class AdminController extends Controller
 {
@@ -65,7 +66,42 @@ class AdminController extends Controller
         return view('pages.academics.academics-grade-list',compact('grades'));
     }
 
-    public function saveGrades(Request $request){
-        return back()->with('success','Grade Added Successfully');
+    public function saveGrades(Request $request)
+    {
+        try {
+            $gradeArray = $request->except('_token');
+//            mydebug($gradeArray);
+            $gradeId = $gradeArray['grade_id'] ?? null;
+            $gradeName = $gradeArray['grade'];
+
+            // Check if grade already exists (excluding current one if editing)
+            $existingGrade = AcademicGrade::where('grade', $gradeName);
+
+            if ($gradeId) {
+                $existingGrade = $existingGrade->where('id', '!=', $gradeId);
+            }
+
+            $existingGrade = $existingGrade->first();
+
+            if ($existingGrade) {
+                return redirect()->back()->with('error', 'Grade already exists');
+            }
+
+            if (empty($gradeArray['grade_id'])) {
+                unset($gradeArray['grade_id']);
+//                mydebug($gradeArray);
+                AcademicGrade::create($gradeArray);
+            } else {
+                $grade = AcademicGrade::findOrFail($gradeArray['grade_id']);
+                unset($gradeArray['grade_id']);
+                $grade->update($gradeArray);
+            }
+
+            toastr()->success('AcademicGrade saved successfully');
+            return back();
+        } catch (\Exception $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
+
 }
