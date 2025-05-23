@@ -164,8 +164,8 @@ class AcademicClassController extends Controller
     }
 
     public function examList(Request $request){
-        $exams = Exam::list()->get();
-        $exams = $exams->unique('id')->values();
+        $exams = Exam::query()->get();
+//        $exams = $exams->unique('id')->values();
         $exams = $exams->map(function ($exam) {
             $exam->exam_subject_count = ExamSubject::where('exam_id', $exam->id)->count();
             return $exam;

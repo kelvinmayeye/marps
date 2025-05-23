@@ -43,6 +43,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Total Subjects</th>
+                        <th>School Registered</th>
                         <th>Status</th>
                         <th>Created by</th>
                         <th>Action</th>
@@ -55,23 +56,21 @@
                             <td>{{$e->name}}</td>
                             <td>{{$e->exam_type_name??null}}</td>
                             <td>{{$e->exam_subject_count }}</td>
+                            <td>{{$e->schoolRegistration->count() }}</td>
                             <td>
                                 <span class="badge {{($e->is_active)?'badge-soft-success':'badge-soft-danger'}} d-inline-flex align-items-center">
                                     <i class="ti ti-circle-filled fs-5 me-1"></i>{{($e->is_active)?'Active':'Inactive'}}</span>
                             </td>
                             <td>{{$e->creator_name}}</td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical fs-14"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li><a class="dropdown-item rounded-1" href="#" data-exam-object="{{base64_encode(json_encode($e))}}" data-bs-toggle="modal" data-bs-target="#add_exam">
-                                                    <i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="justify-content-evenly">
+                                    <button class="btn btn-primary btn-sm" title="edit exam details" data-exam-object="{{base64_encode(json_encode($e))}}" data-bs-toggle="modal" data-bs-target="#add_exam">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+
+                                    <a href="" title="view reports" class="btn btn-success btn-sm">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

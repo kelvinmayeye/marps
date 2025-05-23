@@ -62,7 +62,7 @@
                                                    data-bs-toggle="modal" data-bs-target="#add_role" data-role-object="{{base64_encode(json_encode($r))}}">
                                                     <i class="ti ti-edit-circle text-primary"></i>
                                                 </a>
-                                                <a href="{{route('roles.permissions')}}" class="btn btn-outline-light bg-white btn-icon d-flex align-items-center justify-content-center rounded-circle  p-0 me-2">
+                                                <a href="{{route('roles.permissions',['role_id'=>$r->id])}}" class="btn btn-outline-light bg-white btn-icon d-flex align-items-center justify-content-center rounded-circle  p-0 me-2">
                                                     <i class="ti ti-user-bolt text-success"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-outline-light bg-white btn-icon d-flex align-items-center justify-content-center rounded-circle p-0 me-3"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Exam;
 use App\Models\Admin\School;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,7 +15,12 @@ class AuthController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            return view('pages.shared.dashboard', compact('user'));
+            $dashboardData = [];
+            $dashboardData['recentSchools'] = School::query()->latest('id')->limit(5)->get()->toArray();
+            $dashboardData['examinationSummary'] = Exam::query()->get();
+
+//            mydebug($dashboardData);
+            return view('pages.shared.dashboard', compact('user','dashboardData'));
         } else {
             return view('pages.auth.login-page');
         }

@@ -51,21 +51,6 @@ class DatabaseSeeder extends Seeder
                 ['name' => $type] // You can add additional fields here if needed
             );
         }
-
-        $permissions = [
-            'users' => ['accept_user', 'reject', 'resend_token'],
-            'subject' => ['add_subject', 'delete_subject'],
-            'classes' => ['add_classes', 'add_classes'],
-        ];
-
-        foreach ($permissions as $group => $names) {
-            foreach (array_unique($names) as $name) {
-                Permission::updateOrCreate(
-                    ['name' => $name, 'group' => $group],
-                    ['name' => $name, 'group' => $group]
-                );
-            }
-        }
+        $this->call([PermissionSeeder::class]);
     }
-
 }

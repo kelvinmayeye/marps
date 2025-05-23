@@ -16,4 +16,5 @@ Route::middleware("auth")->group(function() {
 
 
     Route::get('roles/permissions', [UserController::class, 'getAllPermissions'])->name('roles.permissions');
+    Route::post('roles/permissions', [UserController::class, 'saveRolePermission'])->name('save.role.permission');
 });

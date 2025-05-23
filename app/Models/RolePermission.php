@@ -18,4 +18,14 @@ class RolePermission extends Model
             ->join('roles as r','r.id','=','rp.roleid')
             ->join('permissions as p','p.id','=','rp.permissionid');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
 }

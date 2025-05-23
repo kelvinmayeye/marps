@@ -36,34 +36,52 @@
         </div>
 
         <div class="card-body p-0 py-3">
-            <div class="table-responsive px-3">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Role</th>
-                        <th>Permission</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <form action="{{ route('save.role.permission') }}" method="POST">
+                @csrf
+
+                <div class="table-responsive px-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Permission</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         @foreach($rolesWithPermissions as $role)
                             <tr>
                                 <td>{{ $role['name'] }}</td>
                                 <td>
-                                    @foreach($role['role_permissions'] as $permission)
-                                        <div>
-                                            <label class="checkboxs">
-                                                {{ $permission['name'] }}
-                                                <input type="checkbox" class="border border-1 border-primary" name="permissions[{{ $role['id'] }}][]" value="{{ $permission['id'] }}">
-                                                <span class="checkmarks"></span>
-                                            </label>
+                                    <!-- Hidden input ensures role is submitted even if no checkboxes are selected -->
+                                    <input type="hidden" name="permissions[{{ $role['id'] }}]" value="">
+
+                                    @foreach(array_chunk($role['role_permissions'], 4) as $permissionChunk)
+                                        <div class="row">
+                                            @foreach($permissionChunk as $permission)
+                                                <div class="col-md-3">
+                                                    <label class="checkboxs">
+                                                        {{ $permission['name'] }}
+                                                        <input type="checkbox" class="border border-1 border-primary" name="permissions[{{ $role['id'] }}][]" value="{{ $permission['id'] }}" {{$permission['is_checked'] ? 'checked':''}}>
+                                                        <span class="checkmarks"></span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     @endforeach
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+
+                    <div class="row mt-2">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
         </div>
         @endsection
 

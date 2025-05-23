@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\ExaminationCenter\ExamRegistration;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,11 @@ class Exam extends Model
     public function subjects(): HasMany
     {
         return $this->hasMany(ExamSubject::class,'exam_id');
+    }
+
+    public function schoolRegistration(): HasMany
+    {
+        return $this->hasMany(ExamRegistration::class,'examination_id');
     }
 
     public function scopeList()

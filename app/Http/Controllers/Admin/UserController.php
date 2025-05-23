@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\School;
 use App\Models\Role;
+use App\Models\RolePermission;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -89,12 +91,12 @@ class UserController extends Controller
     }
 
     public function getAllPermissions(Request $request){
+        mydebug(Auth::user()->role->permissions);
         try {
             $roleId = $request->get('role_id');
 
             if(!empty($roleId)){
                 $roles = \App\Models\Role::all();
-
             }
             $permissions = \App\Models\Permission::all();
             $rolePermissions = \DB::table('role_permissions')->select('role_id', 'permission_id')->get()->groupBy('role_id');
@@ -115,9 +117,45 @@ class UserController extends Controller
                 ];
             })->all();
         }catch (\Exception $e){
-
+            return back()->with('error',$e->getMessage());
         }
+//        mydebug($rolesWithPermissions);
         return view('pages.users.roles.roles-permission',compact('roles','rolesWithPermissions'));
+    }
+
+    public function saveRolePermission(Request $request)
+    {
+        try {
+            $rolePermissions = $request->get('permissions', []);
+            DB::beginTransaction();
+
+            foreach ($rolePermissions as $roleId => $permissionIds) {
+                $permissionIds = array_filter((array) $permissionIds);
+                $existing = RolePermission::where('role_id', $roleId)->pluck('permission_id')->toArray();
+
+                $toAdd = array_diff($permissionIds, $existing);
+                $toRemove = array_diff($existing, $permissionIds);
+
+                foreach ($toAdd as $permissionId) {
+                    RolePermission::create([
+                        'role_id' => $roleId,
+                        'permission_id' => $permissionId,
+                    ]);
+                }
+
+                if (!empty($toRemove)) {
+                    RolePermission::where('role_id', $roleId)
+                        ->whereIn('permission_id', $toRemove)
+                        ->delete();
+                }
+            }
+
+            DB::commit();
+            return back()->with('success', 'Role permissions updated successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors('An error occurred: ' . $e->getMessage());
+        }
     }
 
     public function acceptAccountRequest(Request $request){

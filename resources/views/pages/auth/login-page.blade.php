@@ -45,7 +45,7 @@
                 <div class="col-lg-6">
                     <div class="d-lg-flex align-items-center justify-content-center bg-light-300 d-lg-block d-none flex-wrap vh-100 overflowy-auto bg-01">
                         <div>
-                            <img src="{{asset("assets/img/authentication/coat_of_arms.png")}}" alt="Img">
+                            <img src="{{asset("assets/img/authentication/coat_of_armss.png")}}" alt="Img">
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                                 @csrf
                                 <div>
                                     <div class=" mx-auto text-center">
-                                        <img src="{{asset("assets/img/authentication/municipal-logo.png")}}" class="img-fluid" alt="Logo">
+                                        <img src="{{asset("assets/img/authentication/municipall-logo.png")}}" class="img-fluid" alt="Logo">
                                     </div>
                                     <div class="card">
                                         <div class="card-body p-4">
