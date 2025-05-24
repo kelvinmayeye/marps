@@ -91,7 +91,9 @@ class UserController extends Controller
     }
 
     public function getAllPermissions(Request $request){
-        mydebug(Auth::user()->role->permissions);
+        $rol = Auth::user()->role->permissions;
+        mydebug('kuhk');
+        $rol = (array) $rol;
         try {
             $roleId = $request->get('role_id');
 

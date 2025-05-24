@@ -19,4 +19,26 @@ function randomString($limit = 4, $with_numbers = true) {
     return $randomString;
 }
 
+function authUserHasRole(){
+    $userRole = Auth::user()->role_id;
+    if (empty($user)) return false;
+    return $userRole;
+}
+
+function rolesPermission($roleId)
+{
+    $permissions = \App\Models\RolePermission::with('permission')
+        ->where('role_id', $roleId)
+        ->get()
+        ->map(function ($rolePermission) {
+            return [
+                'id' => $rolePermission->permission->id,
+                'name' => $rolePermission->permission->name,
+            ];
+        })
+        ->toArray();
+
+    return $permissions;
+}
+
 
