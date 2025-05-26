@@ -9,37 +9,37 @@
             </div>
             <form action="{{ route('grade.save') }}" method="post">
                 @csrf
-                <input type="hidden" name="grade_id" value=""> {{-- for future editing --}}
+                <input type="hidden" class="grade-id" name="grade_id" value=""> {{-- for future editing --}}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Grade <small class="text-danger">*</small></label>
-                                <input type="text" class="form-control" name="grade" placeholder="e.g. A, B+" required>
+                                <input type="text" class="form-control grade-name" name="grade" placeholder="e.g. A, B+" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Min Score <small class="text-danger">*</small></label>
-                                <input type="number" step="0.01" class="form-control" name="min_score" placeholder="e.g. 80.00" required>
+                                <input type="number" step="0.01" class="form-control grade-min-score" name="min_score" placeholder="e.g. 80.00" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Max Score <small class="text-danger">*</small></label>
-                                <input type="number" step="0.01" class="form-control" name="max_score" placeholder="e.g. 100.00" required>
+                                <input type="number" step="0.01" class="form-control grade-max-score" name="max_score" placeholder="e.g. 100.00" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Points</label>
-                                <input type="number" step="0.01" class="form-control" name="points" placeholder="e.g. 4.00">
+                                <input type="number" step="0.01" class="form-control grade-points" name="points" placeholder="e.g. 4.00">
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="mb-3">
                                 <label class="form-label">Remarks</label>
-                                <input type="text" class="form-control" name="remarks" placeholder="e.g. Excellent, Good">
+                                <input type="text" class="form-control grade-remarks" name="remarks" placeholder="e.g. Excellent, Good">
                             </div>
                         </div>
                     </div>

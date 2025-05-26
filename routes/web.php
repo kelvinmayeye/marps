@@ -72,7 +72,7 @@ Route::middleware("auth")->group(function() {
         // exam registered students
         Route::get('view/students', [\App\Http\Controllers\Admin\AcademicClassController::class, 'viewExamRegisteredStudents'])->name('view.exam.registered.students');
 
-        //examinaction
+        //examination
         Route::post('approve/uploaded/scores', [\App\Http\Controllers\Admin\AcademicClassController::class, 'approveUploadedScores'])->name('approve.uploaded.scores');
     });
 

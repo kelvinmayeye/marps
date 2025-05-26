@@ -47,7 +47,7 @@
                         <th>Postal Address</th>
                         <th>Total Staffs</th>
                         <th>Exam Registered</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,28 +61,13 @@
                             <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->users->count()}}</span></td>
                             <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->examRegistration->count()}}</span></td>
                             <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical fs-14"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_school">
-                                                    <i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                            </li>
-
-                                            <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_school">
-                                                    <i class="ti ti-eye me-2"></i>View</a>
-                                            </li>
-{{--                                            <li><a class="dropdown-item rounded-1" href="#">--}}
-{{--                                                    <i class="ti ti-user-plus me-2"></i>Add user</a>--}}
-{{--                                            </li>--}}
-{{--                                            <li>--}}
-{{--                                                <a class="dropdown-item rounded-1" href="#">--}}
-{{--                                                    <i class="ti ti-trash-x me-2"></i>Delete</a>--}}
-{{--                                            </li>--}}
-                                        </ul>
-                                    </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="" class="btn btn-primary btn-sm" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_school">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="" class="btn btn-success btn-sm" title="view examination list">
+                                        <i class="fa fa-list"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

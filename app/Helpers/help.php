@@ -25,20 +25,40 @@ function authUserHasRole(){
     return $userRole;
 }
 
-function rolesPermission($roleId)
+function rolesPermissionGrouped($roleId)
 {
-    $permissions = \App\Models\RolePermission::with('permission')
+    return \App\Models\RolePermission::with('permission')
         ->where('role_id', $roleId)
         ->get()
-        ->map(function ($rolePermission) {
-            return [
-                'id' => $rolePermission->permission->id,
-                'name' => $rolePermission->permission->name,
-            ];
-        })
+        ->groupBy(fn($rp) => $rp->permission->group)
+        ->map(fn($group) => $group->pluck('permission.name')->toArray())
         ->toArray();
+}
 
-    return $permissions;
+if (!function_exists('hasPermission')) {
+    function hasPermission($group, $permission)
+    {
+//        mydebug(Auth::user()->role->name);
+        if (Auth::user()->role->name == 'admin'){
+//            mydebug('admiuehre');
+            return true;
+        }
+
+        $permissions = View::shared('groupedPermissions') ?? [];
+
+        if (empty($permissions) && Auth::check() && Auth::user()->role) {
+            $permissions = \App\Models\RolePermission::with('permission')
+                ->where('role_id', Auth::user()->role->id)
+                ->get()
+                ->pluck('permission')
+                ->filter()
+                ->groupBy('group')
+                ->map(fn($items) => $items->pluck('name')->toArray())
+                ->toArray();
+        }
+
+        return isset($permissions[$group]) && in_array($permission, $permissions[$group]);
+    }
 }
 
 

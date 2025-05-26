@@ -37,11 +37,11 @@
                     <thead class="thead-light">
                     <tr>
                         <th>No</th>
-                        <th>Name</th>
-                        <th>Points</th>
-                        <th>Remark</th>
-                        <th>From (%)</th>
-                        <th>To (%)</th>
+                        <th>Grade</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                        <th>Point</th>
+                        <th>Remarks</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -49,30 +49,16 @@
                     @foreach($grades as $key => $g)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $g->name }}</td>
+                            <td>{{ $g->grade }}</td>
+                            <td>{{ $g->min_score }}</td>
+                            <td>{{ $g->max_score }}</td>
                             <td>{{ $g->points }}</td>
-                            <td>{{ $g->remark }}</td>
-                            <td>{{ $g->from_mark }}</td>
-                            <td>{{ $g->to_mark }}</td>
+                            <td>{{ $g->remarks }}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical fs-14"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-subject-object="{{ base64_encode(json_encode($g)) }}" data-bs-toggle="modal" data-bs-target="#add_grade">
-                                                    <i class="ti ti-edit-circle me-2"></i>Edit
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item rounded-1 text-danger" href="#" onclick="openDeleteModal(this)" data-to-delete-object-id="{{ $g->id }}" data-delete-subject="Grade: {{ $g->name }}">
-                                                    <i class="ti ti-trash me-2"></i>Delete
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <a class="btn btn-primary btn-sm" href="#" data-grade-object="{{ base64_encode(json_encode($g)) }}" data-bs-toggle="modal" data-bs-target="#add_grade">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -98,23 +84,23 @@
         $('#add_grade').on('show.bs.modal', function (event) {
             let modal = $('#add_grade');
             let button = $(event.relatedTarget);
-            let data = button.data('subject-object');
+            let data = button.data('grade-object');
 
             modal.find('.grade-id').val('');
             modal.find('.grade-name').val('');
+            modal.find('.grade-min-score').val('');
+            modal.find('.grade-max-score').val('');
             modal.find('.grade-points').val('');
-            modal.find('.grade-remark').val('');
-            modal.find('.grade-from-mark').val('');
-            modal.find('.grade-to-mark').val('');
+            modal.find('.grade-remarks').val('');
 
             if (data) {
                 data = JSON.parse(atob(data));
                 modal.find('.grade-id').val(data.id || '');
-                modal.find('.grade-name').val(data.name || '');
+                modal.find('.grade-name').val(data.grade || '');
+                modal.find('.grade-min-score').val(data.min_score || '');
+                modal.find('.grade-max-score').val(data.max_score || '');
                 modal.find('.grade-points').val(data.points || '');
-                modal.find('.grade-remark').val(data.remark || '');
-                modal.find('.grade-from-mark').val(data.from_mark || '');
-                modal.find('.grade-to-mark').val(data.to_mark || '');
+                modal.find('.grade-remarks').val(data.remarks || '');
             }
         });
 

@@ -50,7 +50,7 @@ class AdminController extends Controller
                 $subject->update($schoolArray);
             }
             toastr()->success('School saved successfully');
-            return back();
+            return redirect()->route('grades.list');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -70,30 +70,45 @@ class AdminController extends Controller
     {
         try {
             $gradeArray = $request->except('_token');
-//            mydebug($gradeArray);
             $gradeId = $gradeArray['grade_id'] ?? null;
             $gradeName = $gradeArray['grade'];
+            $min = $gradeArray['min_score'];
+            $max = $gradeArray['max_score'];
 
             // Check if grade already exists (excluding current one if editing)
             $existingGrade = AcademicGrade::where('grade', $gradeName);
-
             if ($gradeId) {
                 $existingGrade = $existingGrade->where('id', '!=', $gradeId);
             }
 
-            $existingGrade = $existingGrade->first();
-
-            if ($existingGrade) {
+            if ($existingGrade->exists()) {
                 return redirect()->back()->with('error', 'Grade already exists');
             }
 
-            if (empty($gradeArray['grade_id'])) {
-                unset($gradeArray['grade_id']);
-//                mydebug($gradeArray);
+            // Check for overlapping score range with other records
+            $overlappingGrade = AcademicGrade::where(function ($query) use ($min, $max) {
+                $query->whereBetween('min_score', [$min, $max])
+                    ->orWhereBetween('max_score', [$min, $max])
+                    ->orWhere(function ($query2) use ($min, $max) {
+                        $query2->where('min_score', '<=', $min)
+                            ->where('max_score', '>=', $max);
+                    });
+            });
+
+            if ($gradeId) {
+                $overlappingGrade = $overlappingGrade->where('id', '!=', $gradeId);
+            }
+
+            if ($overlappingGrade->exists()) {
+                return redirect()->back()->with('error', 'The score range overlaps with another grade.');
+            }
+
+            unset($gradeArray['grade_id']);
+
+            if (empty($gradeId)) {
                 AcademicGrade::create($gradeArray);
             } else {
-                $grade = AcademicGrade::findOrFail($gradeArray['grade_id']);
-                unset($gradeArray['grade_id']);
+                $grade = AcademicGrade::findOrFail($gradeId);
                 $grade->update($gradeArray);
             }
 

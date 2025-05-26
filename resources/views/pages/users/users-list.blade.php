@@ -71,27 +71,32 @@
                             </td>
                             <td>
                                 @if($s->status !== 'rejected')
-                                    <div class="d-flex align-items-center">
-                                        <div class="dropdown">
-                                            <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ti ti-dots-vertical fs-14"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-right p-3">
-                                                <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                        <i class="ti ti-edit-circle me-2"></i>Edit</a>
-                                                </li>
-
-                                                <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                        <i class="ti ti-eye me-2"></i>View</a>
-                                                </li>
-                                                @if($s->status == 'accepted')
-                                                    <li><a class="dropdown-item rounded-1" href="#">
-                                                            <i class="ti ti-recycle me-2 text-success-emphasis"></i>Resend Token</a>
+                                    @if($s->id !== 1)
+                                        <div class="d-flex align-items-center">
+                                            <div class="dropdown">
+                                                <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0"
+                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ti ti-dots-vertical fs-14"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-right p-3">
+                                                    <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal"
+                                                           data-bs-target="#add_user">
+                                                            <i class="ti ti-edit-circle me-2"></i>Edit</a>
                                                     </li>
-                                                @endif
-                                            </ul>
+
+                                                    <li><a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal"
+                                                           data-bs-target="#add_user">
+                                                            <i class="ti ti-eye me-2"></i>View</a>
+                                                    </li>
+                                                    @if($s->status == 'accepted')
+                                                        <li><a class="dropdown-item rounded-1" href="#">
+                                                                <i class="ti ti-recycle me-2 text-success-emphasis"></i>Resend Token</a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
                             </td>
                         </tr>
@@ -105,11 +110,11 @@
     <!-- /Guardians List -->
 
     <!-- Add User -->
-        @include('pages.users.modal.add-user-modal')
+    @include('pages.users.modal.add-user-modal')
     <!-- /Add User -->
 
     <!-- Delete Modal -->
-    <x-shared.delete-modal />
+    <x-shared.delete-modal/>
     <!-- /Delete Modal -->
 @endsection
 
@@ -131,7 +136,7 @@
             userModal.find('.user-role').val('');
 
             //userModal.find('.user-phone-number').prop('checked', true);
-            if(user){
+            if (user) {
                 user = atob(user);
                 user = JSON.parse(user);
                 userModal.find('.user-id').val(user.id || '');
@@ -161,13 +166,13 @@
 
         }
 
-        function autoFillUsername(obj){
+        function autoFillUsername(obj) {
             let parent = $('#add_user');
             let userId = $(parent).find('.user-id').val() || '';
             let name = $(obj).val() || '';
             let first_name = '';
-            if(userId.length < 1) $(parent).find('.username').val('');
-            if(userId.length < 1 && name.length > 0){
+            if (userId.length < 1) $(parent).find('.username').val('');
+            if (userId.length < 1 && name.length > 0) {
                 first_name = name.trim().split(' ')[0];
                 $(parent).find('.username').val('').val(first_name);
             }

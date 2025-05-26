@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function getAllUsers(Request $request){
-        $users = User::query()->whereNot('status','pending')->whereNot('id',1)->get();
+        $users = User::query()->whereNot('status','pending')->get();
         $schools = School::all();
         $roles = Role::all();
         return view('pages.users.users-list',compact('users','schools','roles'));
@@ -92,13 +92,14 @@ class UserController extends Controller
 
     public function getAllPermissions(Request $request){
         $rol = Auth::user()->role->permissions;
-        mydebug('kuhk');
         $rol = (array) $rol;
         try {
             $roleId = $request->get('role_id');
 
-            if(!empty($roleId)){
-                $roles = \App\Models\Role::all();
+            if(empty($roleId)){
+                $roles = \App\Models\Role::query()->where('name','!=','admin')->get();
+            }else{
+                $roles = Role::query()->where('id',$roleId)->get();
             }
             $permissions = \App\Models\Permission::all();
             $rolePermissions = \DB::table('role_permissions')->select('role_id', 'permission_id')->get()->groupBy('role_id');

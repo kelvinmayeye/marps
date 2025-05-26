@@ -52,20 +52,29 @@
                             <tr>
                                 <td>{{ $role['name'] }}</td>
                                 <td>
-                                    <!-- Hidden input ensures role is submitted even if no checkboxes are selected -->
                                     <input type="hidden" name="permissions[{{ $role['id'] }}]" value="">
 
-                                    @foreach(array_chunk($role['role_permissions'], 4) as $permissionChunk)
-                                        <div class="row">
-                                            @foreach($permissionChunk as $permission)
-                                                <div class="col-md-3">
-                                                    <label class="checkboxs">
-                                                        {{ $permission['name'] }}
-                                                        <input type="checkbox" class="border border-1 border-primary" name="permissions[{{ $role['id'] }}][]" value="{{ $permission['id'] }}" {{$permission['is_checked'] ? 'checked':''}}>
-                                                        <span class="checkmarks"></span>
-                                                    </label>
-                                                </div>
-                                            @endforeach
+                                    @php
+                                        $grouped = collect($role['role_permissions'])->groupBy('group');
+                                    @endphp
+
+                                    @foreach($grouped as $group => $permissions)
+                                        <div class="mb-2 p-2 border rounded">
+                                            <strong class="text-uppercase d-block mb-2 text-primary">{{ ucfirst($group) }} Permissions</strong>
+                                            <div class="row">
+                                                @foreach($permissions as $permission)
+                                                    <div class="col-md-3">
+                                                        <label class="checkboxs">
+                                                            {{ ucwords(str_replace('_', ' ', $permission['name'])) }}
+                                                            <input type="checkbox" class="border border-1 border-primary"
+                                                                   name="permissions[{{ $role['id'] }}][]"
+                                                                   value="{{ $permission['id'] }}"
+                                                                {{ $permission['is_checked'] ? 'checked' : '' }}>
+                                                            <span class="checkmarks"></span>
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     @endforeach
                                 </td>

@@ -15,9 +15,11 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-end mb-2">
-                        <button type="button" class="btn btn-danger btn-sm" data-exam-registered-id="{{$exam_registration->id??''}}" onclick="approveExamScores(this)">
-                            <i class="ti ti-check"></i> Approve
-                        </button>
+                        @if(empty($exam_registration->approved_by))
+                            <button type="button" class="btn btn-danger btn-sm" data-exam-registered-id="{{$exam_registration->id??''}}" onclick="approveExamScores(this)">
+                                <i class="ti ti-check"></i> Approve
+                            </button>
+                        @endif
                     </div>
                     <div class="" style="">
                         <table class="table table-bordered table-sm" id="">
@@ -31,6 +33,8 @@
                                 @foreach($examscores['subjects'] as $sub)
                                     <th>{{ $sub['subject_name'] }}</th>
                                 @endforeach
+                                <th>Division</th>
+                                <th>Position</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -48,6 +52,8 @@
                                             {{ $student['scores'][$sub['subject_id']] ?? '-' }}
                                         </td>
                                     @endforeach
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -57,7 +63,41 @@
                             <div class="col-md-4">
                                 <table class="table table-bordered table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center fw-bolder text-primary">Summary</th>
+                                        <th colspan="2" class="text-center fw-bolder text-primary">Academic Summary</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">First Student</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Last Student</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Best Subject</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Last Subject</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-bordered table-sm">
+                                    <tr>
+                                        <th colspan="2" class="text-center fw-bolder text-primary">Division Summary</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold"></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-bordered table-sm">
+                                    <tr>
+                                        <th colspan="2" class="text-center fw-bolder text-primary">Student Summary</th>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Total Students</td>
@@ -89,7 +129,7 @@
 @include('pages.exams.exam-center.modals.upload-students-scores-modal')
 
 <script>
-    function approveExamScores(obj){
+    function approveExamScores(obj) {
         let url = `{{route('approve.uploaded.scores')}}`;
         let exam_registration_id = $(obj).data('exam-registered-id') || '';
         let msg = 'Are you sure you want to approve these scores';
@@ -97,7 +137,7 @@
             showError("Failed to get Examination Registered ID. Refresh page and try again");
             return;
         }
-        let exam = {_token:`{{csrf_token()}}`,exam_registration_id:exam_registration_id};
+        let exam = {_token: `{{csrf_token()}}`, exam_registration_id: exam_registration_id};
         confirmAction(url, exam, msg);
     }
 </script>

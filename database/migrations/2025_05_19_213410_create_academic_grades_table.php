@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('academic_grades', function (Blueprint $table) {
             $table->id();
-            $table->string('grade')->unique(); // e.g., A, B+, C
-            $table->decimal('min_score', 2, 2); // e.g., 80.00
-            $table->decimal('max_score', 3, 2); // e.g., 100.00
-            $table->decimal('points', 3, 2)->nullable(); // e.g., 4.00
-            $table->string('remarks')->nullable(); // e.g., Excellent, Good, etc.
+            $table->string('grade')->unique();
+            $table->decimal('min_score', 5, 2);
+            $table->decimal('max_score', 5, 2);
+            $table->decimal('points', 4, 2)->nullable();
+            $table->string('remarks')->nullable();
             $table->timestamps();
         });
     }

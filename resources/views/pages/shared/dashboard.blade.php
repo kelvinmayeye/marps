@@ -213,7 +213,7 @@
                                     <th>Name</th>
                                     <th>Subjects</th>
                                     <th>Registered Schools</th>
-                                    <th>Status</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -224,7 +224,7 @@
                                             <td>{{$es->subjects->count()}}</td>
                                             <td>{{$es->schoolRegistration->count()}}</td>
                                             <td>
-                                                <span class="badge bg-soft-primary">Open</span>
+                                                <a href="" class="badge bg-soft-primary">View</a>
                                             </td>
                                         </tr>
                                     @endforeach

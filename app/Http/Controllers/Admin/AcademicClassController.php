@@ -127,7 +127,6 @@ class AcademicClassController extends Controller
             ];
         }
 
-//        mydebug($examscores);
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
 
