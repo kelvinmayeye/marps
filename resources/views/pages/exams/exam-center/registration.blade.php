@@ -75,7 +75,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="">Examination <small>(#add select2)</small></label>
+                                <label for="">Examination <small class="text-danger fw-bold">(select examination)</small></label><!-- add select 2 -->
                                 <select name="examination_id" class="form-control" onchange="getExamSubject(this)">
                                     <option value="" selected>select examination</option>
                                     @foreach(\App\Models\Admin\Exam::all() as $e)

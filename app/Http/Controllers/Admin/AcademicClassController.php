@@ -137,6 +137,7 @@ class AcademicClassController extends Controller
             $subjects = $request->get('subjects');
             $exam = Exam::find($examination_id);
             if (count($subjects) == 0) throw new \Exception("No subject selected");
+            if (count($subjects) < 7) throw new \Exception("Examination registered must have at least 7 subjects");
 
             $existing = ExamRegistration::where('school_id', Auth::user()->school_id)
                 ->where('examination_id', $examination_id)
@@ -176,12 +177,11 @@ class AcademicClassController extends Controller
 
     public function saveExam(Request $request)
     {
-//        mydebug($request->all());
         try {
             $examArray = $request->except('_token','exam_subjects');
             $examSubjectsArray = $request->get('exam_subjects');
             $examArray['is_active'] = $examArray['is_active'] === 'on' ? 1 : 0;
-
+            if (count($examSubjectsArray) < 7) throw new \Exception("Subject must have at least 7 subjects");
             if (empty($examArray['exam_id'])) {
                 unset($examArray['exam_id']);
                 $examArray['created_by'] = \Auth::id();
@@ -204,8 +204,8 @@ class AcademicClassController extends Controller
 
             return back()->with('success', 'Exam saved successfully');
         } catch (\Exception $e) {
-            throw $e;
-//            return back()->with('error', $e->getMessage());
+//            throw $e;
+            return back()->with('error', $e->getMessage());
         }
     }
 
