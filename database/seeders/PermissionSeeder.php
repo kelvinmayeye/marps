@@ -25,7 +25,7 @@ class PermissionSeeder extends Seeder
             'users' => ['accept_user', 'all_users', 'all_users_request', 'roles_permission', 'resend_token'],
             'subject' => ['add_subject', 'delete_subject', 'subject_list'],
             'classes' => ['add_classes', 'list_classes'],
-            'examination' => ['exam_list'],
+            'examination' => ['exam_list','grade_list'],
             'settings' => ['general_settings'],
         ];
 

@@ -60,24 +60,9 @@
                             <td>{{$s->status}}</td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-white btn-icon btn-sm d-flex align-items-center justify-content-center rounded-circle p-0" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ti ti-dots-vertical fs-14"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right p-3">
-                                            <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-user-data="{{base64_encode(json_encode($s))}}" onclick="AcceptRequest(this)">
-                                                    <i class="ti ti-circle-check me-2 text-primary"></i>Accept
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a class="dropdown-item rounded-1" href="#" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_user">
-                                                    <i class="ti ti-ban me-2 text-danger"></i>Reject
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <button class="btn btn-danger btn-sm" title="Accept User Request" data-user-data="{{base64_encode(json_encode($s))}}" onclick="AcceptRequest(this)">
+                                        <i class="fa fa-check"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -90,13 +75,12 @@
     </div>
     <!-- /Guardians List -->
     <script>
-        function AcceptRequest(obj){
+        function AcceptRequest(obj) {
             let user_data = $(obj).data('user-data');
             user_data = atob(user_data);
             user_data = JSON.parse(user_data);
-            console.log(user_data);
             let msg = `Are sure you want to Accept ${user_data.name} request`;
-            let user = {_token:`{{csrf_token()}}`,user_id:user_data.id};
+            let user = {_token: `{{csrf_token()}}`, user_id: user_data.id};
             confirmAction(`{{route('users.accept.account.request')}}`, user, msg);
         }
     </script>

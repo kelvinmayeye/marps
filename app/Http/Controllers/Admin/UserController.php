@@ -44,15 +44,14 @@ class UserController extends Controller
                 $subject = User::findOrFail($userId);
                 unset($userArray['user_id']);
                 $subject->update($userArray);
+                return back()->with('success','User saved successfully');
             } else {
                 unset($userArray['user_id']);
                 $userArray['password'] = bcrypt(123);
-                $userArray['role_id'] = 2;//default user role
                 User::create($userArray);
+                return redirect()->route('users.account.requests')->with('success','User saved successfully');
             }
 
-//            toastr()->success('User saved successfully');
-            return redirect()->route('users.account.requests')->with('success','User saved successfully');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -122,7 +121,6 @@ class UserController extends Controller
         }catch (\Exception $e){
             return back()->with('error',$e->getMessage());
         }
-//        mydebug($rolesWithPermissions);
         return view('pages.users.roles.roles-permission',compact('roles','rolesWithPermissions'));
     }
 

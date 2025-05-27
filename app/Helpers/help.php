@@ -38,11 +38,7 @@ function rolesPermissionGrouped($roleId)
 if (!function_exists('hasPermission')) {
     function hasPermission($group, $permission)
     {
-//        mydebug(Auth::user()->role->name);
-        if (Auth::user()->role->name == 'admin'){
-//            mydebug('admiuehre');
-            return true;
-        }
+        if (Auth::user()->role->name == 'admin') return true;
 
         $permissions = View::shared('groupedPermissions') ?? [];
 

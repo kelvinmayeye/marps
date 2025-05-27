@@ -41,7 +41,6 @@ class AppServiceProvider extends ServiceProvider
             $permissions = $user && $user->role
                 ? rolesPermissionGrouped($user->role->id)
                 : [];
-
             $view->with('groupedPermissions', $permissions);
         });
     }
