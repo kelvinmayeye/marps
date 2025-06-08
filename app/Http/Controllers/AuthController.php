@@ -19,11 +19,9 @@ class AuthController extends Controller
             $dashboardData['recentSchools'] = School::query()->latest('id')->limit(5)->get()->toArray();
             $dashboardData['examinationSummary'] = Exam::query()->get();
 
-//            mydebug($dashboardData);
             return view('pages.shared.dashboard', compact('user','dashboardData'));
-        } else {
-            return view('pages.auth.login-page');
         }
+            return view('pages.auth.login-page');
     }
 
     public function login(Request $request)
