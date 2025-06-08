@@ -15,14 +15,14 @@
                         <div class="col-md-8">
                             <div class="mb-3">
                                 <label class="form-label">Name <small class="text-danger">*</small></label>
-                                <input type="text" class="form-control user-name" name="name" placeholder="eg.John Jackson RockHood" oninput="autoFillUsername(this)">
+                                <input type="text" class="form-control user-name" name="name" placeholder="eg.John Jackson RockHood" oninput="autoFillUsername(this)" required>
                                 <span><small class="text-info fw-bold">Username will be automatically generated based on the first name entered in the name field</small></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Title</label>
-                                <select class="form-control user-title" name="title">
+                                <select class="form-control user-title" name="title" required>
                                     <option value="" selected>--Select title--</option>
                                     <option value="Mr">Mr</option>
                                     <option value="Miss">Miss</option>
@@ -41,7 +41,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control user-email">
+                                <input type="email" name="email" class="form-control user-email" required>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -64,7 +64,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Position</label>
-                                <select class="form-control user-school-position" name="school_position">
+                                <select class="form-control user-school-position" name="school_position" required>
                                     <option value="" selected>--Select school position--</option>
                                     <option value="Head Teacher">Head Teacher</option>
                                     <option value="Academics">Academics</option>
@@ -75,7 +75,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <select class="form-control user-role" name="role_id">
+                                <select class="form-control user-role" name="role_id" required>
                                     <option value="" selected>--Select User Role--</option>
                                     @foreach($roles as $r)
                                         <option value="{{$r->id}}">{{$r->name}}</option>

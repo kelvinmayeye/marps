@@ -67,66 +67,25 @@ class AcademicClassController extends Controller
         $examscores = [];
         if (empty($page)) redirect()->route('user.home')->with('error','failed to get specified page');
         if(empty(Auth::user()->school_id)) return back()->with('error','Your account is not assigned to school');
+
+
         $userSchoolInfo = School::query()->find(Auth::user()->school_id);
         if(!$userSchoolInfo) return back('error','User school information not found');
         $examRegisteredhistory = ExamRegistration::query()->where('school_id',Auth::user()->school_id)->get();
+
         if ($page == 'view-exam-scores') {
             $exam_registration_id = $request->get('exam_registration_id');
-            $exam_registration = ExamRegistration::query()->find($exam_registration_id);
-            if (empty($exam_registration_id)) return back()->with("error", "No Examination Registration Id");
+            $result = getExamScoresSummary($exam_registration_id);
 
-            $examscores['scores'] = ExamSubjectScore::query()
-                ->where('exam_registration_id', $exam_registration_id)
-                ->get()
-                ->toArray();
-
-            if (count($examscores['scores']) == 0)
-                return back()->with('error', 'This examination has no score records yet');
-
-            $examscores['subjects'] = collect($examscores['scores'])->map(function ($item) {
-                return [
-                    'subject_id' => $item['subject_id'],
-                    'subject_name' => $item['subject_name'],
-                ];
-            })->unique('subject_id')->values()->toArray();
-
-            $grouped_scores = [];
-            $gender_count = ['M' => 0, 'F' => 0];
-
-            foreach ($examscores['scores'] as $score) {
-                $student_id = $score['exam_registration_student_id'];
-                $student = ExamRegistrationStudent::query()->find($student_id);
-
-                if (!isset($grouped_scores[$student_id])) {
-                    $grouped_scores[$student_id] = [
-                        'student_prem_number' => $score['student_prem_number'],
-                        'student_name' => $student->fullname,
-                        'gender' => $student->gender,
-                        'scores' => []
-                    ];
-
-                    // Count gender
-                    if ($student->gender == 'M') {
-                        $gender_count['M']++;
-                    } elseif ($student->gender == 'F') {
-                        $gender_count['F']++;
-                    }
-                }
-
-                $grouped_scores[$student_id]['scores'][$score['subject_id']] = $score['score'];
+            if (isset($result['error'])) {
+                return back()->with('error', $result['error']);
             }
 
-            $examscores['grouped'] = $grouped_scores;
-
-            // Summary
-            $examscores['summary'] = [
-                'total_students' => count($grouped_scores),
-                'total_subjects' => count($examscores['subjects']),
-                'male' => $gender_count['M'],
-                'female' => $gender_count['F'],
-            ];
+            $exam_registration = $result['exam_registration'];
+            unset($result['exam_registration']);
+            $examscores = $result;
         }
-
+//        mydebug($examscores);
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
 

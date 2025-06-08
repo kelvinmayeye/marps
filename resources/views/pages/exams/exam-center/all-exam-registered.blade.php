@@ -13,8 +13,8 @@
                 </div>
                 <div class="card-body">
                     <div class="" style="height: 300px;">
-                        <table class="table " id="">
-                            <thead>
+                        <table class="stretch">
+                        <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
@@ -23,7 +23,7 @@
                                 <th>Registered by</th>
                                 <th>Registered Students</th>
                                 <th>Results Uploaded</th>
-                                <th>Status</th>
+{{--                                <th>Status</th>--}}
                                 <th></th>
                             </tr>
                             </thead>
@@ -56,7 +56,7 @@
                                             <div><span class="fw-bold text-success-emphasis">{{$er->approvedby->name}}</span></div>
                                         @endif
                                     </td>
-                                    <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>
+{{--                                    <td><span class="badge bg-soft-primary">{{$er->status}}</span></td>--}}
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="dropdown">

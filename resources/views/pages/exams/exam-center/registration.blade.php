@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-end gap-3">
-                                    <a href="" class="btn btn-warning" type="submit">clear</a>
+                                    <a href="" class="btn btn-warning" type="reset">clear</a>
                                     <button class="btn btn-primary" type="submit">save</button>
                                 </div>
                             </div>

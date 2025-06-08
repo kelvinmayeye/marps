@@ -29,12 +29,12 @@
                                 <th>Prem #</th>
                                 <th>Student name</th>
                                 <th>Gender</th>
-                                <!-- Loop all subjects -->
+                                <!-- Display subject scores -->
                                 @foreach($examscores['subjects'] as $sub)
                                     <th>{{ $sub['subject_name'] }}</th>
                                 @endforeach
+                                <th>Points</th><!-- total pints -->
                                 <th>Division</th>
-                                <th>Position</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,14 +46,19 @@
                                     <td>{{ $student['student_name'] }}</td>
                                     <td>{{ $student['gender'] }}</td>
 
-                                    <!-- Display subject scores -->
                                     @foreach($examscores['subjects'] as $sub)
                                         <td>
-                                            {{ $student['scores'][$sub['subject_id']] ?? '-' }}
+                                            @if(isset($student['scores'][$sub['subject_id']]))
+                                                {{ $student['scores'][$sub['subject_id']]['score'] ?? '-' }}
+                                                ({{ $student['scores'][$sub['subject_id']]['grade'] ?? '-' }})
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                     @endforeach
-                                    <td></td>
-                                    <td></td>
+
+                                    <td>{{ $student['total_points'] ?? '-' }}</td>
+                                    <td>{{ $student['div'] ?? '-' }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

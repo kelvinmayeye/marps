@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function getAllUsers(Request $request){
-        $users = User::query()->whereNot('status','pending')->get();
-        $schools = School::all();
+        if(Auth::user()->role_id != 1){
+            if(empty(Auth::user()->school_id)) return back()->with('error','Your account is not associated to any school');
+            $schools = School::where('id',Auth::user()->school_id)->get();
+            $users = User::query()->whereNot('status','pending')->where('school_id',Auth::user()->school_id)->get();
+        }else{
+            $users = User::query()->whereNot('status','pending')->get();
+            $schools = School::all();
+        }
         $roles = Role::all();
         return view('pages.users.users-list',compact('users','schools','roles'));
     }

@@ -29,7 +29,11 @@
     <!-- Guardians List -->
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between flex-wrap pb-0">
-            <h4 class="mb-3">All Users</h4>
+            @if(Auth::user()->role_id != 1)
+                <h4 class="mb-3">All Users From {{ Auth::user()->school->name }}</h4>
+            @else
+                <h4 class="mb-3">All Users</h4>
+            @endif
         </div>
         <div class="card-body p-0 py-3">
             <!-- Guardians List -->

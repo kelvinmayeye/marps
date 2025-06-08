@@ -47,6 +47,20 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{asset("assets/css/style.css")}}">
+    <style>
+        table.stretch {
+            width: 100%;
+            table-layout: auto;
+            border-collapse: collapse;
+        }
+        table.stretch td, table.stretch th {
+            padding: 10px;
+            border-top: 1px solid #cbcbcb;
+            border-bottom: 1px #cbcbcb;
+            border-left: none;
+            border-right: none;
+        }
+    </style>
 
     @yield('extra-css')
 
