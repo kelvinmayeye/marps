@@ -58,24 +58,25 @@
                                     @endforeach
 
                                     <td>{{ $student['total_points'] ?? '-' }}</td>
-                                    <td>{{ $student['div'] ?? '-' }}</td>
+                                    <td class="fw-bolder text-dark">{{ $student['div'] ?? '-' }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
 
-                        <div class="row justify-content-end mt-2">
+                        <div class="row mt-3">
+                            <!-- Academic Highlights -->
                             <div class="col-md-4">
                                 <table class="table table-bordered table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center fw-bolder text-primary">Academic Summary</th>
+                                        <th colspan="2" class="text-center fw-bold text-primary">Academic Highlights</th>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">First Student</td>
+                                        <td class="fw-bold">Top Student</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Last Student</td>
+                                        <td class="fw-bold">Lowest Student</td>
                                         <td></td>
                                     </tr>
                                     <tr>
@@ -83,26 +84,42 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Last Subject</td>
+                                        <td class="fw-bold">Weakest Subject</td>
                                         <td></td>
                                     </tr>
                                 </table>
                             </div>
+
+                            <!-- Division Summary -->
                             <div class="col-md-4">
                                 <table class="table table-bordered table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center fw-bolder text-primary">Division Summary</th>
+                                        <th colspan="2" class="text-center fw-bold text-primary">Division Summary</th>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold"></td>
-                                        <td></td>
+                                        <td class="fw-bold">Division I</td>
+                                        <td>{{$examscores['exam_status']['division_summary']['Division I']??0}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Division II</td>
+                                        <td>{{$examscores['exam_status']['division_summary']['Division II']??0}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Division III</td>
+                                        <td>{{$examscores['exam_status']['division_summary']['Division III']??0}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Division IV</td>
+                                        <td>{{$examscores['exam_status']['division_summary']['Division IV']??0}}</td>
                                     </tr>
                                 </table>
                             </div>
+
+                            <!-- Student Demographics -->
                             <div class="col-md-4">
                                 <table class="table table-bordered table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center fw-bolder text-primary">Student Summary</th>
+                                        <th colspan="2" class="text-center fw-bold text-primary">Student Summary</th>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Total Students</td>
@@ -117,12 +134,13 @@
                                         <td>{{$examscores['summary']['female']??''}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">Total Subject</td>
+                                        <td class="fw-bold">Subjects</td>
                                         <td>{{$examscores['summary']['total_subjects']??''}}</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

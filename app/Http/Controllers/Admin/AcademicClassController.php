@@ -84,6 +84,8 @@ class AcademicClassController extends Controller
             $exam_registration = $result['exam_registration'];
             unset($result['exam_registration']);
             $examscores = $result;
+            $examscores['exam_status']= generateExamSummaryStats($examscores);
+//            mydebug($examscores['exam_status']);
         }
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }

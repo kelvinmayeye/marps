@@ -148,4 +148,99 @@ function getDivisionFromPoints($totalPoints)
     }
 }
 
+function generateExamSummaryStats(array $examSummary)
+{
+    if (empty($examSummary['grouped']) || empty($examSummary['scores'])) {
+        return [
+            'academic_highlights' => [],
+            'division_summary' => [],
+        ];
+    }
 
+    $grouped = $examSummary['grouped'];
+    $scores = $examSummary['scores'];
+    $subjects = $examSummary['subjects'];
+
+    // 1. Academic Highlights
+    $topStudent = null;
+    $bottomStudent = null;
+    $subjectTotals = [];
+
+    foreach ($grouped as $studentId => $data) {
+        // Top Student (lowest points = best)
+        if (!$topStudent || $data['total_points'] < $topStudent['total_points']) {
+            $topStudent = [
+                'name' => $data['student_name'],
+                'total_points' => $data['total_points'],
+            ];
+        }
+
+        // Bottom Student (highest points = worst)
+        if (!$bottomStudent || $data['total_points'] > $bottomStudent['total_points']) {
+            $bottomStudent = [
+                'name' => $data['student_name'],
+                'total_points' => $data['total_points'],
+            ];
+        }
+
+        // Aggregate scores per subject
+        foreach ($data['scores'] as $subject_id => $scoreInfo) {
+            if (!isset($subjectTotals[$subject_id])) {
+                $subjectTotals[$subject_id] = ['total_score' => 0, 'count' => 0, 'name' => ''];
+            }
+
+            $subjectTotals[$subject_id]['total_score'] += $scoreInfo['score'];
+            $subjectTotals[$subject_id]['count']++;
+        }
+    }
+
+    // Match subject names
+    foreach ($subjects as $subject) {
+        if (isset($subjectTotals[$subject['subject_id']])) {
+            $subjectTotals[$subject['subject_id']]['name'] = $subject['subject_name'];
+        }
+    }
+
+    // Best and Weakest Subjects (by average)
+    $bestSubject = null;
+    $weakestSubject = null;
+
+    foreach ($subjectTotals as $subject_id => $data) {
+        $avg = $data['count'] ? $data['total_score'] / $data['count'] : 0;
+
+        if (!$bestSubject || $avg > $bestSubject['avg']) {
+            $bestSubject = [
+                'name' => $data['name'],
+                'avg' => round($avg),
+            ];
+        }
+
+        if (!$weakestSubject || $avg < $weakestSubject['avg']) {
+            $weakestSubject = [
+                'name' => $data['name'],
+                'avg' => round($avg),
+            ];
+        }
+    }
+
+    // 2. Division Summary
+    $divisionCounts = [];
+
+    foreach ($grouped as $studentData) {
+        $div = $studentData['div'];
+        if (!isset($divisionCounts[$div])) {
+            $divisionCounts[$div] = 0;
+        }
+        $divisionCounts[$div]++;
+    }
+
+    return [
+        'academic_highlights' => [
+            'top_student' => $topStudent,
+            'bottom_student' => $bottomStudent,
+            'best_subject' => $bestSubject,
+            'weakest_subject' => $weakestSubject,
+        ],
+        'division_summary' => $divisionCounts,
+    ];
+}

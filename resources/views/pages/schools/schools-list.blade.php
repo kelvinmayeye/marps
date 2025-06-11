@@ -65,7 +65,7 @@
                                     <a href="" class="btn btn-primary btn-sm" data-subject-object="{{base64_encode(json_encode($s))}}" data-bs-toggle="modal" data-bs-target="#add_school">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="" class="btn btn-success btn-sm" title="view examination list">
+                                    <a href="{{route('examination.center',['page'=>'all-exam-registered'])}}" class="btn btn-success btn-sm" title="view examination list">
                                         <i class="fa fa-list"></i>
                                     </a>
                                 </div>
