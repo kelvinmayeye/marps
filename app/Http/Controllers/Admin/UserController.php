@@ -10,6 +10,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use League\Config\Exception\ValidationException;
+use Mockery\Exception;
 
 class UserController extends Controller
 {
@@ -58,6 +61,33 @@ class UserController extends Controller
                 return redirect()->route('users.account.requests')->with('success','User saved successfully');
             }
 
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function userProfile(Request $request){
+        $user = Auth::user();
+        return view('pages.users.profile',compact('user'));
+    }
+
+    public function changePassword(Request $request){
+        try {
+            // Validate input
+            $request->validate([
+                'current_password' => ['required'],
+                'password' => ['required', 'min:4', 'confirmed'],
+            ]);
+            $user = Auth::user();
+            if (!Hash::check($request->current_password, $user->password)) return back()->with('error','Current Password did not match');
+
+            // Update password
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            return back()->with('success', 'Password changed successfully.');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

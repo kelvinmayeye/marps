@@ -8,7 +8,9 @@ Route::middleware("auth")->group(function() {
     Route::get('users/list', [UserController::class, 'getAllUsers'])->name('users.list');
     Route::get('users/requests', [UserController::class, 'getUsersRequests'])->name('users.account.requests');
     Route::post('users/accept/account/requests', [UserController::class, 'acceptAccountRequest'])->name('users.accept.account.request');
-    Route::post('users/save', [UserController::class, 'saveUser'])->name('users.save');
+    Route::post('users/save', [UserController::class, 'saveUser'])->name('users.save'); //creates and updates user
+    Route::get('user/profile', [UserController::class, 'userProfile'])->name('user.profile');
+    Route::post('users/change/password', [UserController::class, 'changePassword'])->name('users.change.password');
 
 
     Route::get('roles/list', [UserController::class, 'getAllRoles'])->name('roles.list');

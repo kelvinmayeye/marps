@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AcademicClassController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;

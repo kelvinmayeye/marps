@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item d-inline-flex align-items-center p-2" href=""> <i class="ti ti-user-circle me-2"></i>My Profile</a>
+                            <a class="dropdown-item d-inline-flex align-items-center p-2" href="{{route('user.profile')}}"> <i class="ti ti-user-circle me-2"></i>My Profile</a>
                             <hr class="m-0">
                             <a class="dropdown-item d-inline-flex align-items-center p-2" href="{{route('logout')}}"><i class="ti ti-login me-2"></i>Logout</a>
                         </div>
@@ -74,7 +74,7 @@
     <div class="dropdown mobile-user-menu">
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-end">
-            <a class="dropdown-item" href="">My Profile</a>
+            <a class="dropdown-item" href="{{route('user.profile')}}">My Profile</a>
             <a class="dropdown-item" href="">Settings</a>
             <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
         </div>
