@@ -88,7 +88,7 @@
         </div>
     </div>
     <!-- /Page Wrapper -->
-    @include('components.ui.theme-settings-slider')
+{{--    @include('components.ui.theme-settings-slider')--}}
 </div>
 <!-- /Main Wrapper -->
 
