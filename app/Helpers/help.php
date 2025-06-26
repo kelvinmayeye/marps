@@ -66,11 +66,13 @@ if (!function_exists('getExamScoresSummary')) {
     function getExamScoresSummary($exam_registration_id)
     {
         $exam_registration = ExamRegistration::find($exam_registration_id);
-        if (empty($exam_registration_id) || !$exam_registration)   return ['error' => 'Invalid or missing examination registration ID'];
+        if (empty($exam_registration_id) || !$exam_registration) {
+            return ['error' => 'Invalid or missing examination registration ID'];
+        }
 
         $scores = ExamSubjectScore::where('exam_registration_id', $exam_registration_id)->get()->toArray();
-//        mydebug($scores);
-        if (count($scores) === 0)  return ['error' => 'This examination has no score records yet'];
+
+        if (count($scores) === 0) return ['error' => 'This examination has no score records yet'];
 
         $subjects = collect($scores)->map(function ($item) {
             return [
@@ -96,7 +98,8 @@ if (!function_exists('getExamScoresSummary')) {
                     'gender' => $student->gender,
                     'scores' => [],
                     'total_points' => 0,
-                    'div' => null, // new
+                    'division_points' => 0, // new
+                    'div' => null,
                 ];
 
                 if ($student->gender === 'M') $gender_count['M']++;
@@ -112,8 +115,16 @@ if (!function_exists('getExamScoresSummary')) {
             $grouped_scores[$student_id]['total_points'] += $points;
         }
 
-        foreach ($grouped_scores as $student_id => $data) {
-            $grouped_scores[$student_id]['div'] = getDivisionFromPoints($data['total_points']);
+        // Calculate division points & division
+        foreach ($grouped_scores as $student_id => &$studentData) {
+            $allPoints = array_column($studentData['scores'], 'points');
+
+            rsort($allPoints);
+            $topN = 7;
+            $divisionPoints = array_sum(array_slice($allPoints, 0, $topN));
+
+            $studentData['division_points'] = $divisionPoints;
+            $studentData['div'] = getDivisionFromPoints($divisionPoints);
         }
 
         return [

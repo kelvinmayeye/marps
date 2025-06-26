@@ -73,19 +73,19 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Top Student</td>
-                                        <td></td>
+                                        <td>{{$examscores['exam_status']['academic_highlights']['top_student']['name']}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Lowest Student</td>
-                                        <td></td>
+                                        <td>{{$examscores['exam_status']['academic_highlights']['bottom_student']['name']}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Best Subject</td>
-                                        <td></td>
+                                        <td>{{$examscores['exam_status']['academic_highlights']['best_subject']['name']}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Weakest Subject</td>
-                                        <td></td>
+                                        <td>{{$examscores['exam_status']['academic_highlights']['weakest_subject']['name']}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -111,6 +111,10 @@
                                     <tr>
                                         <td class="fw-bold">Division IV</td>
                                         <td>{{$examscores['exam_status']['division_summary']['Division IV']??0}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Fail</td>
+                                        <td>{{$examscores['exam_status']['division_summary']['Division 0 (Fail)']??0}}</td>
                                     </tr>
                                 </table>
                             </div>

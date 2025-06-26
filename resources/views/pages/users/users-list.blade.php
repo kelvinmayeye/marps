@@ -181,5 +181,12 @@
                 $(parent).find('.username').val('').val(first_name);
             }
         }
+
+        function typeNameAlert(){
+            showError("You cannot enter a username. The system will automatically generate one based on the provided name. Users can update their login credentials later if needed.");
+            setTimeout(()=>{
+                $('#add_user').find('.user-name').focus();
+            },200);
+        }
     </script>
 @endsection

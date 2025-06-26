@@ -35,7 +35,13 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Username <small class="text-danger">*</small></label>
-                                <input type="text" name="username" class="form-control username" readonly>
+                                <input type="text" name="username" class="form-control username" onclick="typeNameAlert()" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label">Password <small class="text-danger fw-light">(default user password)</small></label>
+                                <input type="text" class="form-control" value="123" disabled>
                             </div>
                         </div>
                         <div class="col-md-4">

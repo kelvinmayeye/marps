@@ -4,22 +4,22 @@ users
 -add subjects✔
 -add class✔
 -add exams-->has details✔ (exam_subject) -> academic years during exam registration
-(sweet-alerts and toastr)
--add grades
+(sweet-alerts and toastr)✔
+-add grades✔
 -add publish results
--add schools(regno)
--add users(schools_representative,grants permissions to users)
-2. schools_representative(sch head tr)
+-add schools(regno)✔
+-add users(schools_representative,grants permissions to users)✔
+2. schools_representative(sch head tr)✔
 -add,edit,confirms subject results
--register exam
--approve scores
+-register exam✔
+-approve scores✔
 
 user registration(sch hd tr,tr)
 ---select school✔
----enter user deatils(user can register account select school then wait for approval from admin or other user with rights)
-======================>(user can also be added by admin and default password will be suppied)
+---enter user details(user can register account select school then wait for approval from admin or other user with rights)✔
+======================>(user can also be added by admin and default password will be supplied)✔
 --- wait for approval
----every schoool head tr see pending user
+---every school head tr see pending user✔
 --appr/decline user registration
 
 TODO: This page will serve the following purposes:
@@ -35,4 +35,4 @@ TODO: This page will serve the following purposes:
 ---->exams✔
 
 user register exam
----->according to exam ->exam_subjects
+---->according to exam ->exam_subjects✔

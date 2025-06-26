@@ -30,7 +30,11 @@ class UserController extends Controller
     }
 
     public function getUsersRequests(Request $request){
-        $users = User::query()->where('status','pending')->get();
+        if(Auth::user()->role->name !== 'admin'){
+            $users = User::query()->where('status','pending')->where('school_id',Auth::user()->school_id)->get();
+        }else{
+            $users = User::query()->where('status','pending')->get();
+        }
         $schools = School::all();
         return view('pages.users.users-pending-list',compact('users','schools'));
     }
