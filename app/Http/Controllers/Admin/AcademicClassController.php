@@ -85,7 +85,6 @@ class AcademicClassController extends Controller
             unset($result['exam_registration']);
             $examscores = $result;
             $examscores['exam_status']= generateExamSummaryStats($examscores);
-//            mydebug($examscores['exam_status']);
         }
         return view('pages.exams.exam-registration-page',compact('userSchoolInfo','examRegisteredhistory','page','examscores','exam_registration'));
     }
@@ -125,13 +124,11 @@ class AcademicClassController extends Controller
 
     public function examList(Request $request){
         $exams = Exam::query()->get();
-//        $exams = $exams->unique('id')->values();
         $exams = $exams->map(function ($exam) {
             $exam->exam_subject_count = ExamSubject::where('exam_id', $exam->id)->count();
             return $exam;
         });
         $examTypes = ExamType::all();
-//        mydebug($exams);
         return view('pages.exams.exam-list',compact('exams','examTypes'));
     }
 
@@ -140,8 +137,8 @@ class AcademicClassController extends Controller
         try {
             $examArray = $request->except('_token','exam_subjects');
             $examSubjectsArray = $request->get('exam_subjects');
-            $examArray['is_active'] = $examArray['is_active'] === 'on' ? 1 : 0;
-            if (count($examSubjectsArray) < 7) throw new \Exception("Subject must have at least 7 subjects");
+            $examArray['is_active'] = isset($examArray['is_active']) && $examArray['is_active'] === 'on' ? 1 : 0;
+            if (count($examSubjectsArray) < 7 && ($examArray['is_active'] == 1)) throw new \Exception("Subject must have at least 7 subjects");
             if (empty($examArray['exam_id'])) {
                 unset($examArray['exam_id']);
                 $examArray['created_by'] = \Auth::id();

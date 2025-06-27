@@ -50,7 +50,7 @@ class AdminController extends Controller
                 $subject->update($schoolArray);
             }
             toastr()->success('School saved successfully');
-            return redirect()->route('grades.list');
+            return redirect()->route('schools.list');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

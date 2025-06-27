@@ -48,11 +48,11 @@
                                 </li>
                             @endif
                             @if(hasPermission('classes', 'add_classes') || hasPermission('classes', 'list_classes'))
-                                <li>
-                                    <a href="{{ route('class.list') }}">
-                                        <i class="ti ti-school-bell"></i><span>Classes</span>
-                                    </a>
-                                </li>
+{{--                                <li>--}}
+{{--                                    <a href="{{ route('class.list') }}">--}}
+{{--                                        <i class="ti ti-school-bell"></i><span>Classes</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                             @endif
 
                             @if(isset($groupedPermissions['examination'])|| Auth::user()->role->name == 'admin')

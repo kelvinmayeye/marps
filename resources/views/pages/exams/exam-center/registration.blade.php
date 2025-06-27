@@ -78,7 +78,7 @@
                                 <label for="">Examination <small class="text-danger fw-bold">(select examination)</small></label><!-- add select 2 -->
                                 <select name="examination_id" class="form-control" onchange="getExamSubject(this)">
                                     <option value="" selected>select examination</option>
-                                    @foreach(\App\Models\Admin\Exam::all() as $e)
+                                    @foreach(\App\Models\Admin\Exam::where('is_active',1)->get() as $e)
                                         <option value="{{$e->id}}">{{$e->name}}</option>
                                     @endforeach
                                 </select>
