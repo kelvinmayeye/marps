@@ -45,7 +45,7 @@
                         <th>Registration no</th>
                         <th>Physical Address</th>
                         <th>Postal Address</th>
-                        <th>Total Staffs</th>
+                        <th>Total Users</th>
                         <th>Exam Registered</th>
                         <th></th>
                     </tr>
@@ -58,7 +58,7 @@
                             <td>{{$s->registration_no}}</td>
                             <td>{{$s->physical_address??'-'}}</td>
                             <td>{{$s->postal_address ??'-'}}</td>
-                            <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->users->count()}}</span></td>
+                            <td><span class="fw-bolder" title="click to view users" style="cursor: pointer">{{$s->users->count()}}</span></td>
                             <td><span class="fw-bolder" title="click to view examination" style="cursor: pointer">{{$s->examRegistration->count()}}</span></td>
                             <td>
                                 <div class="d-flex align-items-center gap-2">

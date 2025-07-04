@@ -75,6 +75,8 @@ Route::middleware("auth")->group(function() {
 
         //examination
         Route::post('approve/uploaded/scores', [\App\Http\Controllers\Admin\AcademicClassController::class, 'approveUploadedScores'])->name('approve.uploaded.scores');
+        //examination summary
+        Route::get('view/examination/summary', [\App\Http\Controllers\Admin\AcademicClassController::class, 'viewExaminationSummary'])->name('view.examination.summary');
     });
 
     Route::prefix('excel')->group(function () {

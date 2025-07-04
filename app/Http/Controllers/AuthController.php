@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\AcademicGrade;
 use App\Models\Admin\Exam;
 use App\Models\Admin\School;
 use App\Models\User;
@@ -18,8 +19,9 @@ class AuthController extends Controller
             $dashboardData = [];
             $dashboardData['recentSchools'] = School::query()->latest('id')->limit(5)->get()->toArray();
             $dashboardData['examinationSummary'] = Exam::query()->get();
-
-            return view('pages.shared.dashboard', compact('user','dashboardData'));
+            $dashboardData['gradeSummary'] = AcademicGrade::query()->get();
+            $examSummary = Exam::query()->summary()->get()->unique('id')->values()->toArray();
+            return view('pages.shared.dashboard', compact('user','dashboardData','examSummary'));
         }
             return view('pages.auth.login-page');
     }

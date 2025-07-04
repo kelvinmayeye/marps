@@ -16,6 +16,7 @@ use App\Models\ExaminationCenter\ExamSubjectScore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class AcademicClassController extends Controller
 {
@@ -228,5 +229,16 @@ class AcademicClassController extends Controller
             $results = ['status'=>'error','msg'=>$exception->getMessage()];
         }
         return response()->json($results);
+    }
+
+    public function viewExaminationSummary(Request $request){
+        try {
+            if(!$request->has('exam_id')) throw new \Exception("Exam ID is required");
+            $exam = Exam::query()->summary()->where('e.id', $request->get('exam_id'))->first();
+
+        }catch (Exception $e){
+            return back()->with('error',$e->getMessage());
+        }
+        return view('pages.exams.exam-progress-view');
     }
 }

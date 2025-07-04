@@ -109,7 +109,7 @@ $(document).ready(function() {
     	var pieChart = new ApexCharts(pieCtx, pieConfig);
     	pieChart.render();
 	}
-	
+
 	// Simple Line
     if($('#s-line').length > 0 ){
     var sline = {
@@ -185,7 +185,7 @@ var sLineArea = {
 
     xaxis: {
         type: 'datetime',
-        categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
+        categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],
     },
     tooltip: {
         x: {
@@ -216,7 +216,7 @@ var sCol = {
         bar: {
             horizontal: false,
             columnWidth: '55%',
-            endingShape: 'rounded'  
+            endingShape: 'rounded'
         },
     },
     // colors: ['#888ea8', '#4361ee'],
@@ -362,56 +362,56 @@ chart.render();
 }
 
 // Mixed Chart
-if($('#mixed-chart').length > 0 ){
-var options = {
-  chart: {
-    height: 350,
-    type: 'line',
-    toolbar: {
-      show: false,
-    }
-  },
-  // colors: ['#4361ee', '#888ea8'],
-  series: [{
-    name: 'Website Blog',
-    type: 'column',
-    data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
-  }, {
-    name: 'Social Media',
-    type: 'line',
-    data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
-  }],
-  stroke: {
-    width: [0, 4]
-  },
-  title: {
-    text: 'Traffic Sources'
-  },
-  labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
-  xaxis: {
-    type: 'datetime'
-  },
-  yaxis: [{
-    title: {
-      text: 'Website Blog',
-    },
-
-  }, {
-    opposite: true,
-    title: {
-      text: 'Social Media'
-    }
-  }]
-
-}
-
-var chart = new ApexCharts(
-  document.querySelector("#mixed-chart"),
-  options
-);
-
-chart.render();
-}
+// if($('#mixed-chart').length > 0 ){
+// var options = {
+//   chart: {
+//     height: 350,
+//     type: 'line',
+//     toolbar: {
+//       show: false,
+//     }
+//   },
+//   // colors: ['#4361ee', '#888ea8'],
+//   series: [{
+//     name: 'Website Blog',
+//     type: 'column',
+//     data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+//   }, {
+//     name: 'Social Media',
+//     type: 'line',
+//     data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+//   }],
+//   stroke: {
+//     width: [0, 4]
+//   },
+//   title: {
+//     text: 'Traffic Sources'
+//   },
+//   labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+//   xaxis: {
+//     type: 'datetime'
+//   },
+//   yaxis: [{
+//     title: {
+//       text: 'Website Blog',
+//     },
+//
+//   }, {
+//     opposite: true,
+//     title: {
+//       text: 'Social Media'
+//     }
+//   }]
+//
+// }
+//
+// var chart = new ApexCharts(
+//   document.querySelector("#mixed-chart"),
+//   options
+// );
+//
+// chart.render();
+// }
 
 // Donut Chart
 
@@ -478,7 +478,7 @@ var radialChart = {
         }
     },
     series: [44, 55, 67, 83],
-    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
 }
 
 var chart = new ApexCharts(
@@ -487,8 +487,8 @@ var chart = new ApexCharts(
 );
 
 chart.render();
-}	
-	
+}
+
 if($('#sales_charts').length > 0) {
 	var options = {
 		series: [{
@@ -503,7 +503,7 @@ if($('#sales_charts').length > 0) {
 		type: 'bar',
 		height: 320,
 		stacked: true,
-		
+
 		zoom: {
 		  enabled: true
 		}
@@ -521,7 +521,7 @@ if($('#sales_charts').length > 0) {
 		bar: {
 		  horizontal: false,
           borderRadius: 4,
-        borderRadiusApplication: "end", // "around" / "end" 
+        borderRadiusApplication: "end", // "around" / "end"
         borderRadiusWhenStacked: "all", // "all"/"last"
 		  columnWidth: '20%',
 		},
@@ -779,7 +779,7 @@ if ($('#attendance_chart').length > 0) {
     dataLabels: {
           enabled: false
       },
-    
+
       series: [60,5,15,20],
     labels: [
           'Present',
@@ -803,12 +803,12 @@ if ($('#attendance_chart').length > 0) {
           position: 'bottom',
       }
   }
-  
+
   var donut = new ApexCharts(
       document.querySelector("#attendance_chart"),
       donutChart
   );
-  
+
   donut.render();
   }
 
@@ -837,7 +837,7 @@ if($('#fees-chart').length > 0 ){
           bar: {
               horizontal: false,
               columnWidth: '50%',
-              endingShape: 'rounded'  
+              endingShape: 'rounded'
           },
       },
       colors: ['#3D5EE1', '#E9EDF4'],
@@ -874,7 +874,7 @@ if($('#fees-chart').length > 0 ){
       },
       fill: {
           opacity: 1
-  
+
       },
       tooltip: {
           y: {
@@ -884,12 +884,12 @@ if($('#fees-chart').length > 0 ){
           }
       }
   }
-  
+
   var chart = new ApexCharts(
       document.querySelector("#fees-chart"),
       sCol
   );
-  
+
   chart.render();
   }
 
@@ -946,12 +946,12 @@ if($('#fees-chart').length > 0 ){
           }
         },
       },
-      
+
       legend: {
         show: false
       }
     }
-  
+
     var chart = new ApexCharts(document.querySelector("#exam-result-chart"), options);
     chart.render();
   }
@@ -996,7 +996,7 @@ if($('#fees-chart').length > 0 ){
           right: 0,
         },
       },
-      grid: {   
+      grid: {
         yaxis: {
           axisTicks: {
             show: true,
@@ -1006,7 +1006,7 @@ if($('#fees-chart').length > 0 ){
             offsetX: 0,
             offsetY: 0
         },
-          
+
         },
       },
         yaxis: {
@@ -1051,7 +1051,7 @@ if ($('#plan_chart').length > 0) {
           type: 'donut',
           toolbar: {
             show: false,
-          }, 
+          },
           sparkline: {
             enabled: true
           }
@@ -1072,7 +1072,7 @@ if ($('#plan_chart').length > 0) {
     dataLabels: {
           enabled: false
       },
-    
+
       series: [95,5],
     labels: [
           'Completed',
@@ -1096,15 +1096,15 @@ if ($('#plan_chart').length > 0) {
           position: 'bottom'
       }
   }
-  
+
   var donut = new ApexCharts(
       document.querySelector("#plan_chart"),
       donutChart
   );
-  
+
   donut.render();
   }
- 
+
   if ($('#statistic_chart').length > 0) {
     var options = {
       chart: {
@@ -1142,7 +1142,7 @@ if ($('#plan_chart').length > 0) {
             show: true
           }
         },
-      }, 
+      },
       yaxis: {
         labels: {
           offsetX: -15
@@ -1190,7 +1190,7 @@ if ($('#plan_chart').length > 0) {
       dataLabels: {
             enabled: false
         },
-      
+
         series: [60,5,15,20],
       labels: [
             'Present',
@@ -1214,12 +1214,12 @@ if ($('#plan_chart').length > 0) {
             position: 'left',
       }
     }
-    
+
     var donut = new ApexCharts(
         document.querySelector("#attendance_chart2"),
         donutChart
     );
-    
+
     donut.render();
   }
 
@@ -1248,12 +1248,12 @@ if ($('#plan_chart').length > 0) {
           data: [50, 60, 40, 50, 45, 55, 50]
       }]
   }
-  
+
   var chart = new ApexCharts(
       document.querySelector("#total-earning"),
       sLineArea
   );
-  
+
   chart.render();
   }
 
@@ -1282,15 +1282,15 @@ if ($('#plan_chart').length > 0) {
           data: [40, 20, 60, 55, 50, 55, 40]
       }]
   }
-  
+
   var chart = new ApexCharts(
       document.querySelector("#total-expenses"),
       sLineArea
   );
-  
+
   chart.render();
   }
-  
+
 });
 
 

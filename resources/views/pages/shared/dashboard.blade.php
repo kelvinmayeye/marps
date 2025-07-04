@@ -169,6 +169,16 @@
 
     @if(Auth::user()->role->name == 'admin')
         <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+{{--                    <div class="card-header">--}}
+{{--                        <h5 class="card-title"></h5>--}}
+{{--                    </div>--}}
+                    <div class="card-body">
+                        <div id="mixed-chart" class="chart-set"></div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="card flex-fill">
                     <div class="card-header  d-flex align-items-center justify-content-between">
@@ -199,7 +209,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 d-flex">
+            <div class="col-md-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
                         <h4 class="card-title">Examination Summary</h4>
@@ -209,22 +219,20 @@
                             <table class="table ">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th>Exam #</th>
                                     <th>Name</th>
                                     <th>Subjects</th>
-                                    <th>Registered Schools</th>
+                                    <th>Schools</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($dashboardData['examinationSummary'] as $es)
                                         <tr>
-                                            <td>{{$es->id}}</td>
-                                            <td>{{$es->name}}</td>
+                                            <td class="fw-bold">{{$es->name}}</td>
                                             <td>{{$es->subjects->count()}}</td>
                                             <td>{{$es->schoolRegistration->count()}}</td>
                                             <td>
-                                                <a href="" class="badge bg-soft-primary">View</a>
+                                                <a href="{{route('view.examination.summary',['exam_id'=>$es->id])}}" class="badge bg-soft-primary">View</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -234,6 +242,90 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
+                        <h4 class="card-title">Grades</h4>
+                    </div>
+                    <div class="card-body px-0">
+                        <div class="custom-datatable-filter table-responsive">
+                            <table class="table ">
+                                <thead class="thead-light">
+                                <tr>
+                                    {{--                                    <th>Exam #</th>--}}
+                                    <th>Grade</th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                    <th>Points</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($dashboardData['gradeSummary'] as $g)
+                                    <tr>
+                                        {{--                                            <td>{{$es->id}}</td>--}}
+                                        <td class="fw-bold">{{$g->grade}}</td>
+                                        <td>{{$g->min_score}}</td>
+                                        <td>{{$g->max_score}}</td>
+                                        <td>
+                                            {{$g->points}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     @endif
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            let examinations = @json($examSummary);
+
+            let examLabels = [];
+            let totalSubjects = [];
+            let totalSchools = [];
+
+            $.each(examinations, function(index, exam) {
+                examLabels.push(exam.name);
+                totalSubjects.push(parseInt(exam.total_registered_subjects));
+                totalSchools.push(parseInt(exam.total_schools_registered));
+            });
+
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'bar'
+                },
+                series: [
+                    {
+                        name: 'Total Subjects Registered',
+                        data: totalSubjects
+                    },
+                    {
+                        name: 'Total Schools Registered',
+                        data: totalSchools
+                    }
+                ],
+                xaxis: {
+                    categories: examLabels
+                },
+                colors: ['#008FFB', '#FF4560'],
+                dataLabels: {
+                    enabled: true
+                },
+                title: {
+                    text: 'Examinations Overview'
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#mixed-chart"), options);
+            chart.render();
+        });
+    </script>
 @endsection
